@@ -2,6 +2,7 @@
   "name": "kommerce",
   "version": "0.1.0",
   "private": false,
+  "description": "Responsive E-commerce store front",
   "author": "Simplymichael <simplymichaelorji@gmail.com> (https://github.com/simplymichael)",
   "license": "MIT",
   "keywords": [
