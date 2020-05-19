@@ -43,13 +43,13 @@
 - Filter displayed products by Brand, Color, Price, Size
 
 ## Routes
-|----------------------------------------------------|---------------------|
-| **Name**                                           |  **Web route**      |
-|----------------------------------------------------|---------------------|
-| [Home page](./src/pages/HomePage/index.js)         | `/`                 |
-| [Category Page](./src/pages/CategoryPage/index.js) | `/categories/:name` |
-| [Product Page](./src/pages/ProductPage/index.js)   | `/products/:id`     |
-| [Sign-in Page](./src/pages/SignInPage/index.js)    | `/signin`           |
-| [Sign-up Page](./src/pages/SignUpPage/index.js)    | `/signup`           |
-| [Cart page](./src/pages/CartPage/index.js)         | `/cart`             |
-| [Checkout page](./src/pages/CheckoutPage/index.js) | `/checkout`         |
+|------------------------------------------------|-------------------|
+| **Name**                                       |  **Route**        |
+|------------------------------------------------|-------------------|
+| [Home page](./src/pages/Home/index.js)         | `/`               |
+| [Category Page](./src/pages/Category/index.js) | `/categories/:id` |
+| [Product Page](./src/pages/Product/index.js)   | `/products/:id`   |
+| [Sign-in Page](./src/pages/Login/index.js)     | `/signin`         |
+| [Sign-up Page](./src/pages/Register/index.js)  | `/signup`         |
+| [Cart page](./src/pages/Cart/index.js)         | `/cart`           |
+| [Checkout page](./src/pages/Checkout/index.js) | `/checkout`       |
