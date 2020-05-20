@@ -39,9 +39,9 @@ export default {
   },
   navigation: {
     primary: {
-      background: '',
-      link: '',
-      linkHover: '',
+      background: '#000',
+      link: '#6c757d',
+      linkHover: '#f1f1f1',
     }
   },
   page: {
