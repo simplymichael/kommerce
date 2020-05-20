@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import colors from '../resources/colors';
-import strings from '../resources/strings';
+import styled from 'styled-components';
+import colors from '../../resources/colors';
+import strings from '../../resources/strings';
+import SearchForm from './SearchForm';
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -62,6 +63,7 @@ const MainNavigation = () => {
     <Navigation className="nav-scroller py-1 mb-2 main-nav">
       <Nav className="nav d-flex justify-content-between">
         {listItems}
+        <SearchForm />
       </Nav>
     </Navigation>
   );
