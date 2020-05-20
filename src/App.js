@@ -7,6 +7,8 @@ import colors from './resources/colors';
 import Prenav from './components/Prenav';
 import MainNavigation from './components/MainNavigation';
 import Router from './components/Router';
+import Footer from './components/Footer';
+
 document.body.style.backgroundColor = colors.page.background;
 
 const Clearfix = styled.div`
@@ -25,6 +27,7 @@ function App() {
         <MainNavigation />
         <Router />
         <Clearfix />
+        <Footer />
       </BrowserRouter>
     </PageContainer>
   );

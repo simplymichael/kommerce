@@ -50,11 +50,11 @@ export default {
     backgroundFill: '#f5f8fa',
   },
   footer: {
-    background: '',
-    header: '',
-    text: '',
-    productLink: '',
-    productLinkHover: ''
+    background: '#222',
+    header: '#ccc',
+    text: '#ccc',
+    productLink: '#fff',
+    productLinkHover: '#f1f1f1'
   },
   product: {
     background: '',
