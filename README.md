@@ -26,12 +26,16 @@ Responsive E-commerce store front, made with React.
     - Copyright info
 
 ## Routes
-| **Name**                                       |  **Route**        |
-|------------------------------------------------|-------------------|
-| [Home page](./src/pages/Home/index.js)         | `/`               |
-| [Category Page](./src/pages/Category/index.js) | `/categories/:id` |
-| [Product Page](./src/pages/Product/index.js)   | `/products/:id`   |
-| [Sign-in Page](./src/pages/Login/index.js)     | `/signin`         |
-| [Sign-up Page](./src/pages/Register/index.js)  | `/signup`         |
-| [Cart page](./src/pages/Cart/index.js)         | `/cart`           |
-| [Checkout page](./src/pages/Checkout/index.js) | `/checkout`       |
+| **Name**                                        |  **Route**        |
+|-------------------------------------------------|-------------------|
+| [Home page](./src/pages/Home/index.js)          | `/`               |
+| [Category Page](./src/pages/Category/index.js)  | `/categories/:id` |
+| [Product Page](./src/pages/Product/index.js)    | `/products/:id`   |
+| [Sign-in Page](./src/pages/Login/index.js)      | `/signin`         |
+| [Sign-up Page](./src/pages/Register/index.js)   | `/signup`         |
+| [Cart page](./src/pages/Cart/index.js)          | `/cart`           |
+| [Checkout page](./src/pages/Checkout/index.js)  | `/checkout`       |
+| [About us page](./src/pages/About/index.js)     | `/about`          |
+| [Privacy page](./src/pages/Privacy/index.js)    | `/privacy`        |
+| [FAQs page](./src/pages/Faq/index.js)           | `/faq`            |
+| [Contact us page](./src/pages/Contact/index.js) | `/contact`        |
