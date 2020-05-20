@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ImageText from './ImageText';
 
-export default function Logo ({ width = '64px', height = '45px' }) {
+export default function Logo (props) {
+  const { width = '64px', height = '45px', children = <span /> } = props;
   return (
-    <img src="logo.png" alt="Site logo" style={{ width, height }} />
+    <ImageText
+      src="logo.png"
+      alt="Site logo"
+      width={width}
+      height={height}
+      children={children} />
   )
 }
 
 Logo.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
+  children: PropTypes.node,
 }
