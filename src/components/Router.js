@@ -19,17 +19,19 @@
  */
 
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import NotFound from './pages/NotFound';
-import config from './config';
+import { Switch, Route } from 'react-router-dom';
+import NotFound from '../pages/NotFound';
+import pages from '../pages'
 
 class Router extends React.Component {
   render() {
-    const routes = config.pages.map(page => {
+    const routes = pages.map(page => {
+      const path = page.path.replace('src/', '');
+
       return {
         ...page,
         Component: (props) => {
-          const InternalComponent = lazy(() => import(`../${page.path}`));
+          const InternalComponent = lazy(() => import(`../${path}`));
           return (
             <Suspense fallback={<h3>Loading...</h3>}>
               <InternalComponent {...props} />
@@ -40,20 +42,18 @@ class Router extends React.Component {
     });
 
     return (
-      <BrowserRouter>
-        <Switch>
-          {routes.map(({ Component, route, path }, index) => (
-            <Route
-              key={index}
-              exact={!route.includes(':')}
-              path={route}
-              render={(props) => <Component {...props} />}
-            />
-          ))}
+      <Switch>
+        {routes.map(({ Component, route, path }, index) => (
+          <Route
+            key={index}
+            exact={!route.includes(':')}
+            path={route}
+            render={(props) => <Component {...props} />}
+          />
+        ))}
 
-          <Route render={() => <NotFound />} />
-        </Switch>
-      </BrowserRouter>
+        <Route render={() => <NotFound />} />
+      </Switch>
     );
   }
 }
