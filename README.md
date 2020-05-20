@@ -12,18 +12,18 @@ Responsive E-commerce store front, made with React.
 ## Available Features
 - Clean and responsive interface, plays well on Laptop, tablet and mobile phone devices
 - Pre-nav
-  - login and registration links
-  - Smart cart link
-    - displays a count of the unique products in the cart,
-    - click to navigate to cart page
+    - login and registration links
+    - Smart cart link
+        - displays a count of the unique products in the cart,
+        - click to navigate to cart page
 - Top Navigation
-  - category links
-  - search form
+    - category links
+    - search form
 - Footer
-  - Contact information
-  - Social media links
-  - Recent products listing
-  - Copyright info
+    - Contact information
+    - Social media links
+    - Recent products listing
+    - Copyright info
 
 ## Routes
 |------------------------------------------------|-------------------|
