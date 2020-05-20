@@ -26,7 +26,6 @@ Responsive E-commerce store front, made with React.
     - Copyright info
 
 ## Routes
-|------------------------------------------------|-------------------|
 | **Name**                                       |  **Route**        |
 |------------------------------------------------|-------------------|
 | [Home page](./src/pages/Home/index.js)         | `/`               |
