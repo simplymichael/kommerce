@@ -22,7 +22,7 @@ const Navigation = styled.div`
 `;
 
 export default () => (
-  <Navigation className="nav-scroller py-1 mb-2 main-nav">
+  <Navigation role="main-nav" className="nav-scroller py-1 mb-2 main-nav">
     <nav className="nav d-flex justify-content-between">
       <NavListItem to="/">
         <Logo width="32px" height="22px">{strings.appName}</Logo>

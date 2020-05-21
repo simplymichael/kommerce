@@ -33,7 +33,7 @@ const Paragraph = styled.p`
 `;
 
 export default () => (
-  <FooterContainer>
+  <FooterContainer role="footer">
     <Container>
       <Row>
         <Col md="4">

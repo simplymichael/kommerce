@@ -12,7 +12,7 @@ const Header = styled.header`
 `;
 
 export default () => (
-  <Header className="py-3">
+  <Header className="py-3" role="prenav-header">
     <Row className="flex-nowrap justify-content-between align-items-center">
       <Col md="4" className="pt-1">
         <UserLink />
