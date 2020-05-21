@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import CartIcon from './CartIcon';
+import { CartIcon } from '../Icons';
 
 const CartLink = styled(Link)`
   padding: 1px 2px 1px 3px;
@@ -35,7 +35,7 @@ export default () => {
         {cartItemsCount}
       </CartItems>
       <CartLink to="/cart">
-        <CartIcon />
+        <CartIcon width="20" height="20" viewBox="0 0 28 28" />
       </CartLink>
     </div>
   )

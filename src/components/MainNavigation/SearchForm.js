@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import device from '../../utils/device';
+import Icon from '../Icons/Icon';
 
 const SearchDiv = styled.div`
   float: right;
@@ -55,25 +56,20 @@ const SearchInput = styled.input`
   }
 `;
 
-function Svg(props) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg"
-       width="20" height="20" fill="none" stroke="currentColor"
-       strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-       role="img" viewBox="0 0 24 24" focusable="false" color="#eee">
-      <title>Search</title>
-      <circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path>
-   </svg>
-  );
-}
+const SearchIcon = props => (
+  <Icon width="20" height="20" fillColor="none" stroke="currentColor"
+        strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+        role="img" focusable="false" color="#eee">
+    <title>Click to toggle search box</title>
+    <circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path>
+  </Icon>
+);
 
-function SearchBtn(props) {
-  return (
-    <SearchLink to="#" onClick={props.clickHandler}>
-      <Svg />
-    </SearchLink>
-  );
-}
+const SearchBtn = props => (
+  <SearchLink to="#" onClick={props.clickHandler}>
+    <SearchIcon />
+  </SearchLink>
+);
 
 class SearchForm extends React.Component {
   constructor(props) {

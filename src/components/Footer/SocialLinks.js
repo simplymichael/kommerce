@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {
   BehanceIcon, FacebookIcon, TwitterIcon, InstagramIcon
-} from './social-icons';
+} from '../Icons';
 
 const UnorderedList = styled.ul`
   margin-right: 20px;
