@@ -28,8 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "npm test -- --coverage",
-    "test:verbose": "npm run test:coverage -- --verbose",
+    "test:coverage": "npm test -- --watchAll --coverage",
+    "test:verbose": "npm run test:coverage -- --verbose --coverageReporters='text'",
     "commit": "git-cz"
   },
   "eslintConfig": {
@@ -54,6 +54,27 @@
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/src/resources",
+      "src/(index|config|serviceWorker|setupTests).js"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text-summary",
+      "clover"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 90,
+        "statements": 90,
+        "function": 90,
+        "branches": 90
+      }
     }
   }
 }
