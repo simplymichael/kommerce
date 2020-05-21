@@ -28,7 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "npm test -- --watchAll --coverage",
+    "test:coverage": "npm test -- --watchAll=false --coverage",
     "test:verbose": "npm run test:coverage -- --verbose --coverageReporters='text'",
     "commit": "git-cz"
   },
@@ -49,12 +49,16 @@
   },
   "devDependencies": {
     "commitizen": "4.1.2",
-    "cz-conventional-changelog": "3.2.0"
+    "cz-conventional-changelog": "3.2.0",
+    "ghooks": "2.0.4"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
-    }
+    },
+    "ghooks": {
+      "pre-commit": "npm run test:coverage"
+	  }
   },
   "jest": {
     "coveragePathIgnorePatterns": [
