@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import device from '../../utils/device';
 import Icon from '../Icons/Icon';
 
@@ -56,7 +57,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchIcon = props => (
+const SearchIcon = () => (
   <Icon width="20" height="20" fillColor="none" stroke="currentColor"
         strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
         role="img" focusable="false" color="#eee">
@@ -65,8 +66,8 @@ const SearchIcon = props => (
   </Icon>
 );
 
-const SearchBtn = props => (
-  <SearchLink to="#" onClick={props.clickHandler}>
+const SearchBtn = ({ clickHandler }) => (
+  <SearchLink to="#" onClick={clickHandler}>
     <SearchIcon />
   </SearchLink>
 );
@@ -104,6 +105,10 @@ class SearchForm extends React.Component {
       </SearchDiv>
     );
   }
+}
+
+SearchBtn.propTypes = {
+  clickHandler: PropTypes.func,
 }
 
 export default SearchForm;

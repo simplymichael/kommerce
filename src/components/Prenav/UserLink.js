@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default () => {
-  const user = Math.floor(Math.random() * 2) > 0
-    ? { id: 1, name: 'Michael' }
-    : {};
+const UserLink = ({ user }) => {
+  user = user || (
+    Math.floor(Math.random() * 2) > 0
+      ? { id: 1, name: 'Dummy User' }
+      : {}
+  );
 
   if(user.id) {
     return `Welcome ${user.name}`
@@ -22,3 +25,9 @@ export default () => {
     </>
   );
 }
+
+UserLink.propTypes = {
+  user: PropTypes.object,
+}
+
+export default UserLink;

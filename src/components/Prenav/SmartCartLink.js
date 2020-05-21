@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { CartIcon } from '../Icons';
 
 const CartLink = styled(Link)`
@@ -20,19 +21,19 @@ const CartItems = styled.span`
   font-weight: 700;
 `;
 
-export default () => {
-  const cartItemsCount = Math.floor(Math.random() * 2); // TO DO: get this dynamically
+const SmartCartLink = ({ itemsCount }) => {
+  itemsCount = itemsCount || Math.floor(Math.random() * 2);
 
-  if(cartItemsCount === 0) {
+  if(itemsCount === 0) {
     return <>&nbsp;</>
   }
 
   return (
     <div
-      title={`${cartItemsCount} items in your cart`}
+      title={`${itemsCount} items in your cart`}
       className="d-flex justify-content-end align-items-center">
       <CartItems>
-        {cartItemsCount}
+        {itemsCount}
       </CartItems>
       <CartLink to="/cart">
         <CartIcon width="20" height="20" viewBox="0 0 28 28" />
@@ -40,3 +41,9 @@ export default () => {
     </div>
   )
 }
+
+SmartCartLink.propTypes = {
+  itemsCount: PropTypes.number,
+}
+
+export default SmartCartLink;

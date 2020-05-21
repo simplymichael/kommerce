@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import CartLink from './CartLink';
+import SmartCartLink from './SmartCartLink';
 import UserLink from './UserLink';
 
 const Header = styled.header`
@@ -19,7 +19,7 @@ export default () => (
       </Col>
       <Col md="4" className="text-center">&nbsp;</Col>
       <Col md="4">
-        <CartLink />
+        <SmartCartLink />
       </Col>
     </Row>
   </Header>

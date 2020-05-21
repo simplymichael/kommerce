@@ -3,5 +3,8 @@ export default {
   currency: {
     name: 'dollar',
     symbol: '$',
+  },
+  footer: {
+    productsHeader: 'Latest Products'
   }
 };

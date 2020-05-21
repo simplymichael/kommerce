@@ -43,18 +43,24 @@ export default () => (
               <Logo width="64px" height="45px" />
             </Link>
           </Header>
-          <Paragraph>01 Street, City, State 11111</Paragraph>
-          <Paragraph>Phone: (+000) 123 456 789</Paragraph>
+          <Paragraph>{config.business.address}</Paragraph>
+          <Paragraph>Phone: {config.business.phone}</Paragraph>
           <Paragraph>Email:&nbsp;
-            <a href={`mailto:${config.email}`}>{`${config.email}`}</a>
+            <a href={`mailto:${config.business.email}`}>
+            {`${config.business.email}`}
+            </a>
           </Paragraph>
-          <SocialLinks />
+          <SocialLinks
+            behance_url={config.social.behance.url}
+            facebook_url={config.social.facebook.url}
+            twitter_url={config.social.twitter.url}
+            instagram_url={config.social.instagram.url} />
         </Col>
         <Col md="4">
           <SecondaryPages />
         </Col>
         <Col md="4">
-          <Header>Latest Products</Header>
+          <Header>{strings.footer.productsHeader}</Header>
           <RecentProducts />
         </Col>
       </Row>

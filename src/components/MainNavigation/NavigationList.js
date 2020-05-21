@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ImageText from '../ImageText';
 import NavListItem from './NavListItem';
 
-export default () => {
-  // TO DO: get this from some database or state
-  const categories = [
+const NavigationList = ({ categories }) => {
+  categories = categories || [
     { name: 'Shirts', slug: '', image: 'https://imgur.com/3u2mj7h.png' },
     { name: 'Shoes', slug: '', image: 'https://imgur.com/dV36lmS.png' },
     { name: 'Electronics', slug: '', image: 'https://imgur.com/3u2mj7h.png' },
@@ -32,3 +32,9 @@ export default () => {
     )
   });
 }
+
+NavigationList.propTypes = {
+  categories: PropTypes.array,
+}
+
+export default NavigationList;
