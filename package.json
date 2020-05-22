@@ -30,7 +30,9 @@
     "test": "react-scripts test",
     "test:coverage": "npm test -- --watchAll=false --coverage",
     "test:verbose": "npm run test:coverage -- --verbose --coverageReporters='text'",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
