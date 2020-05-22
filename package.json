@@ -58,7 +58,7 @@
     },
     "ghooks": {
       "pre-commit": "npm run test:coverage"
-	  }
+    }
   },
   "jest": {
     "coveragePathIgnorePatterns": [
