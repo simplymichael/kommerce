@@ -10,7 +10,7 @@ const ListItem = styled.li`
   margin-bottom: 10px;
 `;
 
-export default () => (
+const SecondaryPages = () => (
   <div className="menus d-flex">
     <UnorderedList className="list-unstyled">
       <ListItem>
@@ -30,3 +30,5 @@ export default () => (
     </UnorderedList>
   </div>
 );
+
+export default SecondaryPages;

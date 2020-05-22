@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import colors from '../../resources/colors';
 
-const NavListItem = styled(Link).attrs(props => ({
+const NavListItem = styled(Link).attrs(() => ({
   className: 'p-2 text-muted',
 }))`
   text-decoration: none;

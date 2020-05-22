@@ -85,11 +85,12 @@ class SearchForm extends React.Component {
   clickHandler(e) {
     e.preventDefault();
 
-    this.setState(currState => ({
-      'focused': !currState.focused,
-      'collapsed': !currState.collapsed
-    }),
-    _ => this.state.focused && this.searchInput.focus()
+    this.setState(
+      currState => ({
+        'focused': !currState.focused,
+        'collapsed': !currState.collapsed
+      }),
+      () => this.state.focused && this.searchInput.focus()
     );
   }
 

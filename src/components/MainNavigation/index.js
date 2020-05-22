@@ -21,7 +21,7 @@ const Navigation = styled.div`
   background: ${colors.navigation.primary.background};
 `;
 
-export default () => (
+const MainNavigation = () => (
   <Navigation role="main-nav" className="nav-scroller py-1 mb-2 main-nav">
     <nav className="nav d-flex justify-content-between">
       <NavListItem to="/">
@@ -32,3 +32,5 @@ export default () => (
     </nav>
   </Navigation>
 );
+
+export default MainNavigation;

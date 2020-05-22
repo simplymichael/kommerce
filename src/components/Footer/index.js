@@ -32,7 +32,7 @@ const Paragraph = styled.p`
   color: ${colors.footer.text};
 `;
 
-export default () => (
+const Footer = () => (
   <FooterContainer role="footer">
     <Container>
       <Row>
@@ -84,3 +84,5 @@ export default () => (
     </Container>
   </FooterContainer>
 );
+
+export default Footer;

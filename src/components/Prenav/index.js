@@ -11,7 +11,7 @@ const Header = styled.header`
   padding-bottom: .2rem !important;
 `;
 
-export default () => (
+const Prenav = () => (
   <Header className="py-3" role="prenav-header">
     <Row className="flex-nowrap justify-content-between align-items-center">
       <Col md="4" className="pt-1">
@@ -24,3 +24,5 @@ export default () => (
     </Row>
   </Header>
 );
+
+export default Prenav;

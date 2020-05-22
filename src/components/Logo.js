@@ -5,12 +5,9 @@ import ImageText from './ImageText';
 export default function Logo (props) {
   const { width = '64px', height = '45px', children = <span /> } = props;
   return (
-    <ImageText
-      src="logo.png"
-      alt="Site logo"
-      width={width}
-      height={height}
-      children={children} />
+    <ImageText src="logo.png" alt="Site logo" width={width} height={height}>
+      {children}
+    </ImageText>
   );
 }
 

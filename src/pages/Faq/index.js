@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default () => {
+const Faq = () => {
   return (
     <div>FAQ page</div>
   );
 };
+
+export default Faq;

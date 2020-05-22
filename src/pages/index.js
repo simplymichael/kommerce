@@ -1,6 +1,6 @@
 const pages = [
   {
-	  'route': '/',
+    'route': '/',
     'path': 'src/pages/Home'
   },
   {

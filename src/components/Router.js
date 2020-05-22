@@ -43,7 +43,7 @@ class Router extends React.Component {
 
     return (
       <Switch>
-        {routes.map(({ Component, route, path }, index) => (
+        {routes.map(({ Component, route }, index) => (
           <Route
             key={index}
             exact={!route.includes(':')}
