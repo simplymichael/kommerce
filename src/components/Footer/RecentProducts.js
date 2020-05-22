@@ -14,7 +14,7 @@ const ProductLink = styled(Link)`
   }
 `;
 
-const ProductName = styled.strong`
+const ProductInfo = styled.strong`
   display: inline-block;
   margin-right: 5px;
   color: ${() => colors.footer.productLink};
@@ -34,15 +34,18 @@ const ProductView = ({id, name, dateAdded, imageUrl}) => {
   let productpage = `/products/${id}`;
 
   return (
-    <ProductLink to={productpage}>
+    <ProductLink to={productpage} role={`recent-product-${id}-container`}>
       <div className="d-flex align-items-center" padding="0">
         <div padding="10px 0 0 0">
-          <ProductImage src={imageUrl} alt={name} className="img-fluid" />
-          <ProductName>
-            {name}
+          { /* eslint-disable-next-line */ }
+          <ProductImage src={imageUrl} alt={name} role="product-image"
+            className="img-fluid" />
+          <ProductInfo>
+            { /* eslint-disable-next-line */ }
+            <span role="product-name">{name}</span>
             <br />
-            {dateAdded}
-          </ProductName>
+            <span>{dateAdded}</span>
+          </ProductInfo>
         </div>
       </div>
     </ProductLink>
@@ -50,6 +53,10 @@ const ProductView = ({id, name, dateAdded, imageUrl}) => {
 };
 
 const RecentProducts = ({ productsList }) => {
+  if(productsList && !Array.isArray(productsList)) {
+    return null;
+  }
+
   const latestProducts = productsList || [
     {
       'id': 1,

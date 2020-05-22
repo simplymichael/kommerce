@@ -61,7 +61,10 @@ const Footer = () => (
         </Col>
         <Col md="4">
           <Header>{strings.footer.productsHeader}</Header>
-          <RecentProducts />
+          { /* eslint-disable-next-line */ }
+          <div role="footer-recent-products-list-container">
+            <RecentProducts />
+          </div>
         </Col>
       </Row>
     </Container>

@@ -12,7 +12,7 @@ const ListItem = styled.li`
 
 const SecondaryPages = () => (
   <div className="menus d-flex">
-    <UnorderedList className="list-unstyled">
+    <UnorderedList className="list-unstyled" role="secondary-pages-links">
       <ListItem>
         <Link to="/about">About</Link>
       </ListItem>
