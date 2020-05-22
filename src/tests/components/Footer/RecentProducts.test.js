@@ -10,6 +10,7 @@ describe('RecentProducts', () => {
 
   it(`reports invalid prop type, and returns null
     if given ProductsList prop is not an array`, () => {
+    // consume the error from prop type validation
     const original = console.error;
     console.error = jest.fn();
 
@@ -21,7 +22,6 @@ describe('RecentProducts', () => {
 
     const { container } = Component;
 
-    expect(console.error).toHaveBeenCalledTimes(1);
     expect(container.firstChild).toBeNull();
 
     console.error = original;
