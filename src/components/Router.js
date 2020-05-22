@@ -21,7 +21,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NotFound from '../pages/NotFound';
-import pages from '../pages'
+import pages from '../pages';
 
 class Router extends React.Component {
   render() {

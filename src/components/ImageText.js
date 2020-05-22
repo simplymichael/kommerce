@@ -8,10 +8,10 @@ export default function ImageText (props) {
 
   return (
     <React.Fragment>
-    <img src={src} alt={alt} style={{ width, height }} />
-    {children}
+      <img src={src} alt={alt} style={{ width, height }} />
+      {children}
     </React.Fragment>
-  )
+  );
 }
 
 ImageText.propTypes = {
@@ -20,4 +20,4 @@ ImageText.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
   children: PropTypes.node,
-}
+};

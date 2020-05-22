@@ -47,50 +47,50 @@ const ProductView = ({id, name, dateAdded, imageUrl}) => {
       </div>
     </ProductLink>
   );
-}
+};
 
 const RecentProducts = ({ productsList }) => {
   const latestProducts = productsList || [
     {
-      "id": 1,
-      "name": "First Item",
-      "price": 10.00,
-      "color": "red",
-      "size": "XS",
-      "brand": "Abercrombie & Fitch",
-      "dateAdded": "",
-      "images": [
-        { "url": "https://imgur.com/3u2mj7h.png", "default": true },
-        { "url": "https://imgur.com/dV36lmS.png", "default": false },
-        { "url": "https://imgur.com/3u2mj7h.png", "default": false }
+      'id': 1,
+      'name': 'First Item',
+      'price': 10.00,
+      'color': 'red',
+      'size': 'XS',
+      'brand': 'Abercrombie & Fitch',
+      'dateAdded': '',
+      'images': [
+        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': true },
+        { 'url': 'https://imgur.com/dV36lmS.png', 'default': false },
+        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false }
       ]
     },
     {
-      "id": 2,
-      "name": "Second Item",
-      "price": 10.00,
-      "color": "green",
-      "size": "XS",
-      "brand": "Abercrombie & Fitch",
-      "dateAdded": "",
-      "images": [
-        { "url": "https://imgur.com/3u2mj7h.png", "default": false },
-        { "url": "https://imgur.com/dV36lmS.png", "default": true },
-        { "url": "https://imgur.com/3u2mj7h.png", "default": false }
+      'id': 2,
+      'name': 'Second Item',
+      'price': 10.00,
+      'color': 'green',
+      'size': 'XS',
+      'brand': 'Abercrombie & Fitch',
+      'dateAdded': '',
+      'images': [
+        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false },
+        { 'url': 'https://imgur.com/dV36lmS.png', 'default': true },
+        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false }
       ]
     },
     {
-      "id": 3,
-      "name": "Third Item",
-      "price": 10.00,
-      "color": "red",
-      "size": "XS",
-      "brand": "Abercrombie & Fitch",
-      "dateAdded": "",
-      "images": [
-        { "url": "https://imgur.com/3u2mj7h.png", "default": false },
-        { "url": "https://imgur.com/dV36lmS.png", "default": false },
-        { "url": "https://imgur.com/3u2mj7h.png", "default": true }
+      'id': 3,
+      'name': 'Third Item',
+      'price': 10.00,
+      'color': 'red',
+      'size': 'XS',
+      'brand': 'Abercrombie & Fitch',
+      'dateAdded': '',
+      'images': [
+        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false },
+        { 'url': 'https://imgur.com/dV36lmS.png', 'default': false },
+        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': true }
       ]
     }
   ];
@@ -106,20 +106,20 @@ const RecentProducts = ({ productsList }) => {
           name={name}
           dateAdded={dateAdded}
           imageUrl={defaultImage.url} />
-      )
+      );
     }
   );
-}
+};
 
 ProductView.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   dateAdded: PropTypes.string,
   imageUrl: PropTypes.string.isRequired,
-}
+};
 
 RecentProducts.propTypes = {
   productsList: PropTypes.array,
-}
+};
 
 export default RecentProducts;

@@ -19,7 +19,7 @@ const SocialLink = ({url, icon}) => {
       </a>
     </li>
   );
-}
+};
 
 const SocialLinks = props => {
   const { behance_url, facebook_url, instagram_url, twitter_url } = props;
@@ -31,20 +31,20 @@ const SocialLinks = props => {
       <SocialLink url={instagram_url} icon={InstagramIcon} />
       <SocialLink url={behance_url} icon={BehanceIcon} />
     </UnorderedList>
-  )
+  );
 };
 
 
 SocialLink.propTypes = {
   url: PropTypes.string,
   icon: PropTypes.func.isRequired,
-}
+};
 
 SocialLinks.propTypes = {
   behance_url: PropTypes.string,
   facebook_url: PropTypes.string,
   twitter_url: PropTypes.string,
   instagram_url: PropTypes.string,
-}
+};
 
 export default SocialLinks;

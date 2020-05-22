@@ -47,7 +47,7 @@ export default () => (
           <Paragraph>Phone: {config.business.phone}</Paragraph>
           <Paragraph>Email:&nbsp;
             <a href={`mailto:${config.business.email}`}>
-            {`${config.business.email}`}
+              {`${config.business.email}`}
             </a>
           </Paragraph>
           <SocialLinks

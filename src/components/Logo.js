@@ -11,11 +11,11 @@ export default function Logo (props) {
       width={width}
       height={height}
       children={children} />
-  )
+  );
 }
 
 Logo.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
   children: PropTypes.node,
-}
+};

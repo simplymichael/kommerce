@@ -12,21 +12,21 @@ const ListItem = styled.li`
 
 export default () => (
   <div className="menus d-flex">
-   <UnorderedList className="list-unstyled">
-     <ListItem>
-      <Link to="/about">About</Link>
-     </ListItem>
-     <ListItem>
-       <Link to="/privacy">Privacy</Link>
-     </ListItem>
-   </UnorderedList>
-   <UnorderedList className="list-unstyled">
-     <ListItem>
-      <Link to="/faq">FAQ</Link>
-     </ListItem>
-     <ListItem>
-      <Link to="/contact">Contact</Link>
-     </ListItem>
-   </UnorderedList>
+    <UnorderedList className="list-unstyled">
+      <ListItem>
+        <Link to="/about">About</Link>
+      </ListItem>
+      <ListItem>
+        <Link to="/privacy">Privacy</Link>
+      </ListItem>
+    </UnorderedList>
+    <UnorderedList className="list-unstyled">
+      <ListItem>
+        <Link to="/faq">FAQ</Link>
+      </ListItem>
+      <ListItem>
+        <Link to="/contact">Contact</Link>
+      </ListItem>
+    </UnorderedList>
   </div>
 );

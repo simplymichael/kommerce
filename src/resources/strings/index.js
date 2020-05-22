@@ -4,7 +4,7 @@
  * If default configured language not found, default to English.
  */
 
-import config from '../../config'
+import config from '../../config';
 
 const userLanguage = navigator.language || navigator.userLanguage;
 const { language } = config;

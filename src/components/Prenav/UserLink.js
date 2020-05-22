@@ -10,7 +10,7 @@ const UserLink = ({ user }) => {
   );
 
   if(user.id) {
-    return `Welcome ${user.name}`
+    return `Welcome ${user.name}`;
   }
 
   return (
@@ -24,10 +24,10 @@ const UserLink = ({ user }) => {
       </Link>
     </>
   );
-}
+};
 
 UserLink.propTypes = {
   user: PropTypes.object,
-}
+};
 
 export default UserLink;

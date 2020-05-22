@@ -24,17 +24,17 @@ const NavigationList = ({ categories }) => {
     slug = (slug.length ? slug : item.name.toLowerCase()).replace(/\s+/, '-');
 
     return (
-     <NavListItem key={slug} to={`/categories/${slug}`}>
-       <ImageText src={item.image || ''} width="32px" height="22px">
-         {item.name}
-       </ImageText>
-     </NavListItem>
-    )
+      <NavListItem key={slug} to={`/categories/${slug}`}>
+        <ImageText src={item.image || ''} width="32px" height="22px">
+          {item.name}
+        </ImageText>
+      </NavListItem>
+    );
   });
-}
+};
 
 NavigationList.propTypes = {
   categories: PropTypes.array,
-}
+};
 
 export default NavigationList;

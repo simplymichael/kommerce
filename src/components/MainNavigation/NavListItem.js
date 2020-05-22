@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import colors from '../../resources/colors';
 
 const NavListItem = styled(Link).attrs(props => ({
-  className: "p-2 text-muted",
+  className: 'p-2 text-muted',
 }))`
   text-decoration: none;
   background-color: transparent;
@@ -20,6 +20,6 @@ const NavListItem = styled(Link).attrs(props => ({
 
 NavListItem.propTypes = {
   to: PropTypes.string.isRequired
-}
+};
 
 export default NavListItem;

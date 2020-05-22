@@ -59,8 +59,8 @@ const SearchInput = styled.input`
 
 const SearchIcon = () => (
   <Icon width="20" height="20" fillColor="none" stroke="currentColor"
-        strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-        role="img" focusable="false" color="#eee">
+    strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+    role="img" focusable="false" color="#eee">
     <title>Click to toggle search box</title>
     <circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path>
   </Icon>
@@ -86,10 +86,10 @@ class SearchForm extends React.Component {
     e.preventDefault();
 
     this.setState(currState => ({
-        'focused': !currState.focused,
-        'collapsed': !currState.collapsed
-      }),
-      _ => this.state.focused && this.searchInput.focus()
+      'focused': !currState.focused,
+      'collapsed': !currState.collapsed
+    }),
+    _ => this.state.focused && this.searchInput.focus()
     );
   }
 
@@ -109,6 +109,6 @@ class SearchForm extends React.Component {
 
 SearchBtn.propTypes = {
   clickHandler: PropTypes.func,
-}
+};
 
 export default SearchForm;

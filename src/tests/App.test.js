@@ -5,12 +5,12 @@ import App from '../App';
 let Component;
 
 beforeEach(() => {
-  Component = render(<App />)
+  Component = render(<App />);
 });
 
 afterEach(cleanup);
 
-describe("Home Page", () => {
+describe('Home Page', () => {
   it('renders the prenav', () => {
     const { getByRole } = Component;
     const prenav = getByRole('prenav-header');

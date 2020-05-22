@@ -25,7 +25,7 @@ const SmartCartLink = ({ itemsCount }) => {
   itemsCount = itemsCount || Math.floor(Math.random() * 2);
 
   if(itemsCount === 0) {
-    return <>&nbsp;</>
+    return <>&nbsp;</>;
   }
 
   return (
@@ -39,11 +39,11 @@ const SmartCartLink = ({ itemsCount }) => {
         <CartIcon width="20" height="20" viewBox="0 0 28 28" />
       </CartLink>
     </div>
-  )
-}
+  );
+};
 
 SmartCartLink.propTypes = {
   itemsCount: PropTypes.number,
-}
+};
 
 export default SmartCartLink;

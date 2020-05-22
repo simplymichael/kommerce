@@ -6,7 +6,7 @@ const makeIcon = path => props => (
   <Icon {...props}>
     <path d={path} />
   </Icon>
-)
+);
 
 export const BehanceIcon = makeIcon(iconPaths.behance);
 
