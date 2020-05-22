@@ -4,6 +4,10 @@ import ImageText from '../ImageText';
 import NavListItem from './NavListItem';
 
 const NavigationList = ({ categories }) => {
+  if(categories && !Array.isArray(categories)) {
+    return null;
+  }
+  
   categories = categories || [
     { name: 'Shirts', slug: '', image: 'https://imgur.com/3u2mj7h.png' },
     { name: 'Shoes', slug: '', image: 'https://imgur.com/dV36lmS.png' },

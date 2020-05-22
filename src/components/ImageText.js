@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function ImageText (props) {
+  if(!props.src) {
+    return null;
+  }
+
   const {
-    src, alt = '', width = '32px', height = '32px', children = <span />
+    src, alt = '', width = '32px', height = '32px', children = ''
   } = props;
 
   return (

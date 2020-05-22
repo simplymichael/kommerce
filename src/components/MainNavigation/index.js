@@ -23,7 +23,8 @@ const Navigation = styled.div`
 
 const MainNavigation = () => (
   <Navigation role="main-nav" className="nav-scroller py-1 mb-2 main-nav">
-    <nav className="nav d-flex justify-content-between">
+    { /* eslint-disable-next-line */ }
+    <nav className="nav d-flex justify-content-between" role="navbar-nav">
       <NavListItem to="/">
         <Logo width="32px" height="22px">{strings.appName}</Logo>
       </NavListItem>
