@@ -1,8 +1,16 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 const Contact = () => {
   return (
-    <div>Contact us page</div>
+    <Row>
+      <Col md="3" role="sidebar">
+        Sidebar
+      </Col>
+      <Col md="9" role="main-content">
+        Contact us page
+      </Col>
+    </Row>
   );
 };
 

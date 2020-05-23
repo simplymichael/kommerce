@@ -21,7 +21,7 @@ describe('Home Page', () => {
 
   it('renders Main content area', () => {
     const { getByText } = Component;
-    const text = getByText(/Main Content of page/i);
+    const text = getByText(/Home page/i);
     expect(text).toBeInTheDocument();
   });
 });

@@ -1,8 +1,16 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 const Category = () => {
   return (
-    <div>Category page</div>
+    <Row>
+      <Col md="3" role="sidebar">
+        Sidebar
+      </Col>
+      <Col md="9" role="main-content">
+        Category page
+      </Col>
+    </Row>
   );
 };
 

@@ -26,10 +26,10 @@ describe('App', () => {
   });
 
   test('renders a page', async () => {
-    const { findByText } = Component;
-    const text = await findByText(/page/i);
+    const { findByRole } = Component;
+    const mainContentSection = await findByRole('main-content');
 
-    expect(text).toBeInTheDocument();
+    expect(mainContentSection).toBeInTheDocument();
   });
 
   it('renders footer', () => {
