@@ -122,6 +122,7 @@ const ProductSummary = ({ product, addToCart }) => {
         <ProductLink to={productPage} role={'product-image-link'}
           title={linkTitle}>
           <Image src={product.defaultImage.url}
+            role="product-image"
             alt={`${product.name} image`}
             title={`${product.name} image`} />
         </ProductLink>
@@ -129,7 +130,9 @@ const ProductSummary = ({ product, addToCart }) => {
       <ProductTitle>
         <ProductLink to={productPage} role={'product-name-link'}
           title={linkTitle}>
-          {product.name}
+          <span role="product-name">
+            {product.name}
+          </span>
         </ProductLink>
       </ProductTitle>
 
@@ -137,7 +140,7 @@ const ProductSummary = ({ product, addToCart }) => {
         <ProductAttribute width="100%" title={`Brand: ${product.brand}`}
           backgroundColor="violet">
           <AttributeLabel>Brand</AttributeLabel>
-          <AttributeValue role="attribute-brand">
+          <AttributeValue role="product-brand">
             {product.brand}
           </AttributeValue>
         </ProductAttribute>
@@ -147,14 +150,14 @@ const ProductSummary = ({ product, addToCart }) => {
         <ProductAttribute title={`Size: ${product.size}`}
           backgroundColor="#aae">
           <AttributeLabel>Size</AttributeLabel>
-          <AttributeValue role="attribute-size">
+          <AttributeValue role="product-size">
             {product.size}
           </AttributeValue>
         </ProductAttribute>
         <ProductAttribute title={`Color: ${product.color}`}
           backgroundColor={product.color}>
           <AttributeLabel>Color</AttributeLabel>
-          <AttributeValue role="attribute-color">
+          <AttributeValue role="product-color">
             {product.color}
           </AttributeValue>
         </ProductAttribute>
@@ -163,7 +166,7 @@ const ProductSummary = ({ product, addToCart }) => {
           <AttributeLabel>
             Price ({strings.currency.symbol})
           </AttributeLabel>
-          <AttributeValue role="attribute-price">
+          <AttributeValue role="product-price">
             {product.price}
           </AttributeValue>
         </ProductAttribute>
