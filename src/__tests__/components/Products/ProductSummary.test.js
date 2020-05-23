@@ -3,6 +3,18 @@ import { act, render, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import ProductSummary from '../../../components/Products/ProductSummary';
 
+let Component;
+
+beforeEach(() => {
+  Component = render(
+    <BrowserRouter>
+      <ProductSummary
+        product={product}
+        addToCart={addToCartProcessor} />
+    </BrowserRouter>
+  );
+});
+
 afterEach(cleanup);
 
 const product = {
@@ -34,17 +46,8 @@ const addToCartProcessor = jest.fn((product, { color, size, quantity }) => {
 });
 
 describe('ProductSummary', () => {
-  let Component;
 
   it('renders the passed product', () => {
-    Component = render(
-      <BrowserRouter>
-        <ProductSummary
-          product={product}
-          addToCart={addToCartProcessor} />
-      </BrowserRouter>
-    );
-
     const { getByRole } = Component;
     const productId = product.id;
     const renderedProduct = getByRole(`product-${productId}-summary`);
@@ -85,14 +88,6 @@ describe('ProductSummary', () => {
 
   it(`calls the addToCart function
     when the add to cart button is clicked`, () => {
-    Component = render(
-      <BrowserRouter>
-        <ProductSummary
-          product={product}
-          addToCart={addToCartProcessor} />
-      </BrowserRouter>
-    );
-
     const { getByRole } = Component;
     const productId = product.id;
     const renderedProduct = getByRole(`product-${productId}-summary`);
