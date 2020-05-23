@@ -10,7 +10,7 @@ beforeEach(() => {
 
 afterEach(cleanup);
 
-describe('Home Page', () => {
+describe('App', () => {
   it('renders the prenav', () => {
     const { getByRole } = Component;
     const prenav = getByRole('prenav-header');

@@ -1,8 +1,16 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 const Home = () => {
   return (
-    <div>Home page</div>
+    <Row>
+      <Col md="3">
+        Sidebar
+      </Col>
+      <Col md="9">
+        Main Content of page
+      </Col>
+    </Row>
   );
 };
 
