@@ -12,24 +12,24 @@ const ProductContainer = styled.div`
   padding: 7px;
   text-align: center;
   margin-bottom: 30px;
-  border: 1px solid ${() => productColors.borderColor};
-  background: ${() => productColors.backgroundColor};
+  border: 1px solid ${() => productColors.border};
+  background: ${() => productColors.background};
 
   :hover {
     /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -webkit-box-shadow: 3px 3px 5px 6px ${() => productColors.shadowColor};
+    -webkit-box-shadow: 3px 3px 5px 6px ${() => productColors.shadow};
 
     /* Firefox 3.5 - 3.6 */
-    -moz-box-shadow: 3px 3px 5px 6px ${() => productColors.shadowColor};
+    -moz-box-shadow: 3px 3px 5px 6px ${() => productColors.shadow};
 
     /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
-    box-shadow: 3px 3px 5px 6px ${() => productColors.shadowColor};
+    box-shadow: 3px 3px 5px 6px ${() => productColors.shadow};
   }
 `;
 const ImageContainer = styled.div`
   padding: 15px;
   margin: auto;
-  background: ${() => productColors.imageBackgroundColor};
+  background: ${() => productColors.imageBackground};
 `;
 const Image = styled.img`
   border-radius: 3px;
@@ -43,25 +43,25 @@ const ProductTitle = styled.div`
   font-weight: bold;
   font-size: 18px;
   padding: 5px;
-  color: ${() => productColors.textColor};
+  color: ${() => productColors.text};
 `;
 const AddToCartButton = styled(Button)`
   border-radius: .25rem;
-  color: ${() => productColors.actionButtonTextColor};
-  border-color: ${() => productColors.actionButtonBorderColor}
-  background-color: ${() => productColors.actionButtonColor};
+  color: ${() => productColors.actionButtonText};
+  border-color: ${() => productColors.actionButtonBorder}
+  background-color: ${() => productColors.actionButton};
 
   :hover {
-    color: ${() => productColors.actionButtonHoverTextColor};
-    border-color: ${() => productColors.actionButtonHoverBorderColor}
-    background-color: ${() => productColors.actionButtonHoverColor}
+    color: ${() => productColors.actionButtonHoverText};
+    border-color: ${() => productColors.actionButtonHoverBorder}
+    background-color: ${() => productColors.actionButtonHover}
   }
 `;
 const ProductLink = styled(Link)`
-  color: ${() => productColors.linkColor} !important;
+  color: ${() => productColors.link} !important;
 
   :hover {
-    color: ${() => productColors.linkHoverColor} !important;
+    color: ${() => productColors.linkHover} !important;
   }
 `;
 const ProductAttributes = styled.div`
@@ -130,6 +130,7 @@ const ProductSummary = ({ product, addToCart }) => {
       <ProductTitle>
         <ProductLink to={productPage} role={'product-name-link'}
           title={linkTitle}>
+          { /* eslint-disable-next-line */ }
           <span role="product-name">
             {product.name}
           </span>
