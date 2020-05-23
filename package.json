@@ -27,7 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --testPathIgnorePatterns='test-utils.js'",
     "test:coverage": "npm test -- --watchAll=false --coverage",
     "test:verbose": "npm run test:coverage -- --verbose --coverageReporters='text'",
     "commit": "git-cz",
@@ -65,7 +65,7 @@
   "jest": {
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "src/tests",
+      "src/__tests__",
       "/src/resources",
       "src/(index|config|serviceWorker|setupTests).js"
     ],
