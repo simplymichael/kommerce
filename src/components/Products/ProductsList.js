@@ -1,7 +1,7 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
-import ProductSummary from './product-summary';
+import ProductSummary from './ProductSummary';
 
 /**
  * Displays List of products
