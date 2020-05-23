@@ -2,6 +2,7 @@ import React from 'react';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
 import ProductSummary from './ProductSummary';
+import mockProducts from '../../__DATA__/products';
 
 /**
  * Displays List of products
@@ -36,8 +37,15 @@ const ProductsList = ({ products, container, weight, renderer }) => {
   const containerWeight = weight || '3';
   const ProductContainer = container || Col;
   const ProcessorComponent = renderer || ProductSummary;
+  const productsArray = (products || mockProducts).slice().map(product => {
+    product.defaultImage = product.images
+      .filter(img => img.default === true)
+      .pop();
 
-  return products.map(product => (
+    return product;
+  });
+
+  return productsArray.map(product => (
     <ProductContainer key={product.id} md={containerWeight}>
       <ProcessorComponent product={product} />
     </ProductContainer>
