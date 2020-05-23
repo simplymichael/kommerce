@@ -66,8 +66,8 @@ const SearchIcon = () => (
   </Icon>
 );
 
-const SearchBtn = ({ clickHandler }) => (
-  <SearchLink to="#" onClick={clickHandler}>
+const InputFieldToggleBtn = ({ to, role, clickHandler }) => (
+  <SearchLink to={to} role={role} onClick={clickHandler}>
     <SearchIcon />
   </SearchLink>
 );
@@ -96,19 +96,24 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <SearchDiv>
+      <SearchDiv role="top-navigation-search-form">
         <SearchInput
           type="text"
+          role="search-input-field"
           placeholder="Search"
+          data-collapsed={this.state.collapsed}
           collapsed={this.state.collapsed}
           ref={input => this.searchInput = input} />
-        <SearchBtn clickHandler={e => this.clickHandler(e)} />
+        <InputFieldToggleBtn to="#" role="input-field-toggle-button"
+          clickHandler={e => this.clickHandler(e)} />
       </SearchDiv>
     );
   }
 }
 
-SearchBtn.propTypes = {
+InputFieldToggleBtn.propTypes = {
+  to: PropTypes.string,
+  role: PropTypes.string,
   clickHandler: PropTypes.func,
 };
 

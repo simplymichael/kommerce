@@ -51,10 +51,8 @@ describe('Main Navigation', () => {
 
   it('renders search form', () => {
     const { getByRole } = Component;
-    const navbarNav = getByRole('navbar-nav');
-    const searchForm = navbarNav.lastChild;
-    const inputField = searchForm.querySelector('input[type="text"]');
+    const searchForm = getByRole('top-navigation-search-form');
 
-    expect(inputField).toBeInTheDocument();
+    expect(searchForm).toBeInTheDocument();
   });
 });
