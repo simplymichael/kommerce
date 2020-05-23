@@ -57,10 +57,7 @@ const AddToCartButton = styled(Button)`
     background-color: ${() => productColors.actionButtonHoverColor}
   }
 `;
-const ProductLink = styled(Link).attrs(props => ({
-  to: props.productpage || '#',
-  title: 'Click to go to product detail page',
-}))`
+const ProductLink = styled(Link)`
   color: ${() => productColors.linkColor} !important;
 
   :hover {
@@ -116,46 +113,63 @@ const AttributeValue = styled.span``;
  * e.g: if we hide (ie, remove from the DOM) the parent and then show it again.
  */
 const ProductSummary = ({ product, addToCart }) => {
-  const productpage = `/products/${product.id}`;
+  const productPage = `/products/${product.id}`;
+  const linkTitle = 'Click to go to product detail page';
 
   return (
     <ProductContainer role={`product-${product.id}-summary`}>
       <ImageContainer>
-        <ProductLink productpage={productpage} role={'product-image-link'}>
+        <ProductLink to={productPage} role={'product-image-link'}
+          title={linkTitle}>
           <Image src={product.defaultImage.url}
             alt={`${product.name} image`}
             title={`${product.name} image`} />
         </ProductLink>
       </ImageContainer>
       <ProductTitle>
-        <ProductLink productpage={productpage} role={'product-name-link'}>
+        <ProductLink to={productPage} role={'product-name-link'}
+          title={linkTitle}>
           {product.name}
         </ProductLink>
       </ProductTitle>
 
       <ProductAttributes>
-        <ProductAttribute width="100%" title={`Brand: ${product.brand}`} backgroundColor="violet">
+        <ProductAttribute width="100%" title={`Brand: ${product.brand}`}
+          backgroundColor="violet">
           <AttributeLabel>Brand</AttributeLabel>
-          <AttributeValue role="attribute-brand">{product.brand}</AttributeValue>
+          <AttributeValue role="attribute-brand">
+            {product.brand}
+          </AttributeValue>
         </ProductAttribute>
       </ProductAttributes>
 
       <ProductAttributes>
-        <ProductAttribute title={`Size: ${product.size}`} backgroundColor="#aae">
+        <ProductAttribute title={`Size: ${product.size}`}
+          backgroundColor="#aae">
           <AttributeLabel>Size</AttributeLabel>
-          <AttributeValue role="attribute-size">{product.size}</AttributeValue>
+          <AttributeValue role="attribute-size">
+            {product.size}
+          </AttributeValue>
         </ProductAttribute>
-        <ProductAttribute title={`Color: ${product.color}`} backgroundColor={product.color}>
+        <ProductAttribute title={`Color: ${product.color}`}
+          backgroundColor={product.color}>
           <AttributeLabel>Color</AttributeLabel>
-          <AttributeValue role="attribute-color">{product.color}</AttributeValue>
+          <AttributeValue role="attribute-color">
+            {product.color}
+          </AttributeValue>
         </ProductAttribute>
-        <ProductAttribute title={`Price: ${product.price}`} backgroundColor="#900">
-          <AttributeLabel>Price ({strings.currency.symbol})</AttributeLabel>
-          <AttributeValue role="attribute-price">{product.price}</AttributeValue>
+        <ProductAttribute title={`Price: ${product.price}`}
+          backgroundColor="#900">
+          <AttributeLabel>
+            Price ({strings.currency.symbol})
+          </AttributeLabel>
+          <AttributeValue role="attribute-price">
+            {product.price}
+          </AttributeValue>
         </ProductAttribute>
       </ProductAttributes>
 
-      <AddToCartButton onClick={() => {
+      <AddToCartButton role="add-to-cart-button" onClick={() => {
         addToCart(product, {
           color: product.color || 'any',
           size: product.size || 'any',
@@ -169,7 +183,17 @@ const ProductSummary = ({ product, addToCart }) => {
 };
 
 ProductSummary.propTypes = {
-  product: PropTypes.object,
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    brand: PropTypes.string,
+    color: PropTypes.string,
+    defaultImage: PropTypes.shape({
+      url: PropTypes.string,
+    }),
+    price: PropTypes.number,
+    size: PropTypes.string,
+  }),
   addToCart: PropTypes.func,
 };
 

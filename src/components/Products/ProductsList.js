@@ -22,8 +22,7 @@ import ProductSummary from './ProductSummary';
  *
  * When rendering the products with the default ProductSummary component
  * (ie, when "renderer" props is not specified),
- * each product object - in the supplied props.products collection -
- * must have the properties:
+ * each product in the props.products collection must have the properties:
  * - id,
  * - name
  * - defaultImageUrl
