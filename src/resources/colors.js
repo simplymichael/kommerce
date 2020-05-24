@@ -34,7 +34,7 @@ export default {
     h2: '',
     h3: '',
     h4: '',
-    h5: '',
+    h5: '#222',
     h6: '',
   },
   navigation: {
