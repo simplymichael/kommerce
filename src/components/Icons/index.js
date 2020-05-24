@@ -17,3 +17,7 @@ export const FacebookIcon = makeIcon(iconPaths.facebook);
 export const InstagramIcon = makeIcon(iconPaths.instagram);
 
 export const TwitterIcon = makeIcon(iconPaths.twitter);
+
+export const PlusIcon = makeIcon(iconPaths.plus);
+
+export const MinusIcon = makeIcon(iconPaths.minus);
