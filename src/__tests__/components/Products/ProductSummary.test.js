@@ -2,6 +2,10 @@ import React from 'react';
 import { act, render, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import ProductSummary from '../../../components/Products/ProductSummary';
+import products from '../../../__DATA__/products';
+
+const product = products.slice(0, 1).pop();
+product.defaultImage = product.images.find(image => image.default === true);
 
 let Component;
 
@@ -17,23 +21,6 @@ beforeEach(() => {
 
 afterEach(cleanup);
 
-const product = {
-  'id': 1,
-  'name': 'First Item',
-  'price': 10.00,
-  'color': 'black',
-  'size': 'XS',
-  'brand': 'Abercrombie & Fitch',
-  'dateAdded': '',
-  'images': [
-    { 'url': 'https://imgur.com/3u2mj7h.png', 'default': true },
-    { 'url': 'https://imgur.com/dV36lmS.png', 'default': false },
-    { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false }
-  ],
-  'defaultImage': {
-    url: 'https://imgur.com/3u2mj7h.png',
-  }
-};
 const makeAddToCartMsg = ({ color, size, quantity }) => {
   return (`Product added to cart with following details:
     color: ${color},
