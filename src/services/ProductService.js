@@ -14,6 +14,7 @@ class ProductService extends Service {
       priceRange = {}, // properties: min (number), max (number)
     } = queryData;
 
+    let path = { ...route };
     const reqPage = (parseInt(page) <= 0 ? 1 : parseInt(page));
     const reqLimit = (parseInt(limit) <= 0 ? 10 : parseInt(limit));
     const reqData = { page: reqPage, limit: reqLimit };
@@ -25,18 +26,24 @@ class ProductService extends Service {
       reqData.size = size;
     }
     if(brands.length) {
-      reqData.brand = brands;
+      if(brands.length === 1) {
+        reqData.brand = brands;
+      } else {
+        const paths = brands.map(brand => encodeURIComponent(brand));
+        const pathString = paths.join('&brand=');
+
+        path.url += `/?brand=${pathString}`;
+      }
     }
     if(Object.keys(orderBy).length) {
       reqData.sort = '';
       reqData.order = '';
     }
     if(Object.keys(priceRange).length) {
-      reqData.sort = '';
-      reqData.order = '';
+      //reqData.price = '';
     }
 
-    return this.request(route, reqData)
+    return this.request(path, reqData)
       .then(result => result)
       .catch(err => {
         throw err;

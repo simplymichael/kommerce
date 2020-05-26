@@ -86,7 +86,11 @@ function wrapFetch(route, params, authToken) {
     Object.keys(mutableParams).forEach(key =>
       queryParams.push(`${key}=${encodeURIComponent(mutableParams[key])}`));
 
-    computedRoute += ((queryParams.length) ? `?${queryParams.join('&')}` : '');
+    const qs = computedRoute.indexOf('?') === -1 ? '?' : '&';
+    computedRoute += ((queryParams.length)
+      ? `${qs}${queryParams.join('&')}`
+      : ''
+    );
   } else {
     computedOptions.body = JSON.stringify(mutableParams.body);
   }
