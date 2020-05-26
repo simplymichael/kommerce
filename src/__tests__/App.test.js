@@ -1,11 +1,13 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import App from '../App';
+import { store, bindComponentToStore } from './test-utils';
 
 let Component;
+const ConnectedApp = bindComponentToStore(store)(App);
 
 beforeEach(() => {
-  Component = render(<App />);
+  Component = render(<ConnectedApp />);
 });
 
 afterEach(cleanup);

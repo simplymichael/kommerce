@@ -1,5 +1,12 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import initStore from '../store';
+import * as sagaUtils from '../store/sagas';
+
+export const store = initStore();
+
+sagaUtils.run(sagaUtils.sagas);
 
 /**
  * Wrap components in BrowserRouter component
@@ -13,4 +20,14 @@ export const wrapComponentInRouter = Component => {
   );
 
   return InternalComponent;
+};
+
+export const bindComponentToStore = (store) => (Component) => {
+  const ConnectedComponent = (props) => (
+    <Provider store={store}>
+      <Component {...props} />
+    </Provider>
+  );
+
+  return ConnectedComponent;
 };

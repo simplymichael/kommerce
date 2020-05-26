@@ -14,7 +14,7 @@ const Home = () => (
   <Row>
     <Col md="3" role="sidebar">
       <FiltersContainer border="1px solid #eee" role="filters-container">
-        <BrandsFilter role="brand-filters" />
+        <BrandsFilter role="brands-filter-container" />
       </FiltersContainer>
     </Col>
     <Col md="9" role="main-content">

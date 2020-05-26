@@ -1,12 +1,7 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import sagaRegistry from '../saga-registry';
-import { FETCH_PRODUCTS, FETCH_LATEST_PRODUCTS } from './constants';
-import {
-  fetchProductsError,
-  fetchProductsSuccess,
-  fetchLatestProductsError,
-  fetchLatestProductsSuccess,
-} from './actions';
+import { FETCH_PRODUCTS } from './constants';
+import { fetchProductsError, fetchProductsSuccess } from './actions';
 
 let service = null;
 
@@ -22,17 +17,6 @@ function* fetchProducts(action) {
   }
 }
 
-function* fetchLatestProducts(action) {
-  try {
-    const { count } = action.payload;
-    const products = yield call(service.getLatestProducts, count);
-
-    yield put(fetchLatestProductsSuccess(products));
-  } catch (err) {
-    yield put(fetchLatestProductsError(err.toString()));
-  }
-}
-
 export const sagaName = 'products';
 export default function(injectedService) {
   service = injectedService;
@@ -40,7 +24,6 @@ export default function(injectedService) {
   function* watcher() {
     yield all([
       takeEvery(FETCH_PRODUCTS, fetchProducts),
-      takeEvery(FETCH_LATEST_PRODUCTS, fetchLatestProducts),
     ]);
   }
 

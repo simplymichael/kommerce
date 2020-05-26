@@ -1,13 +1,24 @@
-import config from '../config';
 import http from '../utils/http';
 
-const { host: apiHost, port: apiPort } = config.api;
-
 class Service {
-  static getService(serviceName) {
+  static getService(serviceName, {host, port} = {}) {
     const RequestedService = require('./' + serviceName)['default'];
 
-    return new RequestedService();
+    return new RequestedService(host, port);
+  }
+
+  constructor(host = 'http://localhost', port = 80) {
+    this.api = {};
+    this.setApiData({ host, port });
+  }
+
+  setApiData({ host, port }) {
+    this._setApiHost(host);
+    this._setApiPort(port);
+  }
+
+  getApiData() {
+    return this.api;
   }
 
   /**
@@ -28,6 +39,7 @@ class Service {
    * }
    */
   request(route, params) {
+    const { host: apiHost, port: apiPort } = this.getApiData();
     const { host = apiHost, port = apiPort } = route;
     const requestPath = route.url;
     const baseUrl = (port ? [host, port] : [host]).join(':');
@@ -47,6 +59,22 @@ class Service {
         console.error('Error in Service::request(): ', err);
         throw err;
       });
+  }
+
+  _setApiHost(host) {
+    if(typeof host === 'string' && host.length) {
+      this.api.host = host;
+    } else {
+      this.api.host = 'http://localhost';
+    }
+  }
+
+  _setApiPort(port) {
+    if(typeof port === 'number' && port > 0) {
+      this.api.port = port;
+    } else {
+      this.api.port = 80;
+    }
   }
 }
 

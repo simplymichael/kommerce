@@ -1,24 +1,17 @@
-import reducer from './reducer';
 import sagas from './sagas';
-import { fetchProducts, fetchLatestProducts } from './actions';
+import reducer from './reducer';
+import { fetchProducts } from './actions';
 import {
-  makeSelectFetchProductsError,
-  makeSelectFetchLatestProductsError,
   makeSelectProducts,
-  makeSelectLatestProducts,
   makeSelectIsFetchingProducts,
-  makeSelectIsFetchingLatestProducts,
+  makeSelectFetchProductsError,
 } from './selectors';
 
 export {
-  reducer,
   sagas,
+  reducer,
   fetchProducts,
-  fetchLatestProducts,
-  makeSelectFetchProductsError,
-  makeSelectFetchLatestProductsError,
   makeSelectProducts,
-  makeSelectLatestProducts,
   makeSelectIsFetchingProducts,
-  makeSelectIsFetchingLatestProducts,
+  makeSelectFetchProductsError,
 };

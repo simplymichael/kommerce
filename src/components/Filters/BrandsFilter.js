@@ -28,6 +28,7 @@ const ListItem = styled.li`
 const BrandCheckbox = ({brand, value, selected, clickHandler}) => (
   <Input
     type='checkbox'
+    role={`brand-${value.replace(/\s+/g, '_')}-selector`}
     value={value}
     defaultChecked={selected}
     onClick={evt => clickHandler(brand, evt.target.checked)}
@@ -36,7 +37,7 @@ const BrandCheckbox = ({brand, value, selected, clickHandler}) => (
 
 const BrandsFilter = props => {
   const { fetchBrands, brands, brandClickHandler } = props;
-  const role = props.role || 'brand-filters';
+  const role = props.role || 'brands-filter-container';
 
   useEffect(() => {
     fetchBrands(); // eslint-disable-next-line
@@ -47,7 +48,8 @@ const BrandsFilter = props => {
       <FilterHeader>Brand</FilterHeader>
       <UnorderedList>
         {brands.map(brand => (
-          <ListItem key={brand.value}>
+          <ListItem key={brand.value}
+            role={`brand-${brand.value.replace(/\s+/g, '_')}-list-item`}>
             <BrandCheckbox
               brand={brand.name}
               value={brand.value}

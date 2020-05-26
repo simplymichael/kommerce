@@ -1,8 +1,12 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import ProductsList from '../../../components/Products/ProductsList';
-import productsData from '../../../__DATA__/products';
+import ProductsList from '../../../../components/Products/ProductsList';
+import productsData from '../../../../__DATA__/products';
+import {
+  store,
+  bindComponentToStore,
+  wrapComponentInRouter
+} from '../../../test-utils';
 
 const products = productsData.slice().map(product => {
   product.defaultImage = product.images
@@ -13,22 +17,25 @@ const products = productsData.slice().map(product => {
 });
 
 let Component;
+const ConnectedProductsList = bindComponentToStore(store)(
+  wrapComponentInRouter(ProductsList));
 
 beforeEach(() => {
   Component = render(
-    <BrowserRouter>
-      <ProductsList products={products} />
-    </BrowserRouter>
+    <ConnectedProductsList />
   );
 });
 
 afterEach(cleanup);
 
 describe('ProductsList', () => {
-  it('should render a list of products given an array of products', () => {
-    const  { container } = Component;
-    const renderedList = container.childNodes;
+  it('should render a list of products returned from the store', async () => {
+    const  { container, findAllByRole } = Component;
     const productRegex = /product-(\d)-summary/i;
+
+    await findAllByRole(productRegex);
+
+    const renderedList = container.childNodes;
 
     expect(renderedList).not.toBeNull();
     expect(renderedList.length).toEqual(products.length);
