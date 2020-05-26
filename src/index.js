@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import initStore from './store';
+import * as sagaUtils from './store/sagas';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const store = initStore();
+
+sagaUtils.run(sagaUtils.sagas);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,8 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
 import ProductSummary from './ProductSummary';
-import mockProducts from '../../__DATA__/products';
+import strings from '../../resources/strings';
+
+import { makeSelectSelectedBrands } from '../../store/brands';
+import {
+  fetchProducts,
+  makeSelectProducts,
+  makeSelectFetchProductsError,
+  makeSelectIsFetchingProducts,
+} from '../../store/products';
+
+const { priceRangeSelector } = strings;
 
 /**
  * Displays List of products
@@ -33,30 +45,77 @@ import mockProducts from '../../__DATA__/products';
  * on click of the add-to-cart-button.
  * See the ProductSummary component for an example implementation.
  */
-const ProductsList = ({ products, container, weight, renderer }) => {
-  const containerWeight = weight || '3';
-  const ProductContainer = container || Col;
-  const ProcessorComponent = renderer || ProductSummary;
-  const productsArray = (products || mockProducts).slice().map(product => {
-    product.defaultImage = product.images
-      .filter(img => img.default === true)
-      .pop();
+class ProductsList extends React.Component {
 
-    return product;
-  });
+  componentDidMount() {
+    const { min, max } = priceRangeSelector;
 
-  return productsArray.map(product => (
-    <ProductContainer key={product.id} md={containerWeight}>
-      <ProcessorComponent product={product} />
-    </ProductContainer>
-  ));
-};
+    this.props.fetchProducts({
+      page  : 1,
+      limit : 1,
+      color : '',
+      size  : '',
+      brands: this.props.selectedBrands.length ? this.props.selectedBrands : [],
+      orderBy: {},
+      priceRange : { min, max },
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { min, max } = priceRangeSelector;
+
+    if(prevProps.selectedBrands !== this.props.selectedBrands) {
+      this.props.fetchProducts({
+        page  : 1,
+        count : 1,
+        color : '',
+        size  : '',
+        brands: this.props.selectedBrands,
+        priceRange : { min, max },
+      });
+    }
+  }
+
+  render() {
+    const { products, container, weight, renderer } = this.props;
+
+    const containerWeight = weight || '3';
+    const ProductContainer = container || Col;
+    const ProcessorComponent = renderer || ProductSummary;
+    const productsArray = (products || []).slice().map(product => {
+      product.defaultImage = product.images
+        .filter(img => img.default === true)
+        .pop();
+
+      return product;
+    });
+
+    return productsArray.map(product => (
+      <ProductContainer key={product.id} md={containerWeight}>
+        <ProcessorComponent product={product} />
+      </ProductContainer>
+    ));
+  }
+}
 
 ProductsList.propTypes = {
   products: PropTypes.array,
   container: PropTypes.node,
   weight: PropTypes.string,
   renderer: PropTypes.node,
+  selectedBrands: PropTypes.array,
+  fetchProducts: PropTypes.func,
 };
 
-export default ProductsList;
+const mapDispatchToProps = dispatch => ({
+  fetchProducts: (queryData) => dispatch(fetchProducts(queryData)),
+});
+
+const mapStateToProps = createStructuredSelector({
+  products: makeSelectProducts(),
+  selectedBrands: makeSelectSelectedBrands(),
+  isFetchingProducts: makeSelectIsFetchingProducts(),
+  fetchProductsError: makeSelectFetchProductsError()
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);
