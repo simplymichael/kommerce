@@ -1,0 +1,138 @@
+ {
+  "brands": [
+    {
+      "name": "Abercrombie & Fitch",
+      "value": "abercrombie-and-fitch",
+      "selected": false
+    },
+    {
+      "name": "Adidas Originals",
+      "value": "adidas-originals",
+      "selected": false
+    },
+    {
+      "name": "Asos",
+      "value": "asos",
+      "selected": false
+    },
+    {
+      "name": "Cheap Monday",
+      "value": "cheap-monday",
+      "selected": false
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "First Item",
+      "price": 10.00,
+      "color": "black",
+      "size": "XS",
+      "brand": "Abercrombie & Fitch",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/3u2mj7h.png", "default": true },
+        { "url": "https://imgur.com/dV36lmS.png", "default": false },
+        { "url": "https://imgur.com/3u2mj7h.png", "default": false }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Second Item",
+      "price": 15.50,
+      "color": "red",
+      "size": "S",
+      "brand": "Adidas Originals",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/66dvQ2E.png", "default": true },
+        { "url": "https://imgur.com/dV36lmS.png", "default": false },
+        { "url": "https://imgur.com/66dvQ2E.png", "default": false }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Third Item",
+      "price": 10.00,
+      "color": "orange",
+      "size": "M",
+      "brand": "Asos",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/dgR75Gd.png", "default": true },
+        { "url": "https://imgur.com/dgR75Gd.png", "default": false },
+        { "url": "https://imgur.com/dgR75Gd.png", "default": false }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Fourth Item",
+      "price": 200.00,
+      "color": "yellow",
+      "size": "L",
+      "brand": "Cheap Monday",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/jiYwS7Z.png", "default": true },
+        { "url": "https://imgur.com/jiYwS7Z.png", "default": false },
+        { "url": "https://imgur.com/jiYwS7Z.png", "default": false }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Fifth Item",
+      "price": 100.50,
+      "color": "green",
+      "size": "XL",
+      "brand": "Cheap Monday",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/hqeYRhO.png", "default": true },
+        { "url": "https://imgur.com/hqeYRhO.png", "default": false },
+        { "url": "https://imgur.com/hqeYRhO.png", "default": false }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Sixth Item",
+      "price": 80.00,
+      "color": "blue",
+      "size": "XS",
+      "brand": "Asos",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/0hMCNsL.png", "default": true },
+        { "url": "https://imgur.com/0hMCNsL.png", "default": false },
+        { "url": "https://imgur.com/0hMCNsL.png", "default": false }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Seventh Item",
+      "price": 100.00,
+      "color": "indigo",
+      "size": "S",
+      "brand": "Adidas Originals",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/0hMCNsL.png", "default": true },
+        { "url": "https://imgur.com/0hMCNsL.png", "default": false },
+        { "url": "https://imgur.com/0hMCNsL.png", "default": false }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Eighth Item",
+      "price": 65.00,
+      "color": "violet",
+      "size": "M",
+      "brand": "Abercrombie & Fitch",
+      "dateAdded": "",
+      "images": [
+        { "url": "https://imgur.com/0hMCNsL.png", "default": true },
+        { "url": "https://imgur.com/0hMCNsL.png", "default": false },
+        { "url": "https://imgur.com/0hMCNsL.png", "default": false }
+      ]
+    }
+  ]
+}

@@ -5,6 +5,10 @@ export default {
     email: 'support@kommerce.com',
     phone: '(+000) 123 456 789',
   },
+  api: {
+    host: 'http://localhost',
+    port: 80
+  },
   social: {
     behance: {
       url: '#',

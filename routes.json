@@ -1,0 +1,6 @@
+{
+  "/api/*": "/$1",
+  "/products/page=*": "/products/?_page=$1",
+  "/products/limit=*": "/products/?_limit=$1",
+  "/products/page=*&limit=*": "/products/?_page=$1&_limit=$2"
+}
