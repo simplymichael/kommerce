@@ -8,7 +8,7 @@ import {
   DESELECT_BRAND,
 } from './constants';
 
-export const reducerName = 'brand';
+export const reducerName = 'brands';
 export const initialState = fromJS({
   brands: [],
   fetchBrandsError: null,
@@ -36,12 +36,10 @@ export default function reducer(state = initialState, action) {
 
   case SELECT_BRAND:
     return state
-      .update('brands', immutableList =>
-        immutableList.map(brand => {
-          brand.selected = brand.name === action.payload.brand;
-          return brand;
-        })
-      )
+      .update('brands', immutableList => immutableList.update(
+        immutableList.findIndex(b => b.get('name') === action.payload.brand),
+        brand => brand.set('selected', true)
+      ))
       .update('selectedBrands', immutableList =>
         immutableList.findIndex(brand => brand === action.payload.brand) < 0
           ? immutableList.concat([action.payload.brand])
@@ -50,15 +48,10 @@ export default function reducer(state = initialState, action) {
 
   case DESELECT_BRAND:
     return state
-      .update('brands', immutableList =>
-        immutableList.map(brand => {
-          if(brand.name === action.payload.brand) {
-            brand.selected = false;
-          }
-
-          return brand;
-        })
-      )
+      .update('brands', immutableList => immutableList.update(
+        immutableList.findIndex(b => b.get('name') === action.payload.brand),
+        brand => brand.set('selected', false)
+      ))
       .update('selectedBrands', immutableList =>
         immutableList.filter(brand => brand !== action.payload.brand));
 
