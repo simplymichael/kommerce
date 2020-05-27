@@ -1,40 +1,30 @@
 import React from 'react';
-import { act, render, cleanup, fireEvent } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { render, cleanup } from '@testing-library/react';
 import ProductSummary from '../../../components/Products/ProductSummary';
 import products from '../../../__DATA__/products';
+import {
+  store,
+  bindComponentToStore,
+  wrapComponentInRouter
+} from '../../test-utils';
 
 const product = products.slice(0, 1).pop();
 product.defaultImage = product.images.find(image => image.default === true);
 
 let Component;
+const ConnectedProductSummary = bindComponentToStore(store)(
+  wrapComponentInRouter(ProductSummary));
 
 beforeEach(() => {
   Component = render(
-    <BrowserRouter>
-      <ProductSummary
-        product={product}
-        addToCart={addToCartProcessor} />
-    </BrowserRouter>
+    <ConnectedProductSummary product={product} />
   );
 });
 
 afterEach(cleanup);
 
-const makeAddToCartMsg = ({ color, size, quantity }) => {
-  return (`Product added to cart with following details:
-    color: ${color},
-    size: ${size},
-    quantity: ${quantity}`
-  );
-};
-const addToCartProcessor = jest.fn((product, { color, size, quantity }) => {
-  return makeAddToCartMsg({ color, size, quantity });
-});
-
 describe('ProductSummary', () => {
-
-  it('renders the passed product', () => {
+  it('displays a summary of the passed product', () => {
     const { getByRole } = Component;
     const productId = product.id;
     const renderedProduct = getByRole(`product-${productId}-summary`);
@@ -71,38 +61,5 @@ describe('ProductSummary', () => {
     expect(nameLink.href).toEqual(productDetailUrl);
     expect(addToCartBtn).toBeInTheDocument();
     expect(addToCartBtn.textContent).toMatch(/Add to cart/i);
-  });
-
-  it(`calls the addToCart function
-    when the add to cart button is clicked`, () => {
-    const { getByRole } = Component;
-    const productId = product.id;
-    const renderedProduct = getByRole(`product-${productId}-summary`);
-
-    expect(renderedProduct).toBeInTheDocument();
-
-    const addToCartBtn = renderedProduct.querySelector(
-      '[role="add-to-cart-button"]');
-    const addToCartMsg = makeAddToCartMsg({
-      color: product.color,
-      size: product.size,
-      quantity: 1
-    });
-
-    // Assert that add to cart function has not been called
-    // since the 'add to cart' button has not been clicked
-    expect(addToCartProcessor).not.toHaveBeenCalled();
-
-    // Simulate clicking the 'add to cart button' twice
-    act(() => {
-      fireEvent.click(addToCartBtn);
-      fireEvent.click(addToCartBtn);
-    });
-
-    // Assert that the add to cart function was called twice
-
-    expect(addToCartProcessor).toHaveBeenCalledTimes(2);
-    expect(addToCartProcessor.mock.results[0].value).toEqual(addToCartMsg);
-    expect(addToCartProcessor.mock.results[1].value).toEqual(addToCartMsg);
   });
 });

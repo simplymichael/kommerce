@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import ProductsList from '../../../../components/Products/ProductsList';
-import productsData from '../../../../__DATA__/products';
+import ProductsList from '../../../components/Products/ProductsList';
+import productsData from '../../../__DATA__/products';
 import {
   store,
   bindComponentToStore,
   wrapComponentInRouter
-} from '../../../test-utils';
+} from '../../test-utils';
 
 const products = productsData.slice().map(product => {
   product.defaultImage = product.images
