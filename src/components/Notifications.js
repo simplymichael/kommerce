@@ -10,41 +10,53 @@ const P = styled.p`
   color: ${props => colors.notifications[props.type]};
 `;
 
-const Notification = ({ type, message }) => <P type={type}>{message}</P>;
-
-export const Error = ({ message }) => (
-  <Notification type='error' message={message} />
+const Notification = ({ type, children }) => (
+  <P type={type}>
+    {children}
+  </P>
 );
 
-export const Info = ({ message }) => (
-  <Notification type='info' message={message} />
+export const Error = ({ children }) => (
+  <Notification type='error'>
+    {children}
+  </Notification>
 );
 
-export const Success = ({ message }) => (
-  <Notification type='success' message={message} />
+export const Info = ({ children }) => (
+  <Notification type='info'>
+    {children}
+  </Notification>
 );
 
-export const Warning = ({ message }) => (
-  <Notification type='warning' message={message} />
+export const Success = ({ children }) => (
+  <Notification type='success'>
+    {children}
+  </Notification>
+);
+
+export const Warning = ({ children }) => (
+  <Notification type='warning'>
+    {children}
+  </Notification>
 );
 
 Notification.propTypes = {
   type: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Error.propTypes = {
-  message: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Info.propTypes = {
-  message: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Success.propTypes = {
-  message: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Warning.propTypes = {
-  message: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };

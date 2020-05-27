@@ -1,5 +1,9 @@
 export default {
   appName: 'Kommerce',
+  cart: {
+    addButtonString: 'Add to Cart',
+    removeButtonString: 'Remove from cart',
+  },
   currency: {
     name: 'dollar',
     symbol: '$',
