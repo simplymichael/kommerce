@@ -7,9 +7,7 @@ let service = null;
 
 function* fetchProducts(action) {
   try {
-    const { page, limit, color, size, brands, orderBy, priceRange } = action.payload;
-    const products = yield call(() => service.getProducts({
-      page, limit,color, size, brands, orderBy, priceRange}));
+    const products = yield call(() => service.getProducts(action.payload));
 
     yield put(fetchProductsSuccess(products));
   } catch (err) {

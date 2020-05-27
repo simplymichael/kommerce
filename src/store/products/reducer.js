@@ -6,7 +6,7 @@ import {
   FETCH_PRODUCTS_SUCCESS,
 } from './constants';
 
-export const reducerName = 'product';
+export const reducerName = 'products';
 export const initialState = fromJS({
   products: [],
   isFetchingProducts: false,

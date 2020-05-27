@@ -6,18 +6,11 @@ import {
 } from './constants';
 
 export function fetchProducts(queryData = {}) {
-  const {
-    page = 1,
-    limit = 0,
-    color = '',
-    size = '',
-    brands = [],
-    orderBy = {},
-    priceRange = {}
-  } = queryData;
+  const { page = 1, limit = 0, colors = [], size = '', brands = [],
+    orderBy = {}, priceRange = {}} = queryData;
 
   return generateAction(FETCH_PRODUCTS,
-    { page, limit, color, size, brands, orderBy, priceRange });
+    { page, limit, colors, size, brands, orderBy, priceRange });
 }
 
 export function fetchProductsError(error) {
