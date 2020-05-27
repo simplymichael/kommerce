@@ -102,7 +102,9 @@ class ProductReviewForm extends React.Component {
 
     return (
       <>
-        <Error message={''} />
+        <Error>
+          {''}
+        </Error>
         <ReviewForm onSubmit={evt => this.handleSubmit(evt)}>
           <Row>
             <Col md="3">

@@ -1,10 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
+import {
+  addProductToCart,
+  makeSelectAddProductToCartError,
+  makeSelectProductsBeingAddedToCart,
+} from '../../store/cart';
 
 const productColors = colors.product;
 const ProductContainer = styled.div`
@@ -105,16 +112,19 @@ const AttributeValue = styled.span``;
  * (HomePage, CategoryPage, RelatedProducts, etc),
  * will usually be components that already have fetched the products,
  * and wish to display them as a list (using the productsList) component.
- * This component serves to display the summary in a controlled and uniform manner.
+ * This component serves to display the summary
+ * in a controlled and uniform manner.
  * Also, by using this component solely to display a product
  * (and not also for fetching the product),
  * we avoid having a componentDidMount()
- * that fetches the product over and over again whenever we have to display the product,
- * e.g: if we hide (ie, remove from the DOM) the parent and then show it again.
+ * that fetches the product over and over again
+ * whenever we have to display the product,
+ * e.g:
+ * if we hide (ie, remove from the DOM) the component and then show it again.
  */
 const ProductSummary = ({ product, addToCart }) => {
   const productPage = `/products/${product.id}`;
-  const linkTitle = 'Click to go to product detail page';
+  const linkTitle = 'Click to view product details';
 
   return (
     <ProductContainer role={`product-${product.id}-summary`}>
@@ -180,7 +190,7 @@ const ProductSummary = ({ product, addToCart }) => {
           quantity: 1,
         });
       }}>
-      Add to cart
+        {strings.cart.addButtonString}
       </AddToCartButton>
     </ProductContainer>
   );
@@ -201,4 +211,15 @@ ProductSummary.propTypes = {
   addToCart: PropTypes.func,
 };
 
-export default ProductSummary;
+const mapDispatchToProps = dispatch => ({
+  addToCart: (product, { color, size, quantity }) =>
+    dispatch(addProductToCart(product, { color, size, quantity })),
+});
+
+const mapStateToProps = createStructuredSelector({
+  error: makeSelectAddProductToCartError(),
+  addToCartList: makeSelectProductsBeingAddedToCart(),
+});
+
+export { ProductSummary }; // For testing in isolation, without connecton to store
+export default connect(mapStateToProps, mapDispatchToProps)(ProductSummary);

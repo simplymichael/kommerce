@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { CartIcon } from '../Icons';
+import { Info, Error } from '../Notifications';
+import {
+  countCartItems,
+  makeSelectCartItemsCount,
+  makeSelectIsCountingCartItems,
+  makeSelectCountCartItemsError,
+} from '../../store/cart';
 
 const CartLink = styled(Link)`
   padding: 1px 2px 1px 3px;
@@ -21,11 +30,34 @@ const CartItems = styled.span`
   font-weight: 700;
 `;
 
-const SmartCartLink = ({ itemsCount }) => {
-  itemsCount = itemsCount || Math.floor(Math.random() * 2);
+const SmartCartLink = (props) => {
+  const {
+    itemsCount,
+    countCartItems,
+    isCountingCartItems,
+    countCartItemsError
+  } = props;
+
+  useEffect(() => {
+    countCartItems(); // eslint-disable-next-line
+  }, []);
 
   if(itemsCount === 0) {
     return <>&nbsp;</>;
+  }
+  if(countCartItemsError) {
+    return(
+      <Error>
+        Error counting items in cart
+      </Error>
+    );
+  }
+  if(isCountingCartItems) {
+    return (
+      <Info>
+        Loading...
+      </Info>
+    );
   }
 
   return (
@@ -44,6 +76,19 @@ const SmartCartLink = ({ itemsCount }) => {
 
 SmartCartLink.propTypes = {
   itemsCount: PropTypes.number,
+  countCartItems: PropTypes.func,
+  isCountingCartItems: PropTypes.bool,
+  countCartItemsError: PropTypes.string,
 };
 
-export default SmartCartLink;
+const mapDispatchToProps = dispatch => ({
+  countCartItems: () => dispatch(countCartItems()),
+});
+
+const mapStateToProps = createStructuredSelector({
+  itemsCount: makeSelectCartItemsCount(),
+  isCountingCartItems: makeSelectIsCountingCartItems(),
+  countCartItemsError: makeSelectCountCartItemsError(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SmartCartLink);
