@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable';
 import reducerRegistry from '../reducer-registry';
+import { generateUniqueProductKey } from '../../utils/product';
 import {
   FETCH_CART_ITEMS,
   FETCH_CART_ITEMS_ERROR,
@@ -29,11 +30,11 @@ import {
   FETCH_CART_PRICE_SUCCESS,
 } from './constants';
 
-
-function uniqueProductKey(product) {
+/*function uniqueProductKey(product) {
   const { id, color, size } = product;
   return `product_${id}_${color}_${size}`;
-}
+}*/
+const uniqueProductKey = generateUniqueProductKey;
 
 /**
  * Remove a product from an immutableList

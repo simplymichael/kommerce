@@ -1,4 +1,5 @@
 import Service from './Service';
+import { generateUniqueProductKey } from '../utils/product';
 
 class CartService extends Service {
   constructor(cartName = 'shoppingCart') {
@@ -100,8 +101,10 @@ class CartService extends Service {
   }
 
   _generateProductKey(product) {
-    const { id, color, size } = product;
-    return `product_${id}_${color}_${size}`;
+    //const { id, color, size } = product;
+    //return `product_${id}_${color}_${size}`;
+
+    return generateUniqueProductKey(product);
   }
 
   _persistCart(cart) {
