@@ -143,5 +143,4 @@ const mapStateToProps = createStructuredSelector({
   fetchProductsError: makeSelectFetchProductsError()
 });
 
-export { ProductsList }; // For testing in isolation, without connecton to store
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);

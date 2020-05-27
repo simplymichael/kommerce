@@ -221,5 +221,4 @@ const mapStateToProps = createStructuredSelector({
   addToCartList: makeSelectProductsBeingAddedToCart(),
 });
 
-export { ProductSummary }; // For testing in isolation, without connecton to store
 export default connect(mapStateToProps, mapDispatchToProps)(ProductSummary);
