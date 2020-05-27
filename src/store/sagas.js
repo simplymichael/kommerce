@@ -3,35 +3,45 @@ import Service from '../services/Service';
 
 import { sagas as brandSagas } from './brands';
 import { sagas as colorSagas } from './colors';
+import { sagas as priceSagas } from './prices';
 import { sagas as productSagas } from './products';
 import { sagas as sizeSagas } from './sizes';
 
-const apiCreds = config.api;
+const apiCredentials = config.api;
 const sagas = [
   {
     factory: brandSagas,
     service: 'BrandService',
-    apiCreds,
+    apiCredentials,
   },
   {
     factory: colorSagas,
     service: 'ColorService',
-    apiCreds,
+    apiCredentials,
+  },
+  {
+    factory: priceSagas,
+    service: null,
+    apiCredentials,
   },
   {
     factory: productSagas,
     service: 'ProductService',
-    apiCreds,
+    apiCredentials,
   },
   {
     factory: sizeSagas,
     service: 'SizeService',
-    apiCreds,
+    apiCredentials,
   }
 ];
 
 const run = sagas => sagas.forEach(({ factory, service, apiCredentials }) => {
-  factory(Service.getService(service, apiCredentials));
+  if(service) {
+    factory(Service.getService(service, apiCredentials));
+  } else {
+    factory();
+  }
 });
 
 export {

@@ -4,6 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import ProductsList from '../../components/Products/ProductsList';
 import BrandsFilter from '../../components/Filters/BrandsFilter';
 import ColorsFilter from '../../components/Filters/ColorsFilter';
+import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
 
 const FiltersContainer = styled.div`
@@ -17,8 +18,9 @@ const Home = () => (
     <Col md="3" role="sidebar">
       <FiltersContainer border="1px solid #eee" role="filters-container">
         <ColorsFilter role="colors-filter-container" />
-        <BrandsFilter role="brands-filter-container" />
         <SizesFilter role="sizes-filter-container" />
+        <PricesFilter role="prices-filter-container" />
+        <BrandsFilter role="brands-filter-container" />
       </FiltersContainer>
     </Col>
     <Col md="9" role="main-content">
