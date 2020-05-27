@@ -64,8 +64,12 @@ class ProductService extends Service {
       reqData.sort = '';
       reqData.order = '';
     }
-    if(Object.keys(priceRange).length) {
-      //reqData.price = '';
+    if(priceRange.min && priceRange.max && priceRange.max > priceRange.min) {
+      const { min, max } = priceRange;
+      pathString += getLeadingQueryStringChar(pathString);
+      pathString += `price_gte=${min}&price_lte=${max}`;
+
+      path.url += pathString;
     }
 
     return this.request(path, reqData)

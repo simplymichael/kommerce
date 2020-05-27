@@ -8,6 +8,7 @@ import strings from '../../resources/strings';
 
 import { makeSelectSelectedBrands } from '../../store/brands';
 import { makeSelectSelectedColors } from '../../store/colors';
+import { makeSelectPriceRange } from '../../store/prices';
 import { makeSelectSelectedSizes } from '../../store/sizes';
 import {
   fetchProducts,
@@ -70,6 +71,10 @@ class ProductsList extends React.Component {
   componentDidUpdate(prevProps) {
     let propsChanged = false;
 
+    if(prevProps.priceRange !== this.props.priceRange) {
+      propsChanged = true;
+      this.queryData.priceRange = this.props.priceRange;
+    }
     if(prevProps.selectedColors !== this.props.selectedColors) {
       propsChanged = true;
       this.queryData.colors = this.props.selectedColors;
@@ -114,6 +119,10 @@ ProductsList.propTypes = {
   container: PropTypes.node,
   weight: PropTypes.string,
   renderer: PropTypes.node,
+  priceRange: PropTypes.shape({
+    min: PropTypes.number,
+    max: PropTypes.number,
+  }),
   selectedBrands: PropTypes.array,
   selectedColors: PropTypes.array,
   selectedSizes: PropTypes.array,
@@ -126,6 +135,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = createStructuredSelector({
   products: makeSelectProducts(),
+  priceRange: makeSelectPriceRange(),
   selectedBrands: makeSelectSelectedBrands(),
   selectedColors: makeSelectSelectedColors(),
   selectedSizes: makeSelectSelectedSizes(),
