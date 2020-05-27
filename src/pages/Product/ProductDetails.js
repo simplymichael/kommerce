@@ -1,11 +1,33 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Col, Row, Button } from 'react-bootstrap';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
-import products from '../../__DATA__/products';
+import { generateUniqueProductKey } from '../../utils/product';
 import QuantityController from '../../components/QuantityController';
+import Loading from '../../components/Notifications/Loading';
+import { Error, Info } from '../../components/Notifications';
+
+import {
+  fetchProductDetails,
+  makeSelectProductDetails,
+  makeSelectIsFetchingProductDetails,
+  makeSelectFetchProductDetailsError,
+
+  fetchRelatedProducts,
+  makeSelectRelatedProducts,
+  makeSelectIsFetchingRelatedProducts,
+  makeSelectFetchRelatedProductsError,
+} from '../../store/product';
+
+import {
+  addProductToCart,
+  makeSelectAddProductToCartError,
+  makeSelectProductsBeingAddedToCart,
+} from '../../store/cart';
 
 const productColors = colors.product;
 
@@ -62,13 +84,18 @@ class ProductDetails extends React.Component {
     super(...arguments);
 
     this.state = {
-      productLoaded: false,
       quantityController: {
         currentValue: 1,
         incrementClickHandler: () => this._incrementQuantity(),
         decrementClickHandler: () => this._decrementQuantity()
       }
     };
+  }
+
+  componentDidMount() {
+    const { productId, fetchProductDetails } = this.props;
+
+    fetchProductDetails(productId);
   }
 
   render () {
@@ -78,12 +105,30 @@ class ProductDetails extends React.Component {
       decrementClickHandler
     } } = this.state;
 
-    const { addToCart, productId } = this.props;
-    const selectedColor = '';
-    const selectedSize = '';
+    const {
+      addToCart,
+      isFetchingProductDetails,
+      fetchProductDetailsError
+    } = this.props;
 
-    const product = this.props.product || products.find(
-      product => product.id === productId);
+    const product = this.props.product;
+
+    if(isFetchingProductDetails) {
+      return <Loading />;
+    }
+
+    if(fetchProductDetailsError) {
+      return <Error>
+        {strings.product.fetchDetailsError}
+      </Error>;
+    }
+
+    if(!product || !product.images) {
+      return (
+        <Info>{strings.product.notFound}</Info>
+      );
+    }
+
     product.defaultImage = product.images.find(image => image.default === true);
 
     return (
@@ -109,19 +154,35 @@ class ProductDetails extends React.Component {
               onIncrement={incrementClickHandler}
               onDecrement={decrementClickHandler}/>
           </QuantityDiv>
-          <AddToCartButton role="add-to-cart-button" onClick={() => {
-            addToCart(product, {
-              color: selectedColor,
-              size: selectedSize,
-              quantity: currentValue
-            });
-          }}>
-            {strings.cart.addButtonString}
-          </AddToCartButton>
+          {this._isAddingProductToCart() && (
+            <AddToCartButton role="add-to-cart-button" disabled={true}>
+              {strings.cart.addButtonString}
+            </AddToCartButton>
+          )}
+          {!this._isAddingProductToCart() && (
+            <AddToCartButton role="add-to-cart-button" onClick={() => {
+              addToCart(product, {
+                color: product.color,
+                size: product.size,
+                quantity: currentValue
+              });
+            }}>
+              {strings.cart.addButtonString}
+            </AddToCartButton>
+          )}
         </Col>
         <Clearfix />
       </Row>
     );
+  }
+
+  _isAddingProductToCart() {
+    const { product, addToCartList } = this.props;
+    const productKey = generateUniqueProductKey(product);
+
+    // eslint-disable-next-line
+    return (addToCartList.filter(prod =>
+      generateUniqueProductKey(prod) === productKey)).length > 0;
   }
 
   _incrementQuantity() {
@@ -158,8 +219,37 @@ ProductDetails.propTypes = {
     images: PropTypes.array,
     price: PropTypes.number,
     size: PropTypes.string,
+    defaultImage: PropTypes.shape({
+      url: PropTypes.string
+    })
   }),
   addToCart: PropTypes.func,
+  addToCartError: PropTypes.string,
+  addToCartList: PropTypes.array,
+  fetchProductDetails: PropTypes.func,
+  isFetchingProductDetails: PropTypes.bool,
+  fetchProductDetailsError: PropTypes.string,
 };
 
-export default ProductDetails;
+const mapDispatchToProps = dispatch => ({
+  fetchProductDetails: (productId) => dispatch(fetchProductDetails(productId)),
+  fetchRelatedProducts: (productId) => dispatch(
+    fetchRelatedProducts(productId)),
+  addToCart: (product, { color, size, quantity }) =>
+    dispatch(addProductToCart(product, { color, size, quantity })),
+});
+
+const mapStateToProps = createStructuredSelector({
+  product: makeSelectProductDetails(),
+  isFetchingProductDetails: makeSelectIsFetchingProductDetails(),
+  fetchProductDetailsError: makeSelectFetchProductDetailsError(),
+
+  addToCartError: makeSelectAddProductToCartError(),
+  addToCartList: makeSelectProductsBeingAddedToCart(),
+
+  relatedProducts: makeSelectRelatedProducts(),
+  isFetchingRelatedProducts: makeSelectIsFetchingRelatedProducts(),
+  fetchRelatedProductsError: makeSelectFetchRelatedProductsError(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

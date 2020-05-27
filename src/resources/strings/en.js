@@ -17,6 +17,9 @@ export default {
     initialMaxValue : 500,
   },
   product: {
+    notFound: 'The product you are looking for was not found',
+    fetchDetailsError: `Error in retrieving product details.
+    Please refresh the page to try again`,
     reviews: {
       header: 'Product reviews',
       addHeader: 'Add a review',
