@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
+import { generateUniqueProductKey } from '../../utils/product';
 import {
   addProductToCart,
   makeSelectAddProductToCartError,
@@ -122,9 +123,17 @@ const AttributeValue = styled.span``;
  * e.g:
  * if we hide (ie, remove from the DOM) the component and then show it again.
  */
-const ProductSummary = ({ product, addToCart }) => {
+const ProductSummary = ({ product, addToCart, addToCartList }) => {
   const productPage = `/products/${product.id}`;
   const linkTitle = 'Click to view product details';
+
+  const isAddingProductToCart = () => {
+    const productKey = generateUniqueProductKey(product);
+
+    // eslint-disable-next-line
+    return (addToCartList.filter(prod =>
+      generateUniqueProductKey(prod) === productKey)).length > 0;
+  };
 
   return (
     <ProductContainer role={`product-${product.id}-summary`}>
@@ -183,15 +192,22 @@ const ProductSummary = ({ product, addToCart }) => {
         </ProductAttribute>
       </ProductAttributes>
 
-      <AddToCartButton role="add-to-cart-button" onClick={() => {
-        addToCart(product, {
-          color: product.color || 'any',
-          size: product.size || 'any',
-          quantity: 1,
-        });
-      }}>
-        {strings.cart.addButtonString}
-      </AddToCartButton>
+      {isAddingProductToCart() && (
+        <AddToCartButton role="add-to-cart-button" disabled={true}>
+          {strings.cart.addButtonString}
+        </AddToCartButton>
+      )}
+      {!isAddingProductToCart() && (
+        <AddToCartButton role="add-to-cart-button" onClick={() => {
+          addToCart(product, {
+            color: product.color || 'any',
+            size: product.size || 'any',
+            quantity: 1,
+          });
+        }}>
+          {strings.cart.addButtonString}
+        </AddToCartButton>
+      )}
     </ProductContainer>
   );
 };
@@ -209,6 +225,7 @@ ProductSummary.propTypes = {
     size: PropTypes.string,
   }),
   addToCart: PropTypes.func,
+  addToCartList: PropTypes.array,
 };
 
 const mapDispatchToProps = dispatch => ({
