@@ -5,6 +5,7 @@ import { sagas as brandSagas } from './brands';
 import { sagas as cartSagas } from './cart';
 import { sagas as colorSagas } from './colors';
 import { sagas as priceSagas } from './prices';
+import { sagas as productDetailsSagas } from './product';
 import { sagas as productSagas } from './products';
 import { sagas as sizeSagas } from './sizes';
 
@@ -28,6 +29,11 @@ const sagas = [
   {
     factory: priceSagas,
     service: null,
+    apiCredentials,
+  },
+  {
+    factory: productDetailsSagas,
+    service: 'ProductService',
     apiCredentials,
   },
   {

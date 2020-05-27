@@ -90,7 +90,7 @@ class ProductService extends Service {
     const path = { ...route, url: `${route.url}/:productId` };
 
     return this.request(path, { productId })
-      .then(products => products)
+      .then(product => product)
       .catch(err => {
         throw err;
       });

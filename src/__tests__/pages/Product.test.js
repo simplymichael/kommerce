@@ -1,14 +1,16 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import Product from '../../pages/Product';
-import { wrapComponentInRouter } from '../test-utils';
-import products from '../../__DATA__/products';
-
-const product = products.slice(0, 1).pop();
+import {
+  store,
+  bindComponentToStore,
+  wrapComponentInRouter
+} from '../test-utils';
+import strings from '../../resources/strings';
 
 let Component;
-
-const WrappedComponent = wrapComponentInRouter(Product);
+const ConnectedComponent = bindComponentToStore(store)(
+  wrapComponentInRouter(Product));
 
 // mimic the BrowserRouter's match object
 const match = {
@@ -19,29 +21,28 @@ const match = {
 
 beforeEach(() => {
   Component = render(
-    <WrappedComponent product={product} match={match} />
+    <ConnectedComponent match={match} />
   );
 });
 
 afterEach(cleanup);
 
 describe('Product details Page', () => {
-  it('renders the passed product', () => {
-    const { getByRole } = Component;
-    const renderedProduct = getByRole('product-details-container');
+  it('renders the passed product', async () => {
+    const { getByRole, findByRole } = Component;
+    const productDetailsContainer = getByRole('product-details-container');
 
-    expect(renderedProduct).toBeInTheDocument();
+    expect(productDetailsContainer).toBeInTheDocument();
 
-    const productNameContainer = renderedProduct.querySelector(
-      '[role="product-name"]');
-    const productImage = renderedProduct.querySelector('[role="product-image"]');
-    const addToCartBtn = renderedProduct.querySelector(
-      '[role="add-to-cart-button"]');
+    const productNameContainer = await findByRole('product-name');
+    const productImage = await findByRole('product-image');
+    const addToCartBtn = await findByRole('add-to-cart-button');
 
-    expect(productNameContainer.textContent).toEqual(product.name);
+    expect(productNameContainer).toBeInTheDocument();
+    expect(productNameContainer.textContent).not.toBeNull();
+    expect(productImage).toBeInTheDocument();
     expect(productImage.getAttribute('src')).not.toBeNull();
-    expect(productImage.getAttribute('src')).toEqual(product.defaultImage.url);
     expect(addToCartBtn).toBeInTheDocument();
-    expect(addToCartBtn.textContent).toMatch(/Add to cart/i);
+    expect(addToCartBtn.textContent).toMatch(strings.cart.addButtonString);
   });
 });
