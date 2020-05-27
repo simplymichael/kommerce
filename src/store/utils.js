@@ -13,9 +13,17 @@ export const generateAction = (type, data = {}) => {
   }
 };
 
-export const generateErrorAction = (type, error) => {
-  return {
-    type,
-    error
-  };
+export const generateErrorAction = (type, error, data = {}) => {
+  if(Object.keys(data).length > 0) {
+    return {
+      type,
+      error,
+      payload: { ...data },
+    };
+  } else {
+    return {
+      type,
+      error
+    };  
+  }
 };

@@ -2,6 +2,7 @@ import config from '../config';
 import Service from '../services/Service';
 
 import { sagas as brandSagas } from './brands';
+import { sagas as cartSagas } from './cart';
 import { sagas as colorSagas } from './colors';
 import { sagas as priceSagas } from './prices';
 import { sagas as productSagas } from './products';
@@ -12,6 +13,11 @@ const sagas = [
   {
     factory: brandSagas,
     service: 'BrandService',
+    apiCredentials,
+  },
+  {
+    factory: cartSagas,
+    service: 'CartService',
     apiCredentials,
   },
   {
