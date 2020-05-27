@@ -39,3 +39,18 @@ Responsive E-commerce store front, made with React.
 | [Privacy page](./src/pages/Privacy/index.js)    | `/privacy`        |
 | [FAQs page](./src/pages/Faq/index.js)           | `/faq`            |
 | [Contact us page](./src/pages/Contact/index.js) | `/contact`        |
+
+
+## Contributing
+### Steps for adding a new state item to the store
+
+- If it relies on external data, you can mock the functionality by
+  adding the data to the *src/__DATA__/api.json* file.
+- If it relies on a service, add its service to the *src/services/* directory.
+- Add its state handlers to the *src/store/* directory. For example,
+  to add a *users* item to the store, you would create a directory named *users*
+  under the *src/store/* directory. This directory will the files for managing
+  users' state data via the store.
+- Register it in the *src/store/sagas.js* file.
+- Bind the component that uses the state to the store with the `connect` method
+  of *react-redux*;
