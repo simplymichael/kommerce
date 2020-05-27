@@ -16,6 +16,12 @@ export default {
     initialMinValue : 0,
     initialMaxValue : 500,
   },
+  product: {
+    reviews: {
+      header: 'Product reviews',
+      addHeader: 'Add a review',
+    }
+  },
   footer: {
     productsHeader: 'Latest Products'
   }
