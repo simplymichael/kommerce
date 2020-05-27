@@ -112,6 +112,44 @@ describe('Home Page', () => {
           domColors[index].style.backgroundColor);
       });
     });
+
+    it('renders a list of colors', async () => {
+      const sizeRegex = /size-([a-z1-9-_]+)-selector/;
+      const { getByRole, findAllByRole } = Component;
+      const sidebar = getByRole('sidebar');
+      const filtersContainer = sidebar.querySelector(
+        '[role="filters-container"]');
+      const sizesFilterContainer = filtersContainer.querySelector(
+        '[role="sizes-filter-container"]');
+
+      // brandsFilterContainer has two children:
+      // [0]: header element which holds the title 'Size';
+      // [1]: div which holds the sizes
+      const div = sizesFilterContainer.childNodes[1];
+      const domSizes = div.childNodes;
+      const renderedSizes = await findAllByRole(sizeRegex);
+
+      // sizesFilterContainer's existence being truthy
+      // means our retrieving it via filtersContainer,
+      // which was retrieved via sidebar, succeeded.
+      // Therefore, it exists inside filtersContainer
+      // which exists inside sidebar section
+      expect(sizesFilterContainer).toBeInTheDocument();
+
+      // Iterate the brands, and make assertions about each
+      renderedSizes.forEach((renderedSize, index) => {
+        // Assert that the size exists inside sizesFilterContainer
+        // (role=sizes-filter-container)
+        // which exists inside filtersContainer (role='filters-container')
+        // which exists inside sidebar section.
+        //
+        // renderedSize is the <span> span element
+        // retrieved using react-testing-library
+        // domColors[index] is the <span> size element retrieved via dom method
+        expect(renderedSizes).toContain(domSizes[index]);
+        expect(renderedSize.textContent).toEqual(domSizes[index].textContent);
+      });
+    });
   });
 
   describe('Main content area', () => {

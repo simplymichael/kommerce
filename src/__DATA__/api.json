@@ -168,5 +168,32 @@
         { "url": "https://imgur.com/0hMCNsL.png", "default": false }
       ]
     }
+  ],
+  "sizes": [
+    {
+      "key": "XS",
+      "value": "XS",
+      "selected": false
+    },
+    {
+      "key": "S",
+      "value": "S",
+      "selected": false
+    },
+    {
+      "key": "M",
+      "value": "M",
+      "selected": false
+    },
+    {
+      "key": "L",
+      "value": "L",
+      "selected": false
+    },
+    {
+      "key": "XL",
+      "value": "XL",
+      "selected": false
+    }
   ]
 }

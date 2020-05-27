@@ -9,7 +9,7 @@ class ProductService extends Service {
       page = 1,
       limit = 10,
       colors = [],
-      size = '',
+      sizes = [],
       brands = [],
       orderBy = {}, // price, dateAdded,
       priceRange = {}, // properties: min (number), max (number)
@@ -34,8 +34,17 @@ class ProductService extends Service {
       }
     }
 
-    if(size) {
-      reqData.size = size;
+    if(sizes.length) {
+      if(sizes.length === 1) {
+        reqData.size = sizes;
+      } else {
+        const sizePaths = sizes.map(size => encodeURIComponent(size));
+        pathString += getLeadingQueryStringChar(pathString);
+        pathString += `size=${sizePaths.shift()}&size=`;
+        pathString += sizePaths.join('&size=');
+
+        path.url += pathString;
+      }
     }
 
     if(brands.length) {

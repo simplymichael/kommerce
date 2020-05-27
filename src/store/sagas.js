@@ -4,6 +4,7 @@ import Service from '../services/Service';
 import { sagas as brandSagas } from './brands';
 import { sagas as colorSagas } from './colors';
 import { sagas as productSagas } from './products';
+import { sagas as sizeSagas } from './sizes';
 
 const apiCreds = config.api;
 const sagas = [
@@ -20,6 +21,11 @@ const sagas = [
   {
     factory: productSagas,
     service: 'ProductService',
+    apiCreds,
+  },
+  {
+    factory: sizeSagas,
+    service: 'SizeService',
     apiCreds,
   }
 ];
