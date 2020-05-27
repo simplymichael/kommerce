@@ -16,7 +16,7 @@ import brands from '../../__DATA__/brands';
 const getMockBrands = () => brands;
 
 describe('Store:Brands', () => {
-  describe('Brands: actions and reducers', () => {
+  describe('actions and reducers', () => {
     it('return the initial state', () => {
       expect(initialState).toEqual(fromJS({
         brands: [],
@@ -58,7 +58,7 @@ describe('Store:Brands', () => {
     });
   });
 
-  describe('Brands: fetchBrands() dispatch calls', () => {
+  describe('fetchBrands() dispatch calls', () => {
     const brandService = Service.getService('BrandService');
     const mockFetchBrands = async dispatch => {
       dispatch(fetchBrands());

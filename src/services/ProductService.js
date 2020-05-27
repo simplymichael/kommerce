@@ -1,4 +1,5 @@
 import Service from './Service';
+import { getLeadingQueryStringChar } from '../utils/url';
 
 const route = { url: '/products', method: 'get', isProtected: false };
 
@@ -7,7 +8,7 @@ class ProductService extends Service {
     const {
       page = 1,
       limit = 10,
-      color = '',
+      colors = [],
       size = '',
       brands = [],
       orderBy = {}, // price, dateAdded,
@@ -18,23 +19,38 @@ class ProductService extends Service {
     const reqPage = (parseInt(page) <= 0 ? 1 : parseInt(page));
     const reqLimit = (parseInt(limit) <= 0 ? 10 : parseInt(limit));
     const reqData = { page: reqPage, limit: reqLimit };
+    let pathString = '';
 
-    if(color) {
-      reqData.color = color;
+    if(colors.length) {
+      if(colors.length === 1) {
+        reqData.color = colors;
+      } else {
+        const colorPaths = colors.map(color => encodeURIComponent(color));
+        pathString += getLeadingQueryStringChar(pathString);
+        pathString += `color=${colorPaths.shift()}&color=`;
+        pathString += colorPaths.join('&color=');
+
+        path.url += pathString;
+      }
     }
+
     if(size) {
       reqData.size = size;
     }
+
     if(brands.length) {
       if(brands.length === 1) {
         reqData.brand = brands;
       } else {
-        const paths = brands.map(brand => encodeURIComponent(brand));
-        const pathString = paths.join('&brand=');
+        const brandPaths = brands.map(brand => encodeURIComponent(brand));
+        pathString += getLeadingQueryStringChar(pathString);
+        pathString += `brand=${brandPaths.shift()}&brand=`;
+        pathString += brandPaths.join('&brand=');
 
-        path.url += `/?brand=${pathString}`;
+        path.url += pathString;
       }
     }
+
     if(Object.keys(orderBy).length) {
       reqData.sort = '';
       reqData.order = '';

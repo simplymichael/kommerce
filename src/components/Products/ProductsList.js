@@ -7,6 +7,7 @@ import ProductSummary from './ProductSummary';
 import strings from '../../resources/strings';
 
 import { makeSelectSelectedBrands } from '../../store/brands';
+import { makeSelectSelectedColors } from '../../store/colors';
 import {
   fetchProducts,
   makeSelectProducts,
@@ -46,33 +47,38 @@ const { priceRangeSelector } = strings;
  * See the ProductSummary component for an example implementation.
  */
 class ProductsList extends React.Component {
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
     const { min, max } = priceRangeSelector;
-
-    this.props.fetchProducts({
-      page  : 1,
-      limit : 1,
-      color : '',
-      size  : '',
-      brands: this.props.selectedBrands.length ? this.props.selectedBrands : [],
+    this.queryData = {
+      page   : 1,
+      limit  : 1,
+      colors : [],
+      size   : '',
+      brands : [],
       orderBy: {},
       priceRange : { min, max },
-    });
+    };
+  }
+
+  componentDidMount() {
+    this.props.fetchProducts(this.queryData);
   }
 
   componentDidUpdate(prevProps) {
-    const { min, max } = priceRangeSelector;
+    let propsChanged = false;
 
+    if(prevProps.selectedColors !== this.props.selectedColors) {
+      propsChanged = true;
+      this.queryData.colors = this.props.selectedColors;
+    }
     if(prevProps.selectedBrands !== this.props.selectedBrands) {
-      this.props.fetchProducts({
-        page  : 1,
-        count : 1,
-        color : '',
-        size  : '',
-        brands: this.props.selectedBrands,
-        priceRange : { min, max },
-      });
+      propsChanged = true;
+      this.queryData.brands = this.props.selectedBrands;
+    }
+    if(propsChanged) {
+      this.props.fetchProducts(this.queryData);
     }
   }
 
@@ -104,6 +110,7 @@ ProductsList.propTypes = {
   weight: PropTypes.string,
   renderer: PropTypes.node,
   selectedBrands: PropTypes.array,
+  selectedColors: PropTypes.array,
   fetchProducts: PropTypes.func,
 };
 
@@ -114,6 +121,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = createStructuredSelector({
   products: makeSelectProducts(),
   selectedBrands: makeSelectSelectedBrands(),
+  selectedColors: makeSelectSelectedColors(),
   isFetchingProducts: makeSelectIsFetchingProducts(),
   fetchProductsError: makeSelectFetchProductsError()
 });

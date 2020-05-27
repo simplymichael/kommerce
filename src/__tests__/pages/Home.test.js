@@ -73,6 +73,45 @@ describe('Home Page', () => {
         expect(renderedBrand.secondChild).toEqual(domBrands[index].secondChild);
       });
     });
+
+    it('renders a list of colors', async () => {
+      const colorRegex = /color-([a-z1-9-_]+)-selector/;
+      const { getByRole, findAllByRole } = Component;
+      const sidebar = getByRole('sidebar');
+      const filtersContainer = sidebar.querySelector(
+        '[role="filters-container"]');
+      const colorsFilterContainer = filtersContainer.querySelector(
+        '[role="colors-filter-container"]');
+
+      // brandsFilterContainer has two children:
+      // [0]: header element which holds the title 'Color';
+      // [1]: div which holds the colors
+      const div = colorsFilterContainer.childNodes[1];
+      const domColors = div.childNodes;
+      const renderedColors = await findAllByRole(colorRegex);
+
+      // colorsFilterContainer's existence being truthy
+      // means our retrieving it via filtersContainer,
+      // which was retrieved via sidebar, succeeded.
+      // Therefore, it exists inside filtersContainer
+      // which exists inside sidebar section
+      expect(colorsFilterContainer).toBeInTheDocument();
+
+      // Iterate the brands, and make assertions about each
+      renderedColors.forEach((renderedColor, index) => {
+        // Assert that the color exists inside colorsFilterContainer
+        // (role=colors-filter-container)
+        // which exists inside filtersContainer (role='filters-container')
+        // which exists inside sidebar section.
+        //
+        // renderedColor is the <span> color element
+        // retrieved using react-testing-library
+        // domColors[index] is the <span> color element retrieved via dom method
+        expect(renderedColors).toContain(domColors[index]);
+        expect(renderedColor.style.backgroundColor).toEqual(
+          domColors[index].style.backgroundColor);
+      });
+    });
   });
 
   describe('Main content area', () => {

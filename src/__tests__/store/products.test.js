@@ -14,7 +14,7 @@ import Service from '../../services/Service';
 import products from '../../__DATA__/products';
 
 const getMockProducts = () => products;
-const queryData = { page: 1, limit: 0, color: '', size: '',
+const queryData = { page: 1, limit: 0, colors: [], size: '',
   brands: [], orderBy: {}, priceRange: {}};
 
 describe('Store:Products', () => {
