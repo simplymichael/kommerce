@@ -130,7 +130,7 @@ export default function reducer(state = initialState, action) {
       product: action.payload.product,
     }).set('addProductToCartError', null)
       .update('itemsCount', count =>
-        count + (action.payload.product.quantity || 1))
+        count + (action.payload.quantity || 1))
       .update('items', immutableList => immutableList.concat(
         action.payload.product));
 

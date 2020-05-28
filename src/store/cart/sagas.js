@@ -51,7 +51,7 @@ function* addProductToCart(action) {
 
   try {
     yield call(() => service.addToCart(updatedProduct, quantity));
-    yield put(addProductToCartSuccess(updatedProduct));
+    yield put(addProductToCartSuccess(updatedProduct, quantity));
     yield put(actionFetchCartPrice());
   } catch(err) {
     yield put(addProductToCartError( err.toString(), updatedProduct ));

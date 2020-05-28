@@ -42,8 +42,8 @@ export function addProductToCartError(error, product) {
   return generateErrorAction(ADD_PRODUCT_TO_CART_ERROR, error, { product });
 }
 
-export function addProductToCartSuccess(product) {
-  return generateAction(ADD_PRODUCT_TO_CART_SUCCESS, { product });
+export function addProductToCartSuccess(product, quantity) {
+  return generateAction(ADD_PRODUCT_TO_CART_SUCCESS, { product, quantity });
 }
 
 export function fetchCartItems() {
