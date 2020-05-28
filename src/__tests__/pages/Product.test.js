@@ -43,6 +43,6 @@ describe('Product details Page', () => {
     expect(productImage).toBeInTheDocument();
     expect(productImage.getAttribute('src')).not.toBeNull();
     expect(addToCartBtn).toBeInTheDocument();
-    expect(addToCartBtn.textContent).toMatch(strings.cart.addButtonString);
+    expect(addToCartBtn.textContent).toMatch(strings.cart.addToCart.text);
   });
 });

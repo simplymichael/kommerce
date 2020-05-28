@@ -180,18 +180,21 @@ class ProductDetails extends React.Component {
           </QuantityDiv>
           {this._isAddingProductToCart() && (
             <AddToCartButton role="add-to-cart-button" disabled={true}>
-              {strings.cart.addButtonString}
+              {strings.cart.addToCart.text}
             </AddToCartButton>
           )}
           {!this._isAddingProductToCart() && (
-            <AddToCartButton role="add-to-cart-button" onClick={() => {
-              addToCart(product, {
-                color: product.color,
-                size: product.size,
-                quantity: currentValue
-              });
-            }}>
-              {strings.cart.addButtonString}
+            <AddToCartButton
+              role="add-to-cart-button"
+              title={strings.cart.addToCart.title}
+              onClick={() => {
+                addToCart(product, {
+                  color: product.color,
+                  size: product.size,
+                  quantity: currentValue
+                });
+              }}>
+              {strings.cart.addToCart.text}
             </AddToCartButton>
           )}
         </Col>

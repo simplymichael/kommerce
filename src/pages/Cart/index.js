@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button } from 'react-bootstrap';
 import colors from '../../resources/colors';
+import strings from '../../resources/strings';
 import CartData from './Cart';
 import EmptyCartButton from './EmptyCartButton';
 
@@ -36,8 +37,11 @@ const Cart = () => (
       <Clearfix />
       <Center>
         <EmptyCartButton />
-        <CheckoutButton as={Link} to="/checkout" className="btn btn-primary">
-          Checkout
+        <CheckoutButton
+          as={Link} to="/checkout"
+          title={strings.cart.checkout.title}
+          className="btn btn-primary">
+          {strings.cart.checkout.text}
         </CheckoutButton>
       </Center>
     </Col>

@@ -13,7 +13,6 @@ class OrderService extends Service {
     } = orderData;
 
     const orderDetails = {
-      orderId,
       orderItems,
       orderSubTotal,
       orderGrandTotal,

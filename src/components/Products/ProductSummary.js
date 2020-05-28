@@ -125,7 +125,7 @@ const AttributeValue = styled.span``;
  */
 const ProductSummary = ({ product, addToCart, addToCartList }) => {
   const productPage = `/products/${product.id}`;
-  const linkTitle = 'Click to view product details';
+  const linkTitle = strings.product.linkTitle;
 
   const isAddingProductToCart = () => {
     const productKey = generateUniqueProductKey(product);
@@ -194,18 +194,21 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
 
       {isAddingProductToCart() && (
         <AddToCartButton role="add-to-cart-button" disabled={true}>
-          {strings.cart.addButtonString}
+          {strings.cart.addToCart.text}
         </AddToCartButton>
       )}
       {!isAddingProductToCart() && (
-        <AddToCartButton role="add-to-cart-button" onClick={() => {
-          addToCart(product, {
-            color: product.color || 'any',
-            size: product.size || 'any',
-            quantity: 1,
-          });
-        }}>
-          {strings.cart.addButtonString}
+        <AddToCartButton
+          title={strings.cart.addToCart.title}
+          role="add-to-cart-button"
+          onClick={() => {
+            addToCart(product, {
+              color: product.color || 'any',
+              size: product.size || 'any',
+              quantity: 1,
+            });
+          }}>
+          {strings.cart.addToCart.text}
         </AddToCartButton>
       )}
     </ProductContainer>

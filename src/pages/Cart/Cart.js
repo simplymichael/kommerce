@@ -22,6 +22,7 @@ import {
   makeSelectRemoveProductFromCartError,
 } from '../../store/cart';
 import colors from '../../resources/colors';
+import strings from '../../resources/strings';
 import device from '../../utils/device';
 
 const HeaderSection = styled.div`
@@ -142,8 +143,10 @@ class Cart extends React.Component {
         <Col md="4">
           <InfoContainer>
             {item.name} <br />
-            <SmallText onClick={() => removeProductFromCart(item)}>
-              x Remove
+            <SmallText
+              title={strings.cart.removeFromCart.title}
+              onClick={() => removeProductFromCart(item)}>
+              x {strings.cart.removeFromCart.text}
             </SmallText>
           </InfoContainer>
         </Col>
@@ -170,12 +173,28 @@ class Cart extends React.Component {
         <Header>Distinct items in your Cart: {cartLength}</Header>
         <HeaderSection>
           <Row>
-            <Col md="2"><Header>Item</Header></Col>
-            <Col md="4">{/* Item description */}</Col>
-            <Col md="1"><Header>Size</Header></Col>
-            <Col md="3"><Header>Quantity</Header></Col>
             <Col md="2">
-              <PullRight><Header>Price</Header></PullRight>
+              <Header>
+                {strings.cart.itemSummary.itemHeader}
+              </Header>
+            </Col>
+            <Col md="4">{/* Item description */}</Col>
+            <Col md="1">
+              <Header>
+                {strings.cart.itemSummary.sizeHeader}
+              </Header>
+            </Col>
+            <Col md="3">
+              <Header>
+                {strings.cart.itemSummary.quantityHeader}
+              </Header>
+            </Col>
+            <Col md="2">
+              <PullRight>
+                <Header>
+                  {strings.cart.itemSummary.priceHeader}
+                </Header>
+              </PullRight>
             </Col>
           </Row>
         </HeaderSection>

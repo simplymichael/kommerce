@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import strings from '../../resources/strings';
 import {
   emptyCart,
   makeSelectIsEmptyingCart,
@@ -12,15 +13,17 @@ const EmptyCartButton = ({clearCart, isClearingCart }) => {
   if(isClearingCart) {
     return (
       <Button role="clear-cart-button" className="btn-danger" disabled={true}>
-        Empty cart
+        {strings.cart.clearCart.text}
       </Button>
     );
   }
 
   return (
-    <Button role="clear-cart-button" className="btn-danger"
+    <Button
+      title={strings.cart.clearCart.title}
+      role="clear-cart-button" className="btn-danger"
       onClick={() => clearCart()}>
-      Empty cart
+      {strings.cart.clearCart.text}
     </Button>
   );
 };
