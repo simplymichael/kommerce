@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { CartIcon } from '../Icons';
 import { Info, Error } from '../Notifications';
+import strings from '../../resources/strings';
 import {
   countCartItems,
   makeSelectCartItemsCount,
@@ -42,22 +43,26 @@ const SmartCartLink = (props) => {
     countCartItems(); // eslint-disable-next-line
   }, []);
 
-  if(itemsCount === 0) {
-    return <>&nbsp;</>;
-  }
-  if(countCartItemsError) {
-    return(
-      <Error>
-        Error counting items in cart
-      </Error>
-    );
-  }
   if(isCountingCartItems) {
     return (
-      <Info>
-        Loading...
-      </Info>
+      <div className="d-flex justify-content-end align-items-center">
+        <Info>Loading...</Info>
+      </div>
     );
+  }
+
+  if(countCartItemsError) {
+    return(
+      <div className="d-flex justify-content-end align-items-center">
+        <Error>
+          {strings.cart.countItemsError}
+        </Error>
+      </div>
+    );
+  }
+
+  if(itemsCount === 0) {
+    return <>&nbsp;</>;
   }
 
   return (

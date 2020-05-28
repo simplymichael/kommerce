@@ -3,6 +3,7 @@ export default {
   cart: {
     addButtonString: 'Add to Cart',
     removeButtonString: 'Remove from cart',
+    countItemsError: 'Error fetching number of items in cart',
   },
   currency: {
     name: 'dollar',
