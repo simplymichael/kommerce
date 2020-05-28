@@ -10,6 +10,9 @@ import { generateUniqueProductKey } from '../../utils/product';
 import QuantityController from '../../components/QuantityController';
 import Loading from '../../components/Notifications/Loading';
 import { Error, Info } from '../../components/Notifications';
+import ColorsFilter from '../../components/Filters/ColorsFilter';
+import PricesFilter from '../../components/Filters/PricesFilter';
+import SizesFilter from '../../components/Filters/SizesFilter';
 
 import {
   fetchProductDetails,
@@ -53,6 +56,12 @@ const Image = styled.img`
 
 const ImageSmall = styled(Image)`
   margin-top: 15px;
+`;
+
+const FiltersContainer = styled.div`
+  background: 'transparent';
+  border: 'none';
+  padding: '5px'
 `;
 
 const QuantityHeader = styled.h5`
@@ -155,6 +164,13 @@ class ProductDetails extends React.Component {
           <ProductTitle role="product-name">
             {product.name}
           </ProductTitle>
+          <FiltersContainer role="filters-container">
+            <ColorsFilter role="colors-filter-container" />
+            <SizesFilter role="sizes-filter-container" />
+            <div style={{ width: '300px' }}>
+              <PricesFilter role="prices-filter-container" />
+            </div>
+          </FiltersContainer>
           <QuantityDiv>
             <QuantityHeader>Quantity</QuantityHeader>
             <QuantityController
