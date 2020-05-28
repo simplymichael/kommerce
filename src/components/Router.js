@@ -20,6 +20,7 @@
 
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Loading from '../components/Notifications/Loading';
 import NotFound from '../pages/NotFound';
 import pages from '../pages';
 
@@ -33,7 +34,12 @@ class Router extends React.Component {
         Component: (props) => {
           const InternalComponent = lazy(() => import(`../${path}`));
           return (
-            <Suspense fallback={<h3>Loading...</h3>}>
+            <Suspense fallback={
+              <div style={{width:'100px', margin:'auto', marginTop:'50px'}}>
+                <Loading width="100px" height="100px" color="#aaa"
+                  opacity="0.5" />
+              </div>
+            }>
               <InternalComponent {...props} />
             </Suspense>
           );

@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { CartIcon } from '../Icons';
-import { Info, Error } from '../Notifications';
+import Loading from '../Notifications/Loading';
+import { Error } from '../Notifications';
 import strings from '../../resources/strings';
 import {
   countCartItems,
@@ -46,7 +47,8 @@ const SmartCartLink = (props) => {
   if(isCountingCartItems) {
     return (
       <div className="d-flex justify-content-end align-items-center">
-        <Info>Loading...</Info>
+        <Loading width="25px" height="25px" color="#ccc" opacity="0.8"
+          role="smartCartLink-loading-indicator" />
       </div>
     );
   }

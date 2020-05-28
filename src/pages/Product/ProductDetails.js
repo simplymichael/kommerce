@@ -114,7 +114,15 @@ class ProductDetails extends React.Component {
     const product = this.props.product;
 
     if(isFetchingProductDetails) {
-      return <Loading />;
+      return (
+        <div style={{
+          width: '100px',
+          margin: 'auto',
+        }}>
+          <Loading width="100px" height="100px" color="#aaa" opacity="0.5"
+            role="product-loading-indicator" />
+        </div>
+      );
     }
 
     if(fetchProductDetailsError) {

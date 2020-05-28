@@ -1,5 +1,9 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import {
+  render,
+  cleanup,
+  waitForElementToBeRemoved
+} from '@testing-library/react';
 import Home from '../../pages/Home';
 import {
   store,
@@ -160,6 +164,10 @@ describe('Home Page', () => {
       const mainContentSection = getByRole('main-content');
       const productsContainer = mainContentSection.querySelector(
         '[role="products-list-container"]');
+
+      await waitForElementToBeRemoved(() =>
+        getByRole('products-loading-indicator'));
+
       const domProducts = productsContainer.childNodes;
       const renderedProducts = await findAllByRole(productRegex);
 
