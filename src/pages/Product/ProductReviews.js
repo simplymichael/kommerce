@@ -36,7 +36,7 @@ const Clearfix = styled.div`
 `;
 
 const ProductReview = ({ review }) => {
-  const { author, date, text, rating } = review;
+  const { author, date, body, rating } = review;
 
   return (
     <Row>
@@ -48,7 +48,7 @@ const ProductReview = ({ review }) => {
         <Span>{date}</Span>
       </Col>
       <Col md="9">
-        <P>{text}</P>
+        <P>{body}</P>
       </Col>
       <Clearfix />
       <HR />
@@ -108,7 +108,7 @@ ProductReview.propTypes = {
   review: PropTypes.shape({
     author: PropTypes.string,
     date: PropTypes.string,
-    text: PropTypes.string,
+    body: PropTypes.string,
     rating: PropTypes.number,
   })
 };
