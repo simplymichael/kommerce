@@ -1,18 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-
 import Icon from './Icons/Icon';
 
 //SVG credits: https://codepen.io/brianknapp/pen/JEotD/
 const Stars = styled.div`
-  cursor: pointer;
-
-  &:hover {
-    .star polygon {
-      fill: #ffd055 !important;
+  ${props => props.hoverEffectActive && css`
+    cursor: pointer;
+    &:hover {
+      .star polygon {
+        fill: #ffd055 !important;
+      }
     }
-  }
+  `}
 
   &[data-stars] {
     .star polygon {
@@ -56,7 +56,6 @@ const Stars = styled.div`
       fill: #d8d8d8;
     }
   }
-
 `;
 
 export const Star = styled(Icon).attrs(props => ({
@@ -94,12 +93,18 @@ const Polygon = styled.polygon`
 
 class StarRating extends React.Component {
   handleClick(ratingVal) {
-    // Callup to the passed click handler for further processing
-    this.props.clickHandler(ratingVal);
+    if(typeof this.props.clickHandler === 'function') {
+      // Callup to the passed click handler for further processing
+      this.props.clickHandler(ratingVal);
+    }
   }
 
   render() {
-    const { currentRating = 0, maxPossibleRating = 5 } = this.props;
+    const {
+      currentRating = 0,
+      maxPossibleRating = 5,
+      fixed = false,
+    } = this.props;
 
     let stars = [];
 
@@ -108,7 +113,7 @@ class StarRating extends React.Component {
     }
 
     return (
-      <Stars data-stars={currentRating}>
+      <Stars data-stars={currentRating} hoverEffectActive={!fixed}>
         {stars.map(star => {
           return (
             <Star key={star} rateValue={star}
@@ -124,6 +129,7 @@ class StarRating extends React.Component {
 }
 
 StarRating.propTypes = {
+  fixed: PropTypes.bool,
   currentRating: PropTypes.number,
   maxPossibleRating: PropTypes.number,
   clickHandler: PropTypes.func,

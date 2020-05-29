@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 import Loading from '../../components/Notifications/Loading';
 import { Info, Error } from '../../components/Notifications';
+import StarRating from '../../components/StarRating';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 
@@ -41,7 +42,9 @@ const ProductReview = ({ review }) => {
     <Row>
       <Col md="3">
         <P title="author">{author}</P>
-        <P>Rating: <span title="rating">{rating}</span></P>
+        <div title={`Rating: ${rating}`}>
+          <StarRating fixed currentRating={rating} maxPossibleRating={5} />
+        </div>
         <Span>{date}</Span>
       </Col>
       <Col md="9">
