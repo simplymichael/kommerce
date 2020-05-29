@@ -193,7 +193,10 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
       </ProductAttributes>
 
       {isAddingProductToCart() && (
-        <AddToCartButton role="add-to-cart-button" disabled={true}>
+        <AddToCartButton
+          role="add-to-cart-button"
+          disabled={true}
+          className="action-btn btn-processing">
           {strings.cart.addToCart.text}
         </AddToCartButton>
       )}
@@ -201,6 +204,7 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
         <AddToCartButton
           title={strings.cart.addToCart.title}
           role="add-to-cart-button"
+          className="action-btn"
           onClick={() => {
             addToCart(product, {
               color: product.color || 'any',

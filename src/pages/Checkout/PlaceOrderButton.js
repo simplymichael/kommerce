@@ -141,9 +141,12 @@ const PlaceOrderButton = (props) => {
       <ButtonsRow>
         <PlaceOrderBtn
           float="right"
+          disabled={isPlacingOrder}
           onClick={() => processOrderPlacement() }
-          className={isPlacingOrder ? 'processing disabled' : ''}>
-          {strings.checkout.placeOrder}
+          className={'action-btn' +
+            (isPlacingOrder ? ' btn-processing' : '')}
+          title={strings.checkout.placeOrderButton.title}>
+          {strings.checkout.placeOrderButton.text}
         </PlaceOrderBtn>
         <ContinueShoppingBtn to='/'>
           {strings.checkout.continueShopping}

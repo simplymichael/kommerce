@@ -1,0 +1,15 @@
+/**
+ * public/index.css
+ *
+ * Global CSS file
+ */
+.action-btn {
+  padding-left: 25px !important;
+  padding-right: 25px !important; 
+}
+.btn-processing {
+  cursor: not-allowed !important;
+  background-image: url('./spinner.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: right !important;
+}

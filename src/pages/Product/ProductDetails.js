@@ -179,7 +179,10 @@ class ProductDetails extends React.Component {
               onDecrement={decrementClickHandler}/>
           </QuantityDiv>
           {this._isAddingProductToCart() && (
-            <AddToCartButton role="add-to-cart-button" disabled={true}>
+            <AddToCartButton
+              role="add-to-cart-button"
+              disabled={true}
+              className="action-btn btn-processing">
               {strings.cart.addToCart.text}
             </AddToCartButton>
           )}
@@ -187,6 +190,7 @@ class ProductDetails extends React.Component {
             <AddToCartButton
               role="add-to-cart-button"
               title={strings.cart.addToCart.title}
+              className="action-btn"
               onClick={() => {
                 addToCart(product, {
                   color: product.color,

@@ -31,7 +31,10 @@ export default {
                           to complete your purchase.`,
     billingAddressHeader: 'Billing Address',
     paymetMethodHeader: 'Payment Method',
-    placeOrder: 'Place order',
+    placeOrderButton: {
+      text: 'Place order',
+      title: 'Click to place your order',
+    },
     reviewOrder: 'Review your order',
     placeOrderError: `There was an error processing your request.
                       Please try again.`,
@@ -61,6 +64,10 @@ export default {
     notFound: 'The product you are looking for was not found',
     fetchDetailsError: `Error in retrieving product details.
     Please refresh the page to try again`,
+    addReviewButton: {
+      text: 'Add review',
+      title: 'Click to submit your review',
+    },
     reviews: {
       header: 'Product reviews',
       addReviewHeader: 'Add a review',
