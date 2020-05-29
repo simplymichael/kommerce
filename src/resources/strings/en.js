@@ -63,7 +63,10 @@ export default {
     Please refresh the page to try again`,
     reviews: {
       header: 'Product reviews',
-      addHeader: 'Add a review',
+      addReviewHeader: 'Add a review',
+      fetchReviewsError: 'Error retrieving reviews for this product',
+      noReviewsYet: `There are no reviews yet for this product.
+                     Be the first to add a review.`
     }
   },
 };

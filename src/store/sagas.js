@@ -7,6 +7,7 @@ import { sagas as colorSagas } from './colors';
 import { sagas as orderSagas } from './orders';
 import { sagas as priceSagas } from './prices';
 import { sagas as productDetailsSagas } from './product';
+import { sagas as productReviewsSagas } from './product-reviews';
 import { sagas as productSagas } from './products';
 import { sagas as sizeSagas } from './sizes';
 
@@ -44,6 +45,11 @@ const sagas = [
   },
   {
     factory: productSagas,
+    service: 'ProductService',
+    apiCredentials,
+  },
+  {
+    factory: productReviewsSagas,
     service: 'ProductService',
     apiCredentials,
   },

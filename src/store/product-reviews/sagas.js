@@ -28,7 +28,7 @@ function* addProductReview(action) {
 
 function* fetchProductReviews(action) {
   try {
-    const { productId } = action;
+    const { productId } = action.payload;
     const reviews = yield call(() => service.getProductReviews(productId));
 
     yield put(fetchProductReviewsSuccess(reviews));
@@ -37,7 +37,7 @@ function* fetchProductReviews(action) {
   }
 }
 
-export const sagaName = 'product';
+export const sagaName = 'product-reviews';
 export default function(injectedService) {
   service = injectedService;
 

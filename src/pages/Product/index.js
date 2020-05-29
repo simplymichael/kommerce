@@ -75,7 +75,7 @@ const Product = (props) => {
             </Col>
             <Col md="12">
               <Header>
-                {strings.product.reviews.addHeader}
+                {strings.product.reviews.addReviewHeader}
                 <SmallHeader
                   title={(showReviewForm ? 'Hide' : 'Show') + ' review form'}
                   onClick={() => setShowReviewForm(!showReviewForm)}>

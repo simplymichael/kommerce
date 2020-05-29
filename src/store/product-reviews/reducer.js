@@ -50,7 +50,7 @@ export default function reducer(state = initialState, action) {
     return state
       .set('isFetchingProductReviews', false)
       .set('fetchProductReviewsError', null)
-      .set('productReviews', fromJS(action.reviews));
+      .set('productReviews', fromJS(action.payload.reviews));
 
   default: return state;
   }

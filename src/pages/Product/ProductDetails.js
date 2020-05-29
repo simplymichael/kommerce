@@ -136,7 +136,7 @@ class ProductDetails extends React.Component {
 
     if(fetchProductDetailsError) {
       return <Error>
-        {strings.product.fetchDetailsError}
+        {strings.product.fetchDetailsError || fetchProductDetailsError}
       </Error>;
     }
 

@@ -26,7 +26,7 @@ export function addProductReviewSuccess() {
   return generateAction(ADD_PRODUCT_REVIEW_SUCCESS);
 }
 
-export function fetchProductReviews(productId) {
+export function fetchProductReviews(productId) { 
   return generateAction(FETCH_PRODUCT_REVIEWS, { productId });
 }
 

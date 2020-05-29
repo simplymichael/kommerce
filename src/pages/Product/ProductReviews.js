@@ -1,10 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
-import { Error } from '../../components/Notifications';
-import productReviews from '../../__DATA__/product-reviews';
+import Loading from '../../components/Notifications/Loading';
+import { Info, Error } from '../../components/Notifications';
 import colors from '../../resources/colors';
+import strings from '../../resources/strings';
+
+import {
+  fetchProductReviews,
+  makeSelectProductReviews,
+  makeSelectIsFetchingProductReviews,
+  makeSelectFetchProductReviewsError,
+} from '../../store/product-reviews';
 
 const P = styled.p``;
 
@@ -30,8 +40,8 @@ const ProductReview = ({ review }) => {
   return (
     <Row>
       <Col md="3">
-        <P title="rating">{rating}</P>
         <P title="author">{author}</P>
+        <P>Rating: <span title="rating">{rating}</span></P>
         <Span>{date}</Span>
       </Col>
       <Col md="9">
@@ -44,17 +54,48 @@ const ProductReview = ({ review }) => {
 };
 
 class ProductReviews extends React.Component {
+  componentDidMount() {
+    this.props.fetchProductReviews(this.props.productId);
+  }
+
   render() {
-    let { reviews } = this.props;
-    const { error } = this.props;
+    const {
+      productReviews,
+      isFetchingProductReviews,
+      fetchProductReviewsError
+    } = this.props;
 
-    reviews = reviews || productReviews;
-
-    if(error) {
-      return <Error message={error} />;
+    if(isFetchingProductReviews) {
+      return (
+        <div style={{
+          width: '100px',
+          margin: 'auto',
+        }}>
+          <Loading width="100px" height="100px" color="#aaa" opacity="0.5"
+            role="product-reviews-loading-indicator" />
+        </div>
+      );
     }
 
-    return reviews.map((review, i) => {
+    if(fetchProductReviewsError) {
+      return (
+        <Error>
+          {strings.product.reviews.fetchReviewsError ||
+            fetchProductReviewsError
+          }
+        </Error>
+      );
+    }
+
+    if(!productReviews || productReviews.length === 0) {
+      return (
+        <Info>
+          {strings.product.reviews.noReviewsYet}
+        </Info>
+      );
+    }
+
+    return productReviews.map((review, i) => {
       return <ProductReview key={i} review={review} />;
     });
   }
@@ -70,10 +111,21 @@ ProductReview.propTypes = {
 };
 
 ProductReviews.propTypes = {
-  error: PropTypes.string,
   productId: PropTypes.number,
-  reviews: PropTypes.array,
-  getProductReviews: PropTypes.func,
+  productReviews: PropTypes.array,
+  fetchProductReviews: PropTypes.func,
+  isFetchingProductReviews: PropTypes.bool,
+  fetchProductReviewsError: PropTypes.string,
 };
 
-export default ProductReviews;
+const mapDispatchToProps = dispatch => ({
+  fetchProductReviews: (productId) => dispatch(fetchProductReviews(productId)),
+});
+
+const mapStateToProps = createStructuredSelector({
+  productReviews: makeSelectProductReviews(),
+  isFetchingProductReviews: makeSelectIsFetchingProductReviews(),
+  fetchProductReviewsError: makeSelectFetchProductReviewsError(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductReviews);
