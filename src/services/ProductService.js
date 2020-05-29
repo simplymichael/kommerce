@@ -79,12 +79,12 @@ class ProductService extends Service {
       });
   }
 
-  getLatestProducts(count) {
+  /*getLatestProducts(count) {
     return this.getProducts({
       orderBy: {},
       limit: count
     });
-  }
+  }*/
 
   getProduct(productId) {
     const path = { ...route, url: `${route.url}/:productId` };
@@ -106,16 +106,6 @@ class ProductService extends Service {
       });
   }
 
-  getProductReviews(productId) {
-    const path = { ...route, url: `${route.url}/:productId/reviews` };
-
-    return this.request(path, { productId })
-      .then(reviews => reviews)
-      .catch(err => {
-        throw err;
-      });
-  }
-
   addProductReview(productId, reviewData) {
     const { authorName, reviewText, rating } = reviewData;
     const path = {
@@ -125,6 +115,16 @@ class ProductService extends Service {
     };
 
     return this.request(path, { productId, authorName, reviewText, rating })
+      .then(reviews => reviews)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  getProductReviews(productId) {
+    const path = { ...route, url: `${route.url}/:productId/reviews` };
+
+    return this.request(path, { productId })
       .then(reviews => reviews)
       .catch(err => {
         throw err;

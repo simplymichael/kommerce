@@ -1,5 +1,6 @@
 [{
     "id": 1,
+    "productId": 4,
     "author": "Michael Orji",
     "date": "",
     "text": "Great products always get positive reviews. And nothing sells more than the power of positive reviews. Aim to create a good product, and half of your marketing campaign is done.",
@@ -7,6 +8,7 @@
   },
   {
     "id": 2,
+    "productId": 7,
     "author": "Michael Orji",
     "date": "",
     "text": "Great products always get positive reviews. And nothing sells more than the power of positive reviews. Aim to create a good product, and half of your marketing campaign is done.",
