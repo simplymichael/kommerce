@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import Icon from '../../../components/Icons/Icon';
+import Icon from './Icons/Icon';
 
 //SVG credits: https://codepen.io/brianknapp/pen/JEotD/
 const Stars = styled.div`

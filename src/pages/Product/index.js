@@ -6,7 +6,7 @@ import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import { PlusIcon, MinusIcon } from '../../components/Icons';
 import ProductReviews from './ProductReviews';
-import ProductReviewForm from './ProductReviewForm/ProductReviewForm';
+import ProductReviewForm from './ProductReviewForm';
 
 const productColors = colors.product;
 

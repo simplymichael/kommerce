@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Col, Row, Button } from 'react-bootstrap';
-import device from '../../../utils/device';
-import colors from '../../../resources/colors';
-import { Error } from '../../../components/Notifications';
-import StarRating from './StarRating';
+import device from '../../utils/device';
+import colors from '../../resources/colors';
+import { Error } from '../../components/Notifications';
+import StarRating from '../../components/StarRating';
 
 const Clearfix = styled.div`
   clear: both;
