@@ -1,5 +1,6 @@
 import React  from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 import device from '../../utils/device';
 import colors from '../../resources/colors';
@@ -54,43 +55,26 @@ class BillingAddressForm extends React.Component {
     super(props);
 
     this.state = {
-      user: {},
+      error: '',
+      user: {
+        firstname : '',
+        lastname  : '',
+        email     : '',
+        phone     : '',
+        address1  : '',
+        address2  : '',
+        city      : '',
+        state     : '',
+        country   : '',
+        postcode  : '',
+      },
       countries: [],
       states: [],
-      error: '',
     };
   }
 
   componentDidMount() {
     this.initCountries();
-  }
-
-  handleInputChange(e) {
-    [e.target.name] = e.target.value;
-  }
-
-  initCountries() {
-    const countries = [
-      { code: 'NG', name: 'Nigeria' },
-      { code: 'US', name: 'United States of America' },
-      { code: 'UK', name: 'United Kingdom' },
-    ];
-
-    this.setState({
-      countries,
-    });
-  }
-
-  initStates(evt) {
-    const country = evt.target.value;
-    const states = !country ? [] : [
-      {code: 'LAG', name: 'Lagos' },
-      { code: 'ENU', name: 'Enugu' },
-    ];
-
-    this.setState({
-      states,
-    });
   }
 
   render() {
@@ -158,7 +142,6 @@ class BillingAddressForm extends React.Component {
               <Label>Telephone</Label><Required />&nbsp;
               <Small>Format: (+000) 123-456-7890</Small>
               <TextInput type="tel" name="phone" value={phone}
-                pattern="+[0-9]{1, 3} [0-9]{3}-[0-9]{3}-[0-9]{4}"
                 onChange={evt => this.handleInputChange(evt)} />
             </Col>
           </Row>
@@ -210,6 +193,54 @@ class BillingAddressForm extends React.Component {
       </>
     );
   }
+
+  handleInputChange(e) {
+    e.preventDefault();
+
+    const field = e.target.name;
+    const value = e.target.value;
+
+    this.setState(currState => ({
+      user: {
+        ...currState.user,
+        [field]: value
+      }
+    }), () => this.validateUserData());
+  }
+
+  initCountries() {
+    const countries = [
+      { code: 'NG', name: 'Nigeria' },
+      { code: 'US', name: 'United States of America' },
+      { code: 'UK', name: 'United Kingdom' },
+    ];
+
+    this.setState({
+      countries,
+    });
+  }
+
+  initStates(evt) {
+    const country = evt.target.value;
+    const states = !country ? [] : [
+      {code: 'LAG', name: 'Lagos' },
+      { code: 'ENU', name: 'Enugu' },
+    ];
+
+    this.setState({
+      states,
+    });
+  }
+
+  validateUserData() {
+    this.setState({
+      error: this.props.dataValidator(this.state.user),
+    });
+  }
 }
+
+BillingAddressForm.propTypes = {
+  dataValidator: PropTypes.func,
+};
 
 export default BillingAddressForm;

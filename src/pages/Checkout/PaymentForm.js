@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 import colors from '../../resources/colors';
 import { Error } from '../../components/Notifications';
@@ -45,12 +46,14 @@ class PaymentForm extends React.Component {
 
     this.state = {
       error: '',
-      card: {},
+      card: {
+        type        : '',
+        number      : '',
+        expiryYear  : '',
+        expiryMonth : '',
+        cvv         : ''
+      },
     };
-  }
-
-  handleInputChange(e) {
-    [e.target.name] = e.target.value;
   }
 
   render() {
@@ -58,9 +61,34 @@ class PaymentForm extends React.Component {
       error,
       card: { type, number, expiryYear, expiryMonth, cvv },
     } = this.state;
-    const cardTypes = [];
-    const years = [];
-    const months = [];
+    
+    const cardTypes = [
+      'Select',
+      'MasterCard', 'Verve', 'Visa'
+    ].map((card) => (
+      <option key={card} value={card === 'Select' ? '' : card}>
+        {card}
+      </option>
+    ));
+
+    const years = [
+      'Select',
+      2020, 2021, 2022, 2023, 2024
+    ].map((year) => (
+      <option key={year} value={year === 'Select' ? '' : year}>
+        {year}
+      </option>
+    ));
+
+    const months = [
+      'Select',
+      'Jan', 'Feb', 'March', 'April', 'May', 'June',
+      'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ].map((month, i) => (
+      <option key={i} value={month ==='Select' ? '' : month.toLowerCase()}>
+        {month}
+      </option>
+    ));
 
     return (
       <>
@@ -109,8 +137,30 @@ class PaymentForm extends React.Component {
       </>
     );
   }
+
+  handleInputChange(e) {
+    e.preventDefault();
+
+    const field = e.target.name;
+    const value = e.target.value;
+
+    this.setState(currState => ({
+      card: {
+        ...currState.card,
+        [field]: value
+      }
+    }), () => this.validateCardData());
+  }
+
+  validateCardData() {
+    this.setState({
+      error: this.props.dataValidator(this.state.card),
+    });
+  }
 }
 
-
+PaymentForm.propTypes = {
+  dataValidator: PropTypes.func,
+};
 
 export default PaymentForm;

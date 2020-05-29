@@ -104,6 +104,57 @@ const Checkout = () => {
     showingBillingAddressForm,
     setShowingBillingAddressForm
   ] = useState(true);
+  const [billingAddress, setBillingAddress] = useState(null);
+  const [paymentCard, setPaymentCard] = useState(null);
+
+  function validateUser(user) {
+    const requiredData = [
+      'firstname', 'lastname', 'email', 'phone',
+      'address1', 'country', 'state', 'city', 'postcode',
+    ];
+
+    for(let i = 0; i < requiredData.length; i++) {
+      const key = requiredData[i];
+
+      if(!(user[key].trim())) {
+        return `${key} field is required`;
+      }
+    }
+
+    setBillingAddress(user);
+
+    return '';
+  }
+
+  function validatePaymentCard(card) {
+    const requiredData = [
+      'type', 'number',
+      'expiryYear', 'expiryMonth', 'cvv'
+    ];
+
+    for(let i = 0; i < requiredData.length; i++) {
+      const key = requiredData[i];
+
+      if(!(card[key].trim())) {
+        return `${key} field is required`;
+      }
+    }
+
+    setPaymentCard(card);
+
+    return '';
+  }
+
+  function aggregateBillingData() {
+    if(paymentMethod === 'credit-card' && (!billingAddress || !paymentCard)) {
+      return {
+        error: true,
+        message: 'Please fill in required fields to proceed',
+      };
+    }
+
+    return { billingAddress, paymentMethod, paymentCard };
+  }
 
   return (
     <Row>
@@ -136,7 +187,9 @@ const Checkout = () => {
                 { showingBillingAddressForm ? <MinusIcon /> : <PlusIcon /> }
               </ToggleVisibilityHeader>
               <Clearfix />
-              { showingBillingAddressForm && <BillingAddressForm /> }
+              {showingBillingAddressForm &&
+               <BillingAddressForm dataValidator={validateUser} />
+              }
             </CheckoutColumn>
           </Col>
           <Col md="4" role="payment-method-section">
@@ -169,7 +222,9 @@ const Checkout = () => {
                     onChange={() => setPaymentMethod('paypal')} />
                   <PaymentMethodText>Paypal</PaymentMethodText>
                 </Div>
-                {paymentMethod === 'credit-card' && <PaymentForm />}
+                {paymentMethod === 'credit-card' &&
+                  <PaymentForm dataValidator={validatePaymentCard} />
+                }
               </>
               }
             </CheckoutColumn>
@@ -183,7 +238,7 @@ const Checkout = () => {
               <OrderReview />
             </Div>
             <Clearfix />
-            <PlaceOrderButton />
+            <PlaceOrderButton billingDataGetter={aggregateBillingData} />
             <Clearfix />
           </Col>
         </Row>

@@ -1,15 +1,17 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Row, Button } from 'react-bootstrap';
+import { Error } from '../../components/Notifications';
 import device from '../../utils/device';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import {
   makeSelectCartItems,
+  makeSelectCartPriceData,
   makeSelectFetchCartItemsError,
   makeSelectFetchCartPriceError,
 } from '../../store/cart';
@@ -20,19 +22,8 @@ import {
 } from '../../store/orders';
 
 const Clearfix = styled.div`
-  clear: both;
-`;
-
-const OrderStatus = styled.p`
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
   margin-top: 10px;
-  color: ${() => colors.page.success};
-
-  ${props => props.className === 'error' && css`
-    color: ${colors.page.error};
-  `}
+  clear: both;
 `;
 
 const ButtonsRow = styled(Row)`
@@ -73,41 +64,87 @@ const ContinueShoppingBtn = styled(Link)`
 `;
 
 const PlaceOrderButton = (props) => {
+  const [validationError, setValidationError] = useState('');
   const {
-    cartItems,
-    isProcessingOrder,
-    processOrderError,
-    fetchCartItemsError,
-    fetchCartPriceError,
+    cartItems, cartPrice, placeOrder, billingDataGetter,
+    isPlacingOrder, orderPlacementError,
+    fetchCartItemsError, fetchCartPriceError
   } = props;
 
-  let status = '';
-  let statusMessage = '';
+  function processOrderPlacement() {
+    const billingData = billingDataGetter();
 
-  if(fetchCartPriceError) {
-    status = 'error';
-    statusMessage = strings.checkout.cartPriceError;
-  } else if(processOrderError) {
-    status = 'error';
-    statusMessage = strings.checkout.placeOrderError;
+    if(billingData.error) {
+      setValidationError(billingData.message);
+      return;
+    } else {
+      setValidationError('');
+      const { billingAddress, paymentMethod, paymentCard } = billingData;
+      const orderData = {
+        orderItems : cartItems,
+        orderSubTotal : cartPrice.subTotal,
+        orderGrandTotal : cartPrice.grandTotal,
+        billingAddressData : billingAddress,
+        paymentCardData : paymentCard,
+        paymentMethod: paymentMethod
+      };
+
+      placeOrder(orderData);
+    }
+  }
+
+  if(fetchCartItemsError || fetchCartPriceError || orderPlacementError) {
+    const {
+      placeOrderError,
+      getCartItemsError,
+      getCartPriceError,
+    } = strings.checkout;
+
+    const statusMessage = fetchCartItemsError
+      ? getCartItemsError
+      : fetchCartPriceError ? getCartPriceError : placeOrderError;
+
+    return (
+      <>
+        <Clearfix />
+        <Error>{statusMessage}</Error>
+        <Clearfix />
+        <ButtonsRow>
+          <PlaceOrderBtn float="right" className='disabled'>
+            {strings.checkout.placeOrder}
+          </PlaceOrderBtn>
+          <ContinueShoppingBtn to='/'>
+            {strings.checkout.continueShopping}
+          </ContinueShoppingBtn>
+        </ButtonsRow>
+      </>
+    );
+  }
+
+  if(cartItems.length === 0) {
+    return (
+      <div>
+        <p>Your cart is currently empty</p>
+        <p>
+          <Link to="/">Browser our shop</Link>
+          &nbsp;
+          to add items to your cart
+        </p>
+      </div>
+    );
   }
 
   return (
     <>
-      <OrderStatus className={status}>{statusMessage}</OrderStatus>
       <Clearfix />
+      <Error>{validationError}</Error>
       <ButtonsRow>
-        { // If there are NO errors loading or returning count of cart items,
-          // and the user has items in their cart,
-          // display the checkout button
-          !fetchCartItemsError && cartItems.length > 0 &&
-          <PlaceOrderBtn
-            float="right"
-            onClick={() => this.processCheckout()}
-            className={isProcessingOrder ? 'processing disabled' : ''}>
-            {strings.checkout.placeOrder}
-          </PlaceOrderBtn>
-        }
+        <PlaceOrderBtn
+          float="right"
+          onClick={() => processOrderPlacement() }
+          className={isPlacingOrder ? 'processing disabled' : ''}>
+          {strings.checkout.placeOrder}
+        </PlaceOrderBtn>
         <ContinueShoppingBtn to='/'>
           {strings.checkout.continueShopping}
         </ContinueShoppingBtn>
@@ -117,26 +154,50 @@ const PlaceOrderButton = (props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  processOrder: (orderData) => dispatch(processOrder(orderData)),
+  placeOrder: (orderData) => dispatch(processOrder(orderData)),
 });
 
 const mapStateToProps = createStructuredSelector({
-  cartItems: makeSelectCartItems(),
-  isProcessingOrder: makeSelectIsProcessingOrder(),
-  processOrderError: makeSelectProcessOrderError(),
+  isPlacingOrder: makeSelectIsProcessingOrder(),
+  orderPlacementError: makeSelectProcessOrderError(),
   fetchCartItemsError: makeSelectFetchCartItemsError(),
+
+  // calls to fetch cart items and cart price
+  // are dispacthed by OrderReview component.
+  // We are only interested in using the relevant values in this component
+  cartItems: makeSelectCartItems(),
+  cartPrice: makeSelectCartPriceData(),
   fetchCartPriceError: makeSelectFetchCartPriceError(),
-  //countCartItemsError: makeSelectCountCartItemsError(),
 });
 
 PlaceOrderButton.propTypes = {
-  processOrder: PropTypes.func,
-  isProcessingOrder: PropTypes.bool,
-  processOrderError: PropTypes.string,
+  placeOrder: PropTypes.func,
+  isPlacingOrder: PropTypes.bool,
+  orderPlacementError: PropTypes.string,
+
+  // This comes from the parent component,
+  // It should return either:
+  // 1. To prevent submitting the order placement:
+  //    - An object with two properties:
+  //      - error: boolean
+  //      - message: string
+  // 2. To proceed with order placement:
+  //    - the payment method (required)
+  //    - billing address and credit card data
+  //      (optional if payment method is not credit card)
+  billingDataGetter: PropTypes.func,
+
+  // This also comes from the parent
+  // Returns the error message to be displayed if validation fails
+  orderPlacementValidator: PropTypes.func,
 
   // OrderReview component dispatches the calls to fetch cart items and price
   // We only check for their existence and status in this component.
   cartItems: PropTypes.array,
+  cartPrice: PropTypes.shape({
+    subTotal: PropTypes.string,
+    grandTotal: PropTypes.string,
+  }),
   fetchCartItemsError: PropTypes.string,
   fetchCartPriceError: PropTypes.string,
 };

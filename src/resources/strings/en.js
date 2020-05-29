@@ -37,6 +37,8 @@ export default {
                       Please try again.`,
     getCartPriceError: `Unable to get the price for your order.
                         Refresh the page, and try again`,
+    getCartItemsError: `Unable to retrieve the items in your cart.
+                        Refresh the page to try again`,
     continueShopping: 'Continue shopping',
   },
   currency: {
