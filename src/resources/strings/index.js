@@ -1,20 +1,29 @@
 /**
  * Attempt to detect browser's language.
- * If not set, or if language file not found, use default configured language.
- * If default configured language not found, default to English.
+ * If it is not set, or if a matching language file is not found,
+ * use configured language (configured in 'src/.env.js' file).
+ * If a language file for configured language is not found,
+ * default to English (US).
  */
 
-import config from '../../config';
+import env from '../../.env';
 
-const userLanguage = navigator.language || navigator.userLanguage;
-const { language } = config;
-const availableLanguage = userLanguage || language;
+let languageFile;
 let activeLanguage;
+const userLanguage = navigator.language || navigator.userLanguage;
+const { language } = env;
 
 try {
-  activeLanguage = require('./' + availableLanguage)['default'];
+  activeLanguage = userLanguage;
+  languageFile = require(`./${activeLanguage}`)['default'];
 } catch(err) {
-  activeLanguage = require('./en')['default'];
+  try {
+    activeLanguage = language;
+    languageFile = require(`./${activeLanguage}`)['default'];
+  } catch(err) {
+    activeLanguage = 'en-US';
+    languageFile = require(`./${activeLanguage}`)['default'];
+  }
 }
 
-export default activeLanguage;
+export default languageFile;
