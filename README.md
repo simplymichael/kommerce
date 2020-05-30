@@ -40,6 +40,10 @@ Responsive E-commerce store front, made with React.
 | [FAQs page](./src/pages/Faq/index.js)           | `/faq`            |
 | [Contact us page](./src/pages/Contact/index.js) | `/contact`        |
 
+## Dev server
+The development server runs [json-server](https://www.npmjs.com/package/json-server) on port 3001.
+To use a different port, copy `src/.env.example.js` to `src/.env.js`, and change `api.port` to the desired port number.
+
 
 ## Configuration
 The project contains two configuration files:

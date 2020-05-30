@@ -3,8 +3,8 @@ const env = {
 
   api: {
     host: 'http://localhost',
-    port: 80
+    port: 3001
   },
 };
 
-export default env;
+module.exports = env;
