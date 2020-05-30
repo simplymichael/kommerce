@@ -154,7 +154,7 @@ export default function reducer(state = initialState, action) {
     return state
       .set('removeProductFromCartError', null)
       .update('removeProductFromCartList', immutableList =>
-        immutableList.concat(fromJS(action.payload.product))
+        immutableList.concat(fromJS([action.payload.product]))
       );
 
   case REMOVE_PRODUCT_FROM_CART_ERROR:
