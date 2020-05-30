@@ -40,8 +40,31 @@ Responsive E-commerce store front, made with React.
 | [FAQs page](./src/pages/Faq/index.js)           | `/faq`            |
 | [Contact us page](./src/pages/Contact/index.js) | `/contact`        |
 
-## Dev server
-The development server runs [json-server](https://www.npmjs.com/package/json-server) on port 3001.
+## Running
+This project uses [run-script-os](https://www.npmjs.com/package/run-script-os)
+to ensure a consistent npm scripts interface on both Windows and Unix systems.
+
+To run the application in development mode, run the following on the command line:
+
+`npm run dev`
+
+Executing this command will do the following:
+
+- start the development API server listening port 3001
+- run the `react-scripts start` and serve the frontend app on port 3000
+
+To specify an alternate port (8080, for example) for the frontend react app,
+run instead with the following command:
+
+`set port=8080 && npm run dev`.
+
+ See the **API Server** section for how to specify an alternate port for the development API server.
+
+ **Note**: When you execute the `npm run dev` command on Windows systems, it will start a new ***CMD*** window.
+ You will have to keep this window open for the API server to stay running and serving API requests made from the frontend.
+
+## API Server
+The development API server runs [json-server](https://www.npmjs.com/package/json-server) on port 3001 by default.
 To use a different port, copy `src/.env.example.js` to `src/.env.js`, and change `api.port` to the desired port number.
 
 
