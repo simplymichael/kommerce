@@ -14,6 +14,9 @@ export default {
       title: 'Click to empty the cart',
     },
     countItemsError: 'Error fetching number of items in cart',
+    distinctItems: 'Distinct items in your Cart',
+    fetchItemsError: 'Error fetching cart items. Refresh the page to try again.',
+    noItems: 'Your cart is currently empty',
     removeFromCart: {
       text: 'Remove',
       title: 'Remove from cart',
@@ -79,4 +82,7 @@ export default {
                      Be the first to add a review.`
     }
   },
+  shop: {
+    browse: 'Browser our shop',
+  }
 };

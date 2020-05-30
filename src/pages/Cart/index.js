@@ -1,29 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Col, Row, Button } from 'react-bootstrap';
-import colors from '../../resources/colors';
-import strings from '../../resources/strings';
+import { Col, Row } from 'react-bootstrap';
 import CartData from './Cart';
 import EmptyCartButton from './EmptyCartButton';
+import CheckoutButton from './CheckoutButton';
 
 const Center = styled.div`
   padding: 0;
   margin: 0;
   text-align: center;
-`;
-
-const CheckoutButton = styled(Button)`
-  margin-left: 10px;
-  color: ${() => colors.product.actionButtonText}
-  border-color: ${() => colors.product.actionButtonBorder}
-
-  :hover {
-    text-decoration: none;
-    color: ${() => colors.product.actionButtonHoverText}
-    background-color: ${() => colors.product.actionButtonHover}
-    border-color: ${() => colors.product.actionButtonHoverBorder}
-  }
 `;
 
 const Clearfix = styled.div`
@@ -37,12 +22,10 @@ const Cart = () => (
       <Clearfix />
       <Center>
         <EmptyCartButton />
-        <CheckoutButton
-          as={Link} to="/checkout"
-          title={strings.cart.checkout.title}
-          className="btn btn-primary">
-          {strings.cart.checkout.text}
-        </CheckoutButton>
+        <span style={{ display: 'inlineBlock', marginRight: '5px' }}>
+          &nbsp;
+        </span>
+        <CheckoutButton />
       </Center>
     </Col>
   </Row>

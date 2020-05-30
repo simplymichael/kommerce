@@ -92,20 +92,19 @@ class Cart extends React.Component {
     if(fetchCartItemsError) {
       return (
         <Error>
-          Error fetching cart items.
-          Please, refresh the page to try again.
+          {strings.cart.fetchItemsError}
         </Error>
       );
     }
 
     if(cartItems.length === 0) {
       return (
-        <div>
-          <p>Your cart is currently empty</p>
+        <div style={{ textAlign: 'center' }}>
+          <p>{strings.cart.noItems}</p>
           <p>
-            <Link to="/">Browser our shop</Link>
-            &nbsp;
-            to add items to your cart
+            <Link to="/">
+              {strings.shop.browse}
+            </Link>
           </p>
         </div>
       );
@@ -120,7 +119,7 @@ class Cart extends React.Component {
 
     return (
       <>
-        <Header>Distinct items in your Cart: {cartLength}</Header>
+        <Header>{strings.cart.distinctItems}: {cartLength}</Header>
         <HeaderSection>
           <Row>
             <Col md="2">
