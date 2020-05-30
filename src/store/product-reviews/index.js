@@ -1,6 +1,6 @@
 import sagas from './sagas';
 import reducer from './reducer';
-import { fetchProductReviews } from './actions';
+import { addProductReview, fetchProductReviews } from './actions';
 import {
   makeSelectProductReviews,
   makeSelectIsAddingProductReview,
@@ -12,7 +12,7 @@ import {
 export {
   sagas,
   reducer,
-
+  addProductReview,
   fetchProductReviews,
   makeSelectProductReviews,
   makeSelectIsAddingProductReview,

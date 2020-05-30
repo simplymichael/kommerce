@@ -107,15 +107,25 @@ class ProductService extends Service {
   }
 
   addProductReview(productId, reviewData) {
-    const { authorName, reviewText, rating } = reviewData;
+    const { author, body, rating } = reviewData;
     const path = {
       ...route,
       url: `${route.url}/:productId/reviews`,
       method: 'post'
     };
 
-    return this.request(path, { productId, authorName, reviewText, rating })
-      .then(reviews => reviews)
+    const postData = {
+      productId,
+      body: {
+        productId,
+        author,
+        rating,
+        body,
+      }
+    };
+
+    return this.request(path, postData)
+      .then(review => review)
       .catch(err => {
         throw err;
       });

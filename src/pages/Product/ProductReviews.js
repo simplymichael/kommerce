@@ -36,7 +36,7 @@ const Clearfix = styled.div`
 `;
 
 const ProductReview = ({ review }) => {
-  const { author, date, body, rating } = review;
+  const { author, dateAdded, body, rating } = review;
 
   return (
     <Row>
@@ -45,7 +45,7 @@ const ProductReview = ({ review }) => {
         <div title={`Rating: ${rating}`}>
           <StarRating fixed currentRating={rating} maxPossibleRating={5} />
         </div>
-        <Span>{date}</Span>
+        <Span>{dateAdded}</Span>
       </Col>
       <Col md="9">
         <P>{body}</P>
@@ -107,7 +107,7 @@ class ProductReviews extends React.Component {
 ProductReview.propTypes = {
   review: PropTypes.shape({
     author: PropTypes.string,
-    date: PropTypes.string,
+    dateAdded: PropTypes.string,
     body: PropTypes.string,
     rating: PropTypes.number,
   })

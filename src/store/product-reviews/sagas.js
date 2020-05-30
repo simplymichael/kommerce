@@ -12,15 +12,15 @@ let service = null;
 
 function* addProductReview(action) {
   try {
-    const { payload: { productId, authorName, reviewText, rating } } = action;
+    const { payload: { productId, author, body, rating } } = action;
 
-    yield call(() => service.addProductReview(productId, {
-      authorName,
-      reviewText,
+    const review = yield call(() => service.addProductReview(productId, {
+      author,
+      body,
       rating,
     }));
 
-    yield put(addProductReviewSuccess());
+    yield put(addProductReviewSuccess(review));
   } catch(err) {
     yield put(addProductReviewError(err.toString()));
   }

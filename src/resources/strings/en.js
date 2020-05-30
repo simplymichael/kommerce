@@ -71,6 +71,7 @@ export default {
     reviews: {
       header: 'Product reviews',
       addReviewHeader: 'Add a review',
+      addReviewError: 'Error submitting your review. Please, try again',
       fetchReviewsError: 'Error retrieving reviews for this product',
       noReviewsYet: `There are no reviews yet for this product.
                      Be the first to add a review.`

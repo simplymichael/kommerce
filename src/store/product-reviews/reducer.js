@@ -34,7 +34,9 @@ export default function reducer(state = initialState, action) {
   case ADD_PRODUCT_REVIEW_SUCCESS:
     return state
       .set('isAddingProductReview', false)
-      .set('addProductReviewError', null);
+      .set('addProductReviewError', null)
+      .update('productReviews', immutableList => immutableList.concat(
+        [action.payload.review]));
 
   case FETCH_PRODUCT_REVIEWS:
     return state

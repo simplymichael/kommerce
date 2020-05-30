@@ -1,10 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Col, Row, Button } from 'react-bootstrap';
 import device from '../../utils/device';
 import colors from '../../resources/colors';
+import strings from '../../resources/strings';
 import { Error } from '../../components/Notifications';
 import StarRating from '../../components/StarRating';
+import {
+  addProductReview,
+  makeSelectIsAddingProductReview,
+  makeSelectAddProductReviewError,
+} from '../../store/product-reviews';
 
 const Clearfix = styled.div`
   clear: both;
@@ -56,8 +65,6 @@ const InputLabel = styled.label`
 
 const SubmitBtn = styled(Input).attrs(() => ({
   type: 'submit',
-  children: 'Submit',
-  className: 'action-btn'
 }))`
   float: right;
   margin: 0;
@@ -77,16 +84,38 @@ class ProductReviewForm extends React.Component {
     super(props);
 
     this.state = {
-      authorName: '',
-      reviewText: '',
       rating: 0,
+      reviewText: '',
+      authorName: '',
+      validationError: '',
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    console.log('Form submitted with values: ', JSON.stringify(this.state));
+    const { productId, addProductReview } = this.props;
+    const requiredData = {
+      authorName: 'Name',
+      reviewText: 'Review',
+    };
+
+    for(let [key, value] of Object.entries(requiredData)) {
+      if(!this.state[key]) {
+        this.setState({
+          validationError: `The ${value} field is required`,
+        });
+
+        return;
+      }
+    }
+
+    const { authorName, reviewText, rating } = this.state;
+    addProductReview(productId, {
+      author: authorName,
+      body: reviewText,
+      rating: rating
+    });
   }
 
   handleInputChange(e) {
@@ -98,13 +127,17 @@ class ProductReviewForm extends React.Component {
   }
 
   render() {
-    const { authorName, reviewText, rating } = this.state;
+    const { isAddingProductReview, addProductReviewError } = this.props;
+    const { authorName, reviewText, rating, validationError } = this.state;
+    let error = validationError;
+
+    if(addProductReviewError) {
+      error = strings.product.reviews.addReviewError || addProductReviewError;
+    }
 
     return (
       <>
-        <Error>
-          {''}
-        </Error>
+        <Error>{error}</Error>
         <ReviewForm onSubmit={evt => this.handleSubmit(evt)}>
           <Row>
             <Col md="3">
@@ -132,7 +165,14 @@ class ProductReviewForm extends React.Component {
                 clickHandler={ratingVal => this.handleRatingClick(ratingVal)} />
             </Col>
             <Col md="3">
-              <SubmitBtn as={Button} margin='0' />
+              <SubmitBtn
+                as={Button}
+                disabled={isAddingProductReview}
+                className={'action-btn' +
+                  (isAddingProductReview ? ' btn-processing' :'')}
+                title={strings.product.addReviewButton.title}>
+                {strings.product.addReviewButton.text}
+              </SubmitBtn>
             </Col>
           </Row>
           <Clearfix />
@@ -142,4 +182,21 @@ class ProductReviewForm extends React.Component {
   }
 }
 
-export default ProductReviewForm;
+ProductReviewForm.propTypes = {
+  productId: PropTypes.number,
+  addProductReview: PropTypes.func,
+  isAddingProductReview: PropTypes.bool,
+  addProductReviewError: PropTypes.string,
+};
+
+const mapDispatchToProps = dispatch => ({
+  addProductReview: (productId, reviewData) => dispatch(
+    addProductReview(productId, reviewData)),
+});
+
+const mapStateToProps = createStructuredSelector({
+  isAddingProductReview: makeSelectIsAddingProductReview(),
+  addProductReviewError: makeSelectAddProductReviewError(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductReviewForm);
