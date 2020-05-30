@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
-import Loading from '../../components/Notifications/Loading';
+import Loading from '../Notifications/Loading';
+import { Error } from '../Notifications';
 import ProductSummary from './ProductSummary';
 import strings from '../../resources/strings';
 
@@ -96,7 +97,8 @@ class ProductsList extends React.Component {
   render() {
     const {
       products, container, weight,
-      renderer, isFetchingProducts
+      renderer, isFetchingProducts,
+      fetchProductsError,
     } = this.props;
 
     if(isFetchingProducts) {
@@ -110,6 +112,12 @@ class ProductsList extends React.Component {
             role="products-loading-indicator" />
         </div>
       );
+    }
+
+    if(fetchProductsError) {
+      return <Error>
+        {strings.product.fetchProductsError || fetchProductsError}
+      </Error>;
     }
 
     const containerWeight = weight || '3';
@@ -145,6 +153,7 @@ ProductsList.propTypes = {
   selectedSizes: PropTypes.array,
   fetchProducts: PropTypes.func,
   isFetchingProducts: PropTypes.bool,
+  fetchProductsError: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({

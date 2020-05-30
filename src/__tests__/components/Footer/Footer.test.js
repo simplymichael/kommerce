@@ -1,17 +1,19 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import Footer from '../../../components/Footer';
+import {
+  store,
+  bindComponentToStore,
+  wrapComponentInRouter
+} from '../../test-utils';
 
 let Component;
+const ConnectedFooter = bindComponentToStore(store)(
+  wrapComponentInRouter(Footer));
 
 beforeEach(() => {
   Component = render(
-    // Wrap the Footer in BrowserRouter,
-    // since it uses the Link element
-    <BrowserRouter>
-      <Footer />
-    </BrowserRouter>
+    <ConnectedFooter />
   );
 });
 
@@ -34,6 +36,7 @@ describe('Page Footer', () => {
 
   it('renders latest products', async () => {
     const { queryByRole } = Component;
+
     const productsList = queryByRole('footer-recent-products-list-container');
 
     expect(productsList).toBeInTheDocument();

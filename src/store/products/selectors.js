@@ -11,3 +11,12 @@ export const makeSelectFetchProductsError = () =>
 
 export const makeSelectIsFetchingProducts = () =>
   createSelector(localState, state => state.get('isFetchingProducts'));
+
+export const makeSelectRecentProducts = () =>
+  createSelector(localState, state => state.get('recentProducts').toJS());
+
+export const makeSelectFetchRecentProductsError = () =>
+  createSelector(localState, state => state.get('fetchRecentProductsError'));
+
+export const makeSelectIsFetchingRecentProducts = () =>
+  createSelector(localState, state => state.get('isFetchingRecentProducts'));

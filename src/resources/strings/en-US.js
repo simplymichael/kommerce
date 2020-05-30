@@ -49,7 +49,8 @@ export default {
     symbol: '$',
   },
   footer: {
-    productsHeader: 'Latest Products'
+    productsHeader: 'Latest Products',
+    fetchRecentProductsError: 'Error retrieving products. Please, try again',
   },
   priceRangeSelector: {
     min   : 0,
@@ -62,6 +63,7 @@ export default {
   product: {
     linkTitle: 'Click to view product details',
     notFound: 'The product you are looking for was not found',
+    fetchProductsError: 'Error retrieving products. Please, try again',
     fetchDetailsError: `Error in retrieving product details.
     Please refresh the page to try again`,
     addReviewButton: {

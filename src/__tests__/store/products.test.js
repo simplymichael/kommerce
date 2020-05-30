@@ -16,21 +16,25 @@ import products from '../../__DATA__/products';
 const getMockProducts = () => products;
 const queryData = { page: 1, limit: 0, colors: [], sizes: [],
   brands: [], orderBy: {}, priceRange: {}};
+const stateTree = {
+  products: [],
+  fetchProductsError: null,
+  isFetchingProducts: false,
+
+  recentProducts: [],
+  fetchRecentProductsError: null,
+  isFetchingRecentProducts: false,
+};
 
 describe('Store:Products', () => {
   describe('actions and reducers', () => {
     it('return the initial state', () => {
-      expect(initialState).toEqual(fromJS({
-        products: [],
-        fetchProductsError: null,
-        isFetchingProducts: false,
-      }));
+      expect(initialState).toEqual(fromJS(stateTree));
     });
 
     test('action: FETCH_PRODUCTS updates "isFetchingProducts" from false to true', () => {
       expect(reducer(initialState, fetchProducts())).toEqual(fromJS({
-        products: [],
-        fetchProductsError: null,
+        ...stateTree,
         isFetchingProducts: true,
       }));
     });
@@ -39,9 +43,8 @@ describe('Store:Products', () => {
       const error = new Error('Failed to fetch products');
 
       expect(reducer(initialState, fetchProductsError(error))).toEqual(fromJS({
-        products: [],
+        ...stateTree,
         fetchProductsError: error,
-        isFetchingProducts: false,
       }));
     });
 
@@ -49,9 +52,8 @@ describe('Store:Products', () => {
       const data = getMockProducts();
 
       expect(reducer(initialState, fetchProductsSuccess(data))).toEqual(fromJS({
+        ...stateTree,
         products: data,
-        fetchProductsError: null,
-        isFetchingProducts: false,
       }));
     });
   });

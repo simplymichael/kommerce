@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Loading from '../Notifications/Loading';
+import { Error } from '../Notifications';
 import colors from '../../resources/colors';
+import strings from '../../resources/strings';
+import { formatTime } from '../../utils/date';
+import {
+  fetchRecentProducts,
+  makeSelectRecentProducts,
+  makeSelectFetchRecentProductsError,
+  makeSelectIsFetchingRecentProducts,
+} from '../../store/products';
 
 const ProductLink = styled(Link)`
   display: inline-block;
@@ -44,7 +56,9 @@ const ProductView = ({id, name, dateAdded, imageUrl}) => {
             { /* eslint-disable-next-line */ }
             <span role="product-name">{name}</span>
             <br />
-            <span>{dateAdded}</span>
+            <span>
+              {formatTime(dateAdded)}
+            </span>
           </ProductInfo>
         </div>
       </div>
@@ -52,57 +66,37 @@ const ProductView = ({id, name, dateAdded, imageUrl}) => {
   );
 };
 
-const RecentProducts = ({ productsList }) => {
-  if(productsList && !Array.isArray(productsList)) {
+const RecentProducts = (props) => {
+  useEffect(() => {
+    props.fetchProducts(3); // eslint-disable-next-line
+  }, ['products']);
+
+  if(props.isFetchingProducts) {
+    return (
+      <div style={{
+        width: '50px',
+        margin: 'auto',
+        marginTop: '50px',
+      }}>
+        <Loading width="50px" height="50px" color="#aaa" opacity="0.5"
+          role="recent-products-loading-indicator" />
+      </div>
+    );
+  }
+
+  if(props.fetchProductsError) {
+    return (
+      <Error>
+        {strings.footer.fetchRecentProductsError || props.fetchProductsError}
+      </Error>
+    );
+  }
+
+  if(!Array.isArray(props.products)) {
     return null;
   }
 
-  const latestProducts = productsList || [
-    {
-      'id': 1,
-      'name': 'First Item',
-      'price': 10.00,
-      'color': 'red',
-      'size': 'XS',
-      'brand': 'Abercrombie & Fitch',
-      'dateAdded': '',
-      'images': [
-        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': true },
-        { 'url': 'https://imgur.com/dV36lmS.png', 'default': false },
-        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false }
-      ]
-    },
-    {
-      'id': 2,
-      'name': 'Second Item',
-      'price': 10.00,
-      'color': 'green',
-      'size': 'XS',
-      'brand': 'Abercrombie & Fitch',
-      'dateAdded': '',
-      'images': [
-        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false },
-        { 'url': 'https://imgur.com/dV36lmS.png', 'default': true },
-        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false }
-      ]
-    },
-    {
-      'id': 3,
-      'name': 'Third Item',
-      'price': 10.00,
-      'color': 'red',
-      'size': 'XS',
-      'brand': 'Abercrombie & Fitch',
-      'dateAdded': '',
-      'images': [
-        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': false },
-        { 'url': 'https://imgur.com/dV36lmS.png', 'default': false },
-        { 'url': 'https://imgur.com/3u2mj7h.png', 'default': true }
-      ]
-    }
-  ];
-
-  return latestProducts.map(
+  return (props.products || []).map(
     ({id, name, dateAdded, images}, index) => {
       const defaultImage = images.filter(img => img.default === true).pop();
 
@@ -121,12 +115,25 @@ const RecentProducts = ({ productsList }) => {
 ProductView.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  dateAdded: PropTypes.string,
+  dateAdded: PropTypes.number,
   imageUrl: PropTypes.string.isRequired,
 };
 
 RecentProducts.propTypes = {
-  productsList: PropTypes.array,
+  products: PropTypes.array,
+  fetchProducts: PropTypes.func,
+  fetchProductsError: PropTypes.string,
+  isFetchingProducts: PropTypes.bool,
 };
 
-export default RecentProducts;
+const mapDispatchToProps = dispatch => ({
+  fetchProducts: (limit) => dispatch(fetchRecentProducts(limit)),
+});
+
+const mapStateToProps = createStructuredSelector({
+  products: makeSelectRecentProducts(),
+  isFetchingProducts: makeSelectIsFetchingRecentProducts(),
+  fetchProductsError: makeSelectFetchRecentProductsError()
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentProducts);

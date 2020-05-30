@@ -1,10 +1,14 @@
 import sagas from './sagas';
 import reducer from './reducer';
-import { fetchProducts } from './actions';
+import { fetchProducts, fetchRecentProducts } from './actions';
 import {
   makeSelectProducts,
   makeSelectIsFetchingProducts,
   makeSelectFetchProductsError,
+
+  makeSelectRecentProducts,
+  makeSelectIsFetchingRecentProducts,
+  makeSelectFetchRecentProductsError,
 } from './selectors';
 
 export {
@@ -14,4 +18,9 @@ export {
   makeSelectProducts,
   makeSelectIsFetchingProducts,
   makeSelectFetchProductsError,
+
+  fetchRecentProducts,
+  makeSelectRecentProducts,
+  makeSelectIsFetchingRecentProducts,
+  makeSelectFetchRecentProductsError,
 };
