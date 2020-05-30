@@ -9,7 +9,7 @@ import { Info, Error } from '../../components/Notifications';
 import StarRating from '../../components/StarRating';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
-
+import { formatTime } from '../../utils/date';
 import {
   fetchProductReviews,
   makeSelectProductReviews,
@@ -17,18 +17,12 @@ import {
   makeSelectFetchProductReviewsError,
 } from '../../store/product-reviews';
 
-const P = styled.p``;
-
 const HR = styled.hr`
   width: ${props => props.width || '100%'};
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid ${colors.page.separator};
-`;
-
-const Span = styled.span`
-  display: 'inline-block';
 `;
 
 const Clearfix = styled.div`
@@ -41,14 +35,19 @@ const ProductReview = ({ review }) => {
   return (
     <Row>
       <Col md="3">
-        <P title="author">{author}</P>
+        <p title="author">{author}</p>
         <div title={`Rating: ${rating}`}>
           <StarRating fixed currentRating={rating} maxPossibleRating={5} />
         </div>
-        <Span>{dateAdded}</Span>
+        <Clearfix />
+        <span style={{color: colors.names.gray}}>
+          {dateAdded && formatTime(dateAdded)}
+        </span>
       </Col>
       <Col md="9">
-        <P>{body}</P>
+        <p>
+          {body}
+        </p>
       </Col>
       <Clearfix />
       <HR />

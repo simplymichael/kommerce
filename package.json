@@ -17,6 +17,7 @@
     "@testing-library/user-event": "7.2.1",
     "bootstrap": "4.5.0",
     "immutable": "4.0.0-rc.12",
+    "javascript-time-ago": "2.0.7",
     "prop-types": "15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "1.0.1",

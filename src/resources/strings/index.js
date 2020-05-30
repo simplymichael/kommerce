@@ -26,4 +26,5 @@ try {
   }
 }
 
+export const currentLanguage = activeLanguage;
 export default languageFile;
