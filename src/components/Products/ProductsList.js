@@ -56,7 +56,7 @@ class ProductsList extends React.Component {
     const { min, max } = priceRangeSelector;
     this.queryData = {
       page    : 1,
-      limit   : 1,
+      limit   : 10,
       colors  : [],
       sizes   : [],
       brands  : [],
