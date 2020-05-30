@@ -63,7 +63,7 @@
       "color": "black",
       "size": "XS",
       "brand": "Abercrombie & Fitch",
-      "dateAdded": "",
+      "dateAdded": 1590809623764,
       "images": [
         { "url": "https://imgur.com/3u2mj7h.png", "default": true },
         { "url": "https://imgur.com/dV36lmS.png", "default": false },
@@ -77,7 +77,7 @@
       "color": "red",
       "size": "S",
       "brand": "Adidas Originals",
-      "dateAdded": "",
+      "dateAdded": 1590809623765,
       "images": [
         { "url": "https://imgur.com/66dvQ2E.png", "default": true },
         { "url": "https://imgur.com/dV36lmS.png", "default": false },
@@ -91,7 +91,7 @@
       "color": "orange",
       "size": "M",
       "brand": "Asos",
-      "dateAdded": "",
+      "dateAdded": 1590809623766,
       "images": [
         { "url": "https://imgur.com/dgR75Gd.png", "default": true },
         { "url": "https://imgur.com/dgR75Gd.png", "default": false },
@@ -105,7 +105,7 @@
       "color": "yellow",
       "size": "L",
       "brand": "Cheap Monday",
-      "dateAdded": "",
+      "dateAdded": 1590809623767,
       "images": [
         { "url": "https://imgur.com/jiYwS7Z.png", "default": true },
         { "url": "https://imgur.com/jiYwS7Z.png", "default": false },
@@ -119,7 +119,7 @@
       "color": "green",
       "size": "XL",
       "brand": "Cheap Monday",
-      "dateAdded": "",
+      "dateAdded": 1590809623768,
       "images": [
         { "url": "https://imgur.com/hqeYRhO.png", "default": true },
         { "url": "https://imgur.com/hqeYRhO.png", "default": false },
@@ -133,7 +133,7 @@
       "color": "blue",
       "size": "XS",
       "brand": "Asos",
-      "dateAdded": "",
+      "dateAdded": 1590809623769,
       "images": [
         { "url": "https://imgur.com/0hMCNsL.png", "default": true },
         { "url": "https://imgur.com/0hMCNsL.png", "default": false },
@@ -147,7 +147,7 @@
       "color": "indigo",
       "size": "S",
       "brand": "Adidas Originals",
-      "dateAdded": "",
+      "dateAdded": 1590809623770,
       "images": [
         { "url": "https://imgur.com/0hMCNsL.png", "default": true },
         { "url": "https://imgur.com/0hMCNsL.png", "default": false },
@@ -161,7 +161,7 @@
       "color": "violet",
       "size": "M",
       "brand": "Abercrombie & Fitch",
-      "dateAdded": "",
+      "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/0hMCNsL.png", "default": true },
         { "url": "https://imgur.com/0hMCNsL.png", "default": false },
@@ -169,24 +169,7 @@
       ]
     }
   ],
-  "product-reviews": [
-    {
-      "id": 1,
-      "productId": 4,
-      "author": "Michael Orji",
-      "dateAdded": "",
-      "body": "Great products always get positive reviews.\nNothing sells more than the power of positive reviews.\nAim to create a good product,and half of your marketing campaign is done.",
-      "rating": 4.5
-    },
-    {
-      "id": 2,
-      "productId": 7,
-      "author": "Michael Orji",
-      "dateAdded": "",
-      "body": "Great products always get positive reviews.\nNothing sells more than the power of positive reviews.\nAim to create a good product,and half of your marketing campaign is done.",
-      "rating": 3
-    }
-  ],
+  "product-reviews": [],
   "sizes": [
     {
       "key": "XS",

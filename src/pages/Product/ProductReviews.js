@@ -107,7 +107,7 @@ class ProductReviews extends React.Component {
 ProductReview.propTypes = {
   review: PropTypes.shape({
     author: PropTypes.string,
-    dateAdded: PropTypes.string,
+    dateAdded: PropTypes.number,
     body: PropTypes.string,
     rating: PropTypes.number,
   })
