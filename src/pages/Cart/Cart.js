@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Col, Row, Container } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Loading from '../../components/Notifications/Loading';
 import { Error } from '../../components/Notifications';
-import QuantityController from '../../components/QuantityController';
 import {
   fetchCartItems,
   makeSelectCartItems,
@@ -24,6 +23,7 @@ import {
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import device from '../../utils/device';
+import CartItem from './CartItem';
 
 const HeaderSection = styled.div`
   border-bottom: 1px solid ${() => colors.page.separatorColor};
@@ -34,25 +34,6 @@ const HeaderSection = styled.div`
   @media (max-width: ${device.tablet}) {
     display: none;
   }
-`;
-
-const ItemContainer = styled(Row)`
-  margin-bottom: 10px;
-`;
-
-const ItemImage = styled.img`
-  width: 100%;
-`;
-
-const InfoContainer = styled(Container)`
-  color: ${() => colors.page.text};
-  padding: ${props => props.padding || '0'};
-`;
-
-const SmallText = styled.small`
-  font-size: 12px;
-  display: inline-block;
-  cursor: pointer;
 `;
 
 const PullRight = styled.span`
@@ -137,37 +118,6 @@ class Cart extends React.Component {
       product.defaultImage = product.images.find(img => img.default === true);
     });
 
-    const itemsList = items.map((item, i) => (
-      <ItemContainer key={i}>
-        <Col md="2"><ItemImage src={item.defaultImage.url} /></Col>
-        <Col md="4">
-          <InfoContainer>
-            {item.name} <br />
-            <SmallText
-              title={strings.cart.removeFromCart.title}
-              onClick={() => removeProductFromCart(item)}>
-              x {strings.cart.removeFromCart.text}
-            </SmallText>
-          </InfoContainer>
-        </Col>
-        <Col md="1">
-          <InfoContainer padding="10px">
-            {item.size}
-          </InfoContainer>
-        </Col>
-        <Col md="3">
-          <InfoContainer>
-            <QuantityController currentValue={item.quantity}
-              onIncrement={() => { incrementClickHandler(item, 1); }}
-              onDecrement={() => { this.decrementProductQuantity(item, 1); }} />
-          </InfoContainer>
-        </Col>
-        <Col md="2">
-          <PullRight><InfoContainer>${item.price}</InfoContainer></PullRight>
-        </Col>
-      </ItemContainer>
-    ));
-
     return (
       <>
         <Header>Distinct items in your Cart: {cartLength}</Header>
@@ -198,7 +148,14 @@ class Cart extends React.Component {
             </Col>
           </Row>
         </HeaderSection>
-        {itemsList}
+        {items.map((item, i) => (
+          <CartItem
+            key={i}
+            item={item}
+            incrementClickHandler={incrementClickHandler}
+            decrementClickHandler={() => { this.decrementProductQuantity(item, 1); }}
+            removeFromCartHandler={removeProductFromCart} />
+        ))}
       </>
     );
   }
