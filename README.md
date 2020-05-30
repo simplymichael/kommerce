@@ -67,6 +67,9 @@ run instead with the following command:
 The development API server runs [json-server](https://www.npmjs.com/package/json-server) on port 3001 by default.
 To use a different port, copy `src/.env.example.js` to `src/.env.js`, and change `api.port` to the desired port number.
 
+### Restarting the API Server
+If the server is mistakenly stopped, it can be restarted by running: `npm run serve`.
+
 
 ## Configuration
 The project contains two configuration files:
