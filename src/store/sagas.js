@@ -10,6 +10,7 @@ import { sagas as productDetailsSagas } from './product';
 import { sagas as productReviewsSagas } from './product-reviews';
 import { sagas as productSagas } from './products';
 import { sagas as sizeSagas } from './sizes';
+import { sagas as userSagas } from './users';
 
 const apiCredentials = config.api;
 const sagas = [
@@ -56,6 +57,11 @@ const sagas = [
   {
     factory: sizeSagas,
     service: 'SizeService',
+    apiCredentials,
+  },
+  {
+    factory: userSagas,
+    service: 'UserService',
     apiCredentials,
   }
 ];
