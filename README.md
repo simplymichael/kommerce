@@ -65,14 +65,14 @@ run instead with the following command:
 
 ## API Server
 The development API server runs [json-server](https://www.npmjs.com/package/json-server) on port 3001 by default.
-To use a different port, copy `src/.env.example.js` to `src/.env.js`, and change `api.port` to the desired port number.
+To use a different port, copy `src/dev-server/.env.example.js` to `src/dev-server/.env.js`, and change `host.port` to the desired port number.
 
 ### Restarting the API Server
 If the server is mistakenly stopped, it can be restarted by running: `npm run serve`.
 
 
 ## Configuration
-The project contains two configuration files:
+The project contains three configuration files:
 
 - `src/.config.js`: This file holds configuration information related to the business or webiste;
   values that are usually stable, and can be configured by non-developers.
@@ -81,9 +81,18 @@ The project contains two configuration files:
   To create this file, copy the `src/.config.example.js` file to `src/.config.js`, and modify the values as necessary.
 - `src/.env.js`: This file holds configuration information that are dynamic, and environment-dependent.
   Values such as the user language (for determining which language files to load),
-  and ports for the test server are stored in this file.
+  and ports for the API server are stored in this file.
 
   To create this file, copy the `src/.env.example.js` file to `src/.env.js`, and modify the values as necessary.
+- `src/dev-server/.env.js`: This file holds configuration information for the accompanying dev API server  for testing the application.
+
+  To create this file, copy the `src/dev-server/.env.example.js` to `src/dev-server/.env.js` and edit the values as necessary.
+
+**Note**: The `api.port` port number inside `src/.env.js` must match the `host.port` in the `src/dev-server/.env.js` file.
+This is as expected.
+
+- The `api.port` key of the `src/.env.js` file allows you configure the port number of the API server.
+- The `host.port` key of the `src/dev-server/.env.` allows you to configure the port on which the API server should run.
 
 ## Contributing
 ### Steps for adding a new state item to the store

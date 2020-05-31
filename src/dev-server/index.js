@@ -1,57 +1,48 @@
-const jsonServer = require('json-server');
+import jsonServer from 'json-server';
+import env from './.env';
+
+import { generateAuthToken } from './utils/auth';
+
+import dateAddedMiddleware from './middlewares/date-added-middleware';
+import registrationMiddleware from './middlewares/registration-middleware';
+import productsMiddleware from './middlewares/products-middleware';
+import queryStringMiddleware from './middlewares/query-string-middleware';
+
 const server = jsonServer.create();
 const router = jsonServer.router('src/__DATA__/api.json');
-const middlewares = jsonServer.defaults();
-const env = require('../.env');
-
-
-const port = env.api.port || 3001;
+const defaults = jsonServer.defaults();
+const port = env.host.port || 3001;
 const routes = require('./routes'); // Defines our custom routes
 
-// Set default middlewares (logger, static, cors and no-cache)
-server.use(middlewares);
-
-// To handle POST, PUT and PATCH you need to use a body-parser
-// You can use the one used by JSON Server
-server.use(jsonServer.bodyParser);
-server.use((req, res, next) => {
-  if (req.method === 'POST') {
-    req.body.dateAdded = Date.now();
-  }
-
-  next(); // Continue to JSON Server router
-});
-
-// embed product-reviews in every request for products
-server.use((req, res, next) => {
-  if(req.path.indexOf('/products') === 0 && !req.query._embed) {
-    req.query._embed = 'product-reviews';
-  }
-
-  next();
-});
-
-// Replace query strings with json-server-specific equivalents
-server.use((req, res, next) => {
-  const replacements = {
-    page: '_page',
-    limit: '_limit',
-    embed: '_embed',
-  };
-
-  for(let [key, replacement] of Object.entries(replacements)) {
-    if(req.query[key]) {
-      req.query[replacement] = req.query[key];
-      delete req.query[key];
-    }
-  }
-
-  next();
-});
-
-
+server.use(defaults); // default middlewares (logger, static, cors, no-cache)
+server.use(jsonServer.bodyParser); // parse POST, PUT and PATCH requests body
+server.use(registrationMiddleware); // validate registration data
+server.use(dateAddedMiddleware); // Add creation date to POST requests
+server.use(productsMiddleware); // embed product-reviews in /products request
+server.use(queryStringMiddleware);
 server.use(jsonServer.rewriter(routes)); // Support custom routes
 server.use(router); // Use default router
+
+// Customise response
+router.render = (req, res) => {
+  // If the request is for new user registrations
+  if(req.path.indexOf('/users') === 0 && req.method.toLowerCase() === 'post') {
+    const { id: userId, email } = res.locals.data;
+    const { token, expiry } = generateAuthToken(userId, email);
+
+    res.jsonp({
+      user: res.locals.data,
+      accessToken: `Bearer ${token}`,
+      expiresIn: expiry,
+    });
+
+    return;
+  }
+
+  // Otherwise, just send the normal response
+  res.end(JSON.stringify(res.locals.data));
+};
+
 server.listen(port, () => {
   console.log(`JSON Server is running on port: ${port}`);
 });
