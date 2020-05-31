@@ -5,6 +5,10 @@ const env = {
     host: 'http://localhost',
     port: 3001
   },
+
+  auth: {
+    minPasswordLength: 8,
+  },
 };
 
-module.exports = env;
+export default env;

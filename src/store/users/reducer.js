@@ -13,15 +13,11 @@ import {
 
 export const reducerName = 'auth';
 export const initialState = fromJS({
+  user: {},
   isLoggingIn: false,
   loginError: null,
   isCreatingUser: false,
   createUserError: null,
-  authSuccessData: {
-    user: null,
-    accessToken: '',
-    expiresIn: 0,
-  }
 });
 
 export default function reducer(state = initialState, action) {
@@ -40,7 +36,7 @@ export default function reducer(state = initialState, action) {
     return state
       .set('isLoggingIn', false)
       .set('loginError', null)
-      .set('authSuccessData', action.payload.data);
+      .set('user', fromJS(action.payload.user));
 
   case CREATE_USER:
     return state
@@ -56,7 +52,7 @@ export default function reducer(state = initialState, action) {
     return state
       .set('isCreatingUser', false)
       .set('createUserError', null)
-      .set('authSuccessData', action.payload.data);
+      .set('user', fromJS(action.payload.user));
 
   default: return state;
   }

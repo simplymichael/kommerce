@@ -10,7 +10,9 @@ class UserService extends Service {
     };
 
     const creationData = {
-      ...userData,
+      body: {
+        ...userData,
+      },
     };
 
     return this.request(path, creationData)
@@ -27,7 +29,9 @@ class UserService extends Service {
     };
 
     const loginData = {
-      ...userData,
+      body: {
+        ...userData,
+      }
     };
 
     return this.request(path, loginData)

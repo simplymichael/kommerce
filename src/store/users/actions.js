@@ -17,8 +17,8 @@ export function loginUserError(error) {
   return generateErrorAction(LOGIN_ERROR, error);
 }
 
-export function loginUserSuccess(data) {
-  return generateAction(LOGIN_SUCCESS, {data});
+export function loginUserSuccess(user) {
+  return generateAction(LOGIN_SUCCESS, { user });
 }
 
 export function createUser(user) {
@@ -29,6 +29,6 @@ export function createUserError(error) {
   return generateErrorAction(CREATE_USER_ERROR, error);
 }
 
-export function createUserSuccess(data) {
-  return generateAction(CREATE_USER_SUCCESS, {data});
+export function createUserSuccess(user) {
+  return generateAction(CREATE_USER_SUCCESS, { user });
 }

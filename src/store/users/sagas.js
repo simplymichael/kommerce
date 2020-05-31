@@ -1,4 +1,5 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { saveAuthToken } from '../../utils/auth';
 import sagaRegistry from '../saga-registry';
 import { LOGIN, CREATE_USER } from './constants';
 import {
@@ -11,24 +12,42 @@ import {
 let service = null;
 
 function* login(action) {
-  const { user } = action.payload;
+  const { user: loginData } = action.payload;
 
   try {
-    const data = yield call(() => service.loginUser(user));
+    const {
+      user,
+      accessToken,
+      expiresIn
+    } = yield call(() => service.loginUser(loginData));
 
-    yield put(loginUserSuccess(data));
+    saveAuthToken({
+      token: accessToken,
+      expires: expiresIn,
+    });
+
+    yield put(loginUserSuccess(user));
   } catch (err) {
     yield put(loginUserError(err.toString()));
   }
 }
 
 function* createUser(action) {
-  const { user } = action.payload;
+  const { user: registrationData } = action.payload;
 
   try {
-    const data = yield call(() => service.createUser(user));
+    const {
+      user,
+      accessToken,
+      expiresIn
+    } = yield call(() => service.createUser(registrationData));
 
-    yield put(createUserSuccess(data));
+    saveAuthToken({
+      token: accessToken,
+      expires: expiresIn,
+    });
+
+    yield put(createUserSuccess(user));
   } catch (err) {
     yield put(createUserError(err.toString()));
   }

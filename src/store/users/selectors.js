@@ -15,5 +15,5 @@ export const makeSelectIsCreatingUser = () =>
 export const makeSelectCreateUserError = () =>
   createSelector(localState, state => state.get('createUserError'));
 
-export const makeSelectAuthSuccessData = () =>
-  createSelector(localState, state => state.get('authSuccessData').toJS());
+export const makeSelectUser = () =>
+  createSelector(localState, state => state.get('user').toJS());
