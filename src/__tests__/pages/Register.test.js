@@ -1,11 +1,28 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import Register from '../../pages/Register';
+import {
+  store,
+  bindComponentToStore,
+  wrapComponentInRouter
+} from '../test-utils';
+
+let Component;
+const ConnectedComponent = bindComponentToStore(store)(
+  wrapComponentInRouter(Register));
+
+beforeEach(() => {
+  Component = render(
+    <ConnectedComponent />
+  );
+});
+
+afterEach(cleanup);
 
 describe('Registration Page', () => {
-  it('renders text: Signup page', () => {
-    const { getByText } = render(<Register />);
-    const text = getByText(/Signup page/i);
-    expect(text).toBeInTheDocument();
+  it('renders registration form', () => {
+    const { queryByRole } = Component;
+    const form = queryByRole('registration-form');
+    expect(form).toBeInTheDocument();
   });
 });
