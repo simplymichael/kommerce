@@ -42,6 +42,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   border-radius: 3px;
   width: 100%;
+  height: 200px;
   vertical-align: middle;
   border-style: none;
 `;
@@ -79,6 +80,7 @@ const ProductAttributes = styled.div`
   padding-top: 5px;
   padding-bottom: 5px;
 `;
+/*
 const ProductAttribute = styled.span`
   display: inline-block;
   width: ${props => props.width || '70px'};
@@ -100,6 +102,22 @@ const AttributeLabel = styled.small`
   color: #555;
 `;
 const AttributeValue = styled.span``;
+*/
+const ProductAttribute = styled.span`
+  display: inline-block;
+  width: ${props => props.width || '70px'};
+  padding-top: 0;
+  padding-bottom: 1px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 5px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #fff;
+  background: #555; /* ${props => props.backgroundColor} */
+  font-weight: 700;
+  text-transform: capitalize;
+`;
 
 /**
  * Should take a product object as prop,
@@ -136,7 +154,9 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
   };
 
   return (
-    <ProductContainer role={`product-${product.id}-summary`}>
+    <ProductContainer
+      role={`product-${product.id}-summary`}
+      title={`${product.name} (Brand: ${product.brand})`}>
       <ImageContainer>
         <ProductLink to={productPage} role={'product-image-link'}
           title={linkTitle}>
@@ -155,7 +175,31 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
           </span>
         </ProductLink>
       </ProductTitle>
+      <ProductAttributes>
+        <ProductAttribute
+          role="product-size"
+          title={`Size: ${product.size}`}
+          backgroundColor="#aae">
+          {product.size}
+        </ProductAttribute>
+        &nbsp;
+        <ProductAttribute
+          role="product-color"
+          title={`Color: ${product.color}`}
+          backgroundColor={product.color}>
+          {product.color}
+        </ProductAttribute>
+        <ProductAttribute backgroundColor="#900">
+          {strings.currency.symbol}
+          <span
+            role="product-price"
+            title={`Price: ${product.price}`}>
+            {product.price}
+          </span>
+        </ProductAttribute>
+      </ProductAttributes>
 
+      {/*
       <ProductAttributes>
         <ProductAttribute width="100%" title={`Brand: ${product.brand}`}
           backgroundColor="violet">
@@ -191,6 +235,7 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
           </AttributeValue>
         </ProductAttribute>
       </ProductAttributes>
+      */}
 
       {isAddingProductToCart() && (
         <AddToCartButton

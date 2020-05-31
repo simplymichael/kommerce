@@ -1,20 +1,22 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import ProductsList from '../../../components/Products/ProductsList';
-import productsData from '../../../__DATA__/products';
+import config from '../../../config';
+import api from '../../../__DATA__/api';
 import {
   store,
   bindComponentToStore,
   wrapComponentInRouter
 } from '../../test-utils';
 
-const products = productsData.slice().map(product => {
+const products = api.products.slice().map(product => {
   product.defaultImage = product.images
     .filter(img => img.default === true)
     .pop();
 
   return product;
 });
+const perPage = config.products.perPage;
 
 let Component;
 const ConnectedProductsList = bindComponentToStore(store)(
@@ -38,7 +40,7 @@ describe('ProductsList', () => {
     const renderedList = container.childNodes;
 
     expect(renderedList).not.toBeNull();
-    expect(renderedList.length).toEqual(products.length);
+    expect(renderedList.length).toEqual(perPage);
 
     [].forEach.call(renderedList, (productContainer, index) => {
       const passedProduct = products[index];
@@ -54,18 +56,18 @@ describe('ProductsList', () => {
       const productImage = renderedProduct.queryByRole('product-image');
       const productSize = renderedProduct.queryByRole('product-size');
       const productColor  = renderedProduct.queryByRole('product-color');
-      const productBrand = renderedProduct.queryByRole('product-brand');
       const productPrice = renderedProduct.queryByRole('product-price');
 
       expect(parseInt(productId)).toEqual(passedProduct.id);
       expect(productName.textContent).toEqual(passedProduct.name);
       expect(productSize.textContent).toEqual(passedProduct.size);
       expect(productColor.textContent).toEqual(passedProduct.color);
-      expect(productBrand.textContent).toEqual(passedProduct.brand);
       expect(parseFloat(productPrice.textContent)).toEqual(
         parseFloat(passedProduct.price));
       expect(productImage.getAttribute('src')).toEqual(
         passedProduct.defaultImage.url);
+      expect(renderedProduct.getAttribute('title')).toEqual(
+        `${passedProduct.name} (Brand: ${passedProduct.brand})`);
     });
   });
 });

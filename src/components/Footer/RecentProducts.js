@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Loading from '../Notifications/Loading';
 import { Error } from '../Notifications';
+import config from '../../config';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import { formatTime } from '../../utils/date';
@@ -38,6 +39,7 @@ const ProductInfo = styled.strong`
 
 const ProductImage = styled.img`
   width: 100px;
+  height: 100px;
   margin-right: 10px;
   float: left;
 `;
@@ -68,8 +70,8 @@ const ProductView = ({id, name, dateAdded, imageUrl}) => {
 
 const RecentProducts = (props) => {
   useEffect(() => {
-    props.fetchProducts(3); // eslint-disable-next-line
-  }, ['products']);
+    props.fetchProducts(config.products.recentCount || 3); // eslint-disable-next-line
+  }, []);
 
   if(props.isFetchingProducts) {
     return (

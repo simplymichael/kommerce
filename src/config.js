@@ -4,6 +4,10 @@ export default {
     email: 'support@kommerce.com',
     phone: '(+000) 123 456 789',
   },
+  products: {
+    perPage: 9, // No. of products displayed per page on products listing page
+    recentCount: 3, // No. of recent products displayed on page foooter
+  },
   social: {
     behance: {
       url: '#',

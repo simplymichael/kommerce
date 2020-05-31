@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import Loading from '../Notifications/Loading';
 import { Error } from '../Notifications';
 import ProductSummary from './ProductSummary';
+import config from '../../config';
 import strings from '../../resources/strings';
-
 import { makeSelectSelectedBrands } from '../../store/brands';
 import { makeSelectSelectedColors } from '../../store/colors';
 import { makeSelectPriceRange } from '../../store/prices';
@@ -57,7 +57,7 @@ class ProductsList extends React.Component {
     const { min, max } = priceRangeSelector;
     this.queryData = {
       page    : 1,
-      limit   : 10,
+      limit   : config.products.perPage || 10,
       colors  : [],
       sizes   : [],
       brands  : [],
