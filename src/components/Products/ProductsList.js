@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
+import Pagination from 'react-js-pagination';
 import Loading from '../Notifications/Loading';
 import { Error } from '../Notifications';
 import ProductSummary from './ProductSummary';
@@ -55,43 +56,64 @@ class ProductsList extends React.Component {
     super(props);
 
     const { min, max } = priceRangeSelector;
-    this.queryData = {
-      page    : 1,
-      limit   : config.products.perPage || 10,
-      colors  : [],
-      sizes   : [],
-      brands  : [],
-      orderBy : {},
-      priceRange : { min, max },
+
+    this.state = {
+      queryData: {
+        page    : 1,
+        limit   : config.products.perPage || 10,
+        colors  : [],
+        sizes   : [],
+        brands  : [],
+        orderBy : {},
+        priceRange : { min, max },
+      }
     };
   }
 
   componentDidMount() {
-    this.props.fetchProducts(this.queryData);
+    this.props.fetchProducts(this.state.queryData);
   }
 
-  componentDidUpdate(prevProps) {
-    let propsChanged = false;
+  componentDidUpdate(prevProps, prevState) {
+    let needsUpdate = false;
+    const { props } = this;
+    const watched = [
+      'priceRange', 'selectedColors',
+      'selectedBrands', 'selectedSizes'
+    ];
 
-    if(prevProps.priceRange !== this.props.priceRange) {
-      propsChanged = true;
-      this.queryData.priceRange = this.props.priceRange;
+    for(let i = 0; i < watched.length; i++) {
+      const key = watched[i];
+
+      if(prevProps[key] !== props[key]) {
+        needsUpdate = true;
+      }
     }
-    if(prevProps.selectedColors !== this.props.selectedColors) {
-      propsChanged = true;
-      this.queryData.colors = this.props.selectedColors;
+
+    if(prevState.queryData.page !== this.state.queryData.page) {
+      needsUpdate = true;
     }
-    if(prevProps.selectedBrands !== this.props.selectedBrands) {
-      propsChanged = true;
-      this.queryData.brands = this.props.selectedBrands;
+
+    if(needsUpdate) {
+      this.setState(currState => ({
+        queryData: {
+          ...currState.queryData,
+          priceRange: props.priceRange,
+          colors: props.selectedColors,
+          brands: props.selectedBrands,
+          sizes: props.selectedSizes,
+        }
+      }), () => props.fetchProducts(this.state.queryData));
     }
-    if(prevProps.selectedSizes !== this.props.selectedSizes) {
-      propsChanged = true;
-      this.queryData.sizes = this.props.selectedSizes;
-    }
-    if(propsChanged) {
-      this.props.fetchProducts(this.queryData);
-    }
+  }
+
+  handlePageChange(pageNumber) {
+    this.setState(currState => ({
+      queryData: {
+        ...currState.queryData,
+        page: pageNumber
+      }
+    }));
   }
 
   render() {
@@ -131,11 +153,26 @@ class ProductsList extends React.Component {
       return product;
     });
 
-    return productsArray.map(product => (
-      <ProductContainer key={product.id} md={containerWeight}>
-        <ProcessorComponent product={product} />
-      </ProductContainer>
-    ));
+    return (
+      <>
+        {productsArray.map(product => (
+          <ProductContainer key={product.id} md={containerWeight}
+            role="product-container">
+            <ProcessorComponent product={product} />
+          </ProductContainer>
+        ))}
+        <div style={{ margin: 'auto' }}>
+          <Pagination
+            activePage={this.state.queryData.page}
+            itemsCountPerPage={config.products.perPage || 10}
+            totalItemsCount={14}
+            pageRangeDisplayed={4}
+            onChange={this.handlePageChange.bind(this)}
+            itemClass="page-item"
+            linkClass="page-link" />
+        </div>
+      </>
+    );
   }
 }
 
@@ -144,6 +181,7 @@ ProductsList.propTypes = {
   container: PropTypes.node,
   weight: PropTypes.string,
   renderer: PropTypes.node,
+  page: PropTypes.number,
   priceRange: PropTypes.shape({
     min: PropTypes.number,
     max: PropTypes.number,

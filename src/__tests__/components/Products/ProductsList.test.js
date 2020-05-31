@@ -32,14 +32,19 @@ afterEach(cleanup);
 
 describe('ProductsList', () => {
   it('should render a list of products returned from the store', async () => {
-    const  { container, findAllByRole } = Component;
+    //const  { container, findAllByRole } = Component;
+    const  { findAllByRole } = Component;
     const productRegex = /product-(\d)-summary/i;
 
-    await findAllByRole(productRegex);
+    //await findAllByRole(productRegex);
 
-    const renderedList = container.childNodes;
+    // container.childNodes includes the pagination div,
+    // so the test with it fails.
+    //const renderedList = container.childNodes;
+    const renderedList = await findAllByRole('product-container');
 
     expect(renderedList).not.toBeNull();
+
     expect(renderedList.length).toEqual(perPage);
 
     [].forEach.call(renderedList, (productContainer, index) => {
