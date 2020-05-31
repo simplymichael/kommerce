@@ -192,7 +192,7 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
         <ProductAttribute backgroundColor="#900">
           {strings.currency.symbol}
           <span
-            role="product-price"
+            role="product-price" // eslint-disable-line
             title={`Price: ${product.price}`}>
             {product.price}
           </span>

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Loading from '../Notifications/Loading';
 import { Error } from '../Notifications';
-import config from '../../config';
+import config from '../../.config';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import { formatTime } from '../../utils/date';

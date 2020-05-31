@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import config from '../../config';
+import config from '../../.config';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import Logo from '../Logo';

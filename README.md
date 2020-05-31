@@ -74,9 +74,11 @@ If the server is mistakenly stopped, it can be restarted by running: `npm run se
 ## Configuration
 The project contains two configuration files:
 
-- `src/config.js`: This file holds configuration information related to the business or webiste;
+- `src/.config.js`: This file holds configuration information related to the business or webiste;
   values that are usually stable, and can be configured by non-developers.
   It contain such things as the business address and social media handles that hardly change.
+
+  To create this file, copy the `src/.config.example.js` file to `src/.config.js`, and modify the values as necessary.
 - `src/.env.js`: This file holds configuration information that are dynamic, and environment-dependent.
   Values such as the user language (for determining which language files to load),
   and ports for the test server are stored in this file.

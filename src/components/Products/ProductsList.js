@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Loading from '../Notifications/Loading';
 import { Error } from '../Notifications';
 import ProductSummary from './ProductSummary';
-import config from '../../config';
+import config from '../../.config';
 import strings from '../../resources/strings';
 import { makeSelectSelectedBrands } from '../../store/brands';
 import { makeSelectSelectedColors } from '../../store/colors';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import ProductsList from '../../../components/Products/ProductsList';
-import config from '../../../config';
+import config from '../../../.config';
 import api from '../../../__DATA__/api';
 import {
   store,

@@ -1,4 +1,4 @@
-import config from '../config';
+import config from '../.config';
 import Service from '../services/Service';
 
 import { sagas as brandSagas } from './brands';
