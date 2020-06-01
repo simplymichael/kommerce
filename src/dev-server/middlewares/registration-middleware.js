@@ -1,10 +1,9 @@
 import env from '../.env';
+import { isRegistrationRoute } from '../utils/route';
 import { isValidEmail, isValidPassword } from '../utils/validator';
 
 const middleware = (req, res, next) => {
-  // If we are not dealing with a /users POST requres,
-  // then just move on to the next middleware
-  if(req.path.indexOf('/users') !== 0 || req.method.toLowerCase() !== 'post') {
+  if(!isRegistrationRoute(req)) {
     next();
     return;
   }

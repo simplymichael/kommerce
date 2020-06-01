@@ -2,10 +2,13 @@ import jsonServer from 'json-server';
 import env from './.env';
 
 import { generateAuthToken } from './utils/auth';
+import * as routeHelper from './utils/route';
 
 import authenticationMiddleware from './middlewares/auth-middleware';
 import dateAddedMiddleware from './middlewares/date-added-middleware';
+import loginMiddleware from './middlewares/login-middleware';
 import registrationMiddleware from './middlewares/registration-middleware';
+import usersFilterMiddleware from './middlewares/users-filter-middleware';
 import productsMiddleware from './middlewares/products-middleware';
 import queryStringMiddleware from './middlewares/query-string-middleware';
 
@@ -18,7 +21,9 @@ const routes = require('./routes'); // Defines our custom routes
 server.use(defaults); // default middlewares (logger, static, cors, no-cache)
 server.use(jsonServer.bodyParser); // parse POST, PUT and PATCH requests body
 server.use(authenticationMiddleware); // guard protected routes
+server.use(loginMiddleware); // validate login data
 server.use(registrationMiddleware); // validate registration data
+server.use(usersFilterMiddleware); // filter users by name, email, password, etc
 server.use(dateAddedMiddleware); // Add creation date to POST requests
 server.use(productsMiddleware); // embed product-reviews in /products request
 server.use(queryStringMiddleware);
@@ -28,7 +33,7 @@ server.use(router); // Use default router
 // Customise response
 router.render = (req, res) => {
   // If the request is for new user registrations
-  if(req.path.indexOf('/users') === 0 && req.method.toLowerCase() === 'post') {
+  if(routeHelper.isRegistrationRoute(req)) {
     const { id: userId, email } = res.locals.data;
     const { token, expiry } = generateAuthToken(userId, email);
 
@@ -41,9 +46,34 @@ router.render = (req, res) => {
     return;
   }
 
+  // If the request is for new user login
+  if(routeHelper.isLoginRoute(req)) {
+    if(req.body.filter.users.length === 0) {
+      // No match found for email + password combination
+      res.status(404).jsonp({
+        error: 'Invalid login credentials!'
+      });
+
+      return;
+    }
+
+    const user = req.body.filter.users.shift();
+    const { token, expiry } = generateAuthToken(user.id, user.email);
+
+    delete user.password; // Remove the user's password from the response
+
+    res.jsonp({
+      user,
+      accessToken: `Bearer ${token}`,
+      expiresIn: expiry,
+    });
+
+    return;
+  }
+
   // If the request is for retrieving users' data,
   // remove their password from the returned result
-  if(req.path.indexOf('/users') === 0) {
+  if(routeHelper.isUsersRoute(req)) {
     let users;
     const data = res.locals.data;
 
