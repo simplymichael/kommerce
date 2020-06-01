@@ -15,30 +15,11 @@ import 'whatwg-fetch';
  *   body: {} // // appended to request body for POST|PUT requests
  * }
  */
-function request(route, params) {
-  let token = '';
-
-  const redirect = path => {
-    const url = `/login?redirect=${encodeURIComponent(path)}`;
-    window.location = url;
-  };
-
-  token = window.localStorage.getItem('authToken');
-
-  if (route.isProtected && !token) {
-    // Redirect and throw error
-    redirect(window.location.pathname);
-    throw new Error('not_logged_in');
-  }
-
-  return wrapFetch(route, params, token)
+function request(route, params, authToken) {
+  return wrapFetch(route, params, authToken)
     .then(checkStatus)
     .then(parseJSON)
     .catch(err => {
-      if (err.message === 'unauthorized') {
-        redirect(window.location.pathname);
-      }
-
       throw err;
     });
 }
@@ -111,9 +92,9 @@ function checkStatus(response) {
 
   return response.json().then(({ error }) => {
     if (response.status === 401) {
-      throw new Error('unauthorized');
+      throw new Error('Unauthorized');
     } else {
-      throw new Error(error || 'api_error');
+      throw new Error(error || 'API error');
     }
   });
 }

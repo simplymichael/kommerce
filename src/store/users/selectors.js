@@ -15,5 +15,11 @@ export const makeSelectIsCreatingUser = () =>
 export const makeSelectCreateUserError = () =>
   createSelector(localState, state => state.get('createUserError'));
 
+export const makeSelectIsFetchingCurrentUser = () =>
+  createSelector(localState, state => state.get('isFetchingCurrentUser'));
+
+export const makeSelectFetchCurrentUserError = () =>
+  createSelector(localState, state => state.get('fetchCurrentUserError'));
+
 export const makeSelectUser = () =>
   createSelector(localState, state => state.get('user').toJS());

@@ -1,14 +1,29 @@
 import cookies from './cookies';
 
-export const cacheUser = (data) => {
-  localStorage.setItem('user', JSON.stringify(data));
+export const cacheUser = (data, ttl) => {
+  let saved = {
+    data,
+  };
+
+  if(ttl) {
+    saved.expiry = Date.now() + parseInt(ttl);
+  }
+
+  localStorage.setItem('user', JSON.stringify(saved));
 };
 
 export const getCachedUser = (key) => {
   try {
-    const userData = JSON.parse(localStorage.getItem('user'));
+    const storedData = JSON.parse(localStorage.getItem('user'));
 
-    if(userData && typeof userData === 'object') {
+    if(storedData && typeof storedData === 'object') {
+      if (storedData.expiry && (Date.now() > storedData.expiry)) {
+        localStorage.removeItem('user');
+        return null;
+      }
+
+      const userData = storedData.data;
+
       return key ? userData[key] : userData;
     } else {
       return null;

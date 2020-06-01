@@ -8,6 +8,10 @@ import {
   CREATE_USER,
   CREATE_USER_ERROR,
   CREATE_USER_SUCCESS,
+
+  FETCH_CURRENT_USER,
+  FETCH_CURRENT_USER_ERROR,
+  FETCH_CURRENT_USER_SUCCESS,
 } from './constants';
 
 
@@ -18,6 +22,8 @@ export const initialState = fromJS({
   loginError: null,
   isCreatingUser: false,
   createUserError: null,
+  isFetchingCurrentUser: false,
+  fetchCurrentUserError: null,
 });
 
 export default function reducer(state = initialState, action) {
@@ -52,6 +58,22 @@ export default function reducer(state = initialState, action) {
     return state
       .set('isCreatingUser', false)
       .set('createUserError', null)
+      .set('user', fromJS(action.payload.user));
+
+  case FETCH_CURRENT_USER:
+    return state
+      .set('isFetchingCurrentUser', true)
+      .set('fetchCurrentUserError', null);
+
+  case FETCH_CURRENT_USER_ERROR:
+    return state
+      .set('isFetchingCurrentUser', false)
+      .set('fetchCurrentUserError', action.error);
+
+  case FETCH_CURRENT_USER_SUCCESS:
+    return state
+      .set('isFetchingCurrentUser', false)
+      .set('fetchCurrentUserError', null)
       .set('user', fromJS(action.payload.user));
 
   default: return state;

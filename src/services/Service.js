@@ -1,4 +1,5 @@
 import http from '../utils/http';
+import { getSavedAuthToken } from '../utils/auth';
 
 class Service {
   static getService(serviceName, {host, port} = {}) {
@@ -39,6 +40,7 @@ class Service {
    * }
    */
   request(route, params) {
+    let authToken = '';
     const { host: apiHost, port: apiPort } = this.getApiData();
     const { host = apiHost, port = apiPort } = route;
     const requestPath = route.url;
@@ -47,17 +49,35 @@ class Service {
       requestPath.charAt(0) === '/' ? '' : '/');
     const computedRoute = { ...route, url: requestUrl };
 
+    const redirect = path => {
+      const url = `/signin?redirect=${encodeURIComponent(path)}`;
+      window.location = url;
+    };
+
     for(const key in computedRoute) {
       if(!(['url', 'method', 'isProtected'].includes(key))) {
         delete computedRoute[key];
       }
     }
 
-    return http.request(computedRoute, params)
+    if(computedRoute.isProtected) {
+      authToken = getSavedAuthToken();
+
+      if (!authToken) {
+        redirect(window.location.pathname);
+      }
+    }
+
+    return http.request(computedRoute, params, authToken)
       .then(json => json)
       .catch(err => {
         console.error('Error in Service::request(): ', err);
-        throw err;
+
+        if (err.message === 'Unauthorized') {
+          redirect(window.location.pathname);
+        } else {
+          throw err;
+        }
       });
   }
 

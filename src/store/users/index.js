@@ -1,12 +1,14 @@
 import sagas from './sagas';
 import reducer from './reducer';
-import { loginUser, createUser } from './actions';
+import { loginUser, createUser, fetchCurrentUser } from './actions';
 import {
   makeSelectUser,
   makeSelectIsLoggingIn,
   makeSelectIsCreatingUser,
+  makeSelectIsFetchingCurrentUser,
   makeSelectLoginError,
   makeSelectCreateUserError,
+  makeSelectFetchCurrentUserError,
 } from './selectors';
 
 export {
@@ -14,9 +16,12 @@ export {
   reducer,
   loginUser,
   createUser,
+  fetchCurrentUser,
   makeSelectUser,
   makeSelectIsLoggingIn,
   makeSelectIsCreatingUser,
+  makeSelectIsFetchingCurrentUser,
   makeSelectLoginError,
   makeSelectCreateUserError,
+  makeSelectFetchCurrentUserError,
 };

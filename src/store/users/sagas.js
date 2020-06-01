@@ -1,12 +1,14 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { saveAuthToken } from '../../utils/auth';
+import { cacheUser, saveAuthToken } from '../../utils/auth';
 import sagaRegistry from '../saga-registry';
-import { LOGIN, CREATE_USER } from './constants';
+import { LOGIN, CREATE_USER, FETCH_CURRENT_USER } from './constants';
 import {
   loginUserError,
   loginUserSuccess,
   createUserError,
   createUserSuccess,
+  fetchCurrentUserError,
+  fetchCurrentUserSuccess,
 } from './actions';
 
 let service = null;
@@ -21,6 +23,7 @@ function* login(action) {
       expiresIn
     } = yield call(() => service.loginUser(loginData));
 
+    cacheUser(user, expiresIn);
     saveAuthToken({
       token: accessToken,
       expires: expiresIn,
@@ -42,6 +45,7 @@ function* createUser(action) {
       expiresIn
     } = yield call(() => service.createUser(registrationData));
 
+    cacheUser(user, expiresIn);
     saveAuthToken({
       token: accessToken,
       expires: expiresIn,
@@ -53,6 +57,16 @@ function* createUser(action) {
   }
 }
 
+function* fetchCurrentUser() {
+  try {
+    const user = yield call(() => service.getCurrentUser());
+
+    yield put(fetchCurrentUserSuccess(user));
+  } catch (err) {
+    yield put(fetchCurrentUserError(err.toString()));
+  }
+}
+
 export const sagaName = 'auth';
 export default function(injectedService) {
   service = injectedService;
@@ -61,6 +75,7 @@ export default function(injectedService) {
     yield all([
       takeEvery(LOGIN, login),
       takeEvery(CREATE_USER, createUser),
+      takeEvery(FETCH_CURRENT_USER, fetchCurrentUser),
     ]);
   }
 

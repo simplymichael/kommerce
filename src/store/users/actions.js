@@ -7,6 +7,10 @@ import {
   CREATE_USER,
   CREATE_USER_ERROR,
   CREATE_USER_SUCCESS,
+
+  FETCH_CURRENT_USER,
+  FETCH_CURRENT_USER_ERROR,
+  FETCH_CURRENT_USER_SUCCESS,
 } from './constants';
 
 export function loginUser(user) {
@@ -31,4 +35,16 @@ export function createUserError(error) {
 
 export function createUserSuccess(user) {
   return generateAction(CREATE_USER_SUCCESS, { user });
+}
+
+export function fetchCurrentUser() {
+  return generateAction(FETCH_CURRENT_USER);
+}
+
+export function fetchCurrentUserError(error) {
+  return generateErrorAction(FETCH_CURRENT_USER_ERROR, error);
+}
+
+export function fetchCurrentUserSuccess(user) {
+  return generateAction(FETCH_CURRENT_USER_SUCCESS, { user });
 }

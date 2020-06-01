@@ -1,4 +1,5 @@
 import Service from './Service';
+import { getCachedUser } from '../utils/auth';
 
 const route = { url: '/users', method: 'get', isProtected: false };
 
@@ -41,14 +42,20 @@ class UserService extends Service {
       });
   }
 
-  getCurrentUserData(accessToken) {
+  getCurrentUser() {
+    const userId = getCachedUser('id');
+
+    if(!userId) {
+      return {};
+    }
+
     const path = {
       ...route,
-      method: 'post',
+      url: `${route.url}/:userId`,
       isProtected: true
     };
 
-    return this.request(path, { accessToken })
+    return this.request(path, { userId })
       .then(response => response)
       .catch(err => {
         throw err;

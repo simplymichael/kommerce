@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import {
+  makeSelectUser,
+  fetchCurrentUser,
+  makeSelectIsFetchingCurrentUser,
+  makeSelectFetchCurrentUserError,
+} from '../../store/users';
 
-const UserLink = ({ user }) => {
-  user = user || (
-    Math.floor(Math.random() * 2) > 0
-      ? { id: 1, name: 'Dummy User' }
-      : {}
-  );
+const UserLink = (props) => {
+  const {
+    user,
+    fetchCurrentUser,
+  } = props;
+
+  useEffect(() => {
+    fetchCurrentUser(); // eslint-disable-next-line
+  }, []);
 
   if(user.id) {
     return `Welcome ${user.name}`;
@@ -27,7 +38,24 @@ const UserLink = ({ user }) => {
 };
 
 UserLink.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
+  fetchCurrentUser: PropTypes.func,
+  isFetchingCurrentUser: PropTypes.bool,
+  fetchCurrentUserError: PropTypes.string,
 };
 
-export default UserLink;
+const mapDispatchToProps = dispatch => ({
+  fetchCurrentUser: () => dispatch(fetchCurrentUser()),
+});
+
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+  isFetchingCurrentUser: makeSelectIsFetchingCurrentUser(),
+  fetchCurrentUserError: makeSelectFetchCurrentUserError(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserLink);
