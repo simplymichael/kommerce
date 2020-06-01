@@ -1,12 +1,20 @@
 import cookies from './cookies';
 
+/**
+ * @param data mixed required: data to store
+ * @param ttl int optional: time to live (in seconds)
+ */
 export const cacheUser = (data, ttl) => {
+  if(!data) {
+    return;
+  }
+
   let saved = {
     data,
   };
 
   if(ttl) {
-    saved.expiry = Date.now() + parseInt(ttl);
+    saved.expiry = Date.now() + parseInt(ttl) * 1000; // convert ttl to ms
   }
 
   localStorage.setItem('user', JSON.stringify(saved));
