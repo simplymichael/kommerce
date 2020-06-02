@@ -16,6 +16,12 @@ const users = () => db.users;
 // in order for our implementation of login to work.
 const syncUser = (user) =>  db.users = db.users.concat([user]);
 
+/**
+ * Only this db module (should) use default export in this utils directory.
+ * Because of its peculiar nature of reaching out to the __DATA__/api.json file,
+ * which ordinarily is handled by json-server,
+ * I want its API to be accessible only via the object it exports
+ */
 export default {
   all,
   users,

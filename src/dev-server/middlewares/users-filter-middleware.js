@@ -1,6 +1,5 @@
-import db from '../utils/db';
+import { filterBy} from '../utils/user';
 import { isUsersRoute } from '../utils/route';
-import { checkPassword } from '../utils/auth';
 
 const middleware = async (req, res, next) => {
   // If we are not dealing with a /users request,
@@ -8,37 +7,16 @@ const middleware = async (req, res, next) => {
   // then just move on to the next middleware.
   //
   // The filtering parameters are usually set
-  // by previous middlewares(e.g, the login middleware) in the middleware chain.
+  // by previous middlewares(e.g, the login middleware) in the middleware chain,
+  // and (should) have the following structure:
+  // { name: userName, email: userEmail, password: userPass, ... }
   if(!isUsersRoute(req) || !req.body.filter || !req.body.filter.usersBy) {
     next();
     return;
   }
 
-  const users = await db.users();
-  const filters = req.body.filter.usersBy; // { name, email, password }
-
-  const filteredUsers = users.filter((user) => {
-    let includeUser = true;
-
-    for(let [key, value] of Object.entries(filters)) {
-      if(key === 'password') {
-        includeUser = checkPassword(value, user.password);
-      } else {
-        if(user[key].toLowerCase() !== value.toLowerCase()) {
-          includeUser = false;
-        }
-      }
-
-      if(!includeUser) {
-        break;
-      }
-    }
-
-    return includeUser;
-  });
-
   req.body = req.body || {};
-  req.body.filter.users = filteredUsers;
+  req.body.filter.users = await filterBy(req.body.filter.usersBy);
 
   next();
 };

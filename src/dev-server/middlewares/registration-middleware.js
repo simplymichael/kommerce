@@ -1,9 +1,10 @@
 import env from '../.env';
 import { hashPassword } from '../utils/auth';
+import { findByEmail } from '../utils/user';
 import { isRegistrationRoute } from '../utils/route';
 import { isValidEmail, isValidPassword } from '../utils/validator';
 
-const middleware = (req, res, next) => {
+const middleware = async (req, res, next) => {
   if(!isRegistrationRoute(req)) {
     next();
     return;
@@ -38,9 +39,9 @@ const middleware = (req, res, next) => {
   }
 
   // Make sure there isn't already a user registered with that email address
-  if(findUserByEmail(email)) {
-    res.status(400).jsonp({
-      error: 'There is already a user with that email address!'
+  if(await findByEmail(email)) {
+    res.status(403).jsonp({
+      error: 'The email you are trying to use is unavailable!'
     });
 
     return;
@@ -50,9 +51,5 @@ const middleware = (req, res, next) => {
 
   next();
 };
-
-function findUserByEmail(email) {
-  return !email; // TO DO: implement
-}
 
 export default middleware;
