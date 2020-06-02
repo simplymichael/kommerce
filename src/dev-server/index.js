@@ -96,7 +96,26 @@ router.render = (req, res) => {
   // (apart from userDetailsWithTokenRoute [/user]),
   // e.g /users/:id,
   if(routeHelper.isProtectedRoute(req)) {
-    // generate a new token and expiry
+    // The currentUser key is added to the request body
+    // by the auth-middleware
+    // after the user's access token is authenticated and decoded.
+    const { currentUser: { id, email } } = req.body;
+
+    // If trying to get a user's details,
+    // then it must be your own user details, not another person's
+    if(routeHelper.isUserDetailsRoute(req)) {
+      const pathId = parseInt(req.path.split('/').pop());
+
+      if(pathId !== id) {
+        res.status(401).jsonp({
+          error: 'Unauthorized access',
+        });
+
+        return;
+      }
+    }
+
+    // Else, generate a new token and expiry
     // and send back as part of the response.
     // I could instead choose to just auto-refresh the token
     // using, for example, this example:
@@ -105,11 +124,6 @@ router.render = (req, res) => {
     // and let the client decide to overwrite the previously stored token
     // with this one.
     // This may have some security implications, but this is just a demo-server.
-    //
-    // The currentUser key is added to the request body
-    // by the auth-middleware
-    // after the user's access token is authenticated and decoded.
-    const { currentUser: { id, email } } = req.body;
     const { token, expiry } = generateAuthToken(id, email);
 
     res.locals.data.accessToken = `Bearer ${token}`;
