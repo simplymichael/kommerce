@@ -1,9 +1,10 @@
 import { verifyAuthToken } from '../utils/auth';
+import { isUserDetailsRoute, isProtectedRoute } from '../utils/route';
 
 const middleware = async (req, res, next) => {
   // If the request is not to a protected route,
   // pass on to the request
-  if(!isProtected(req)) {
+  if(!isProtectedRoute(req)) {
     next();
     return;
   }
@@ -32,7 +33,7 @@ const middleware = async (req, res, next) => {
 
     // If trying to get a user's details,
     // then it must be your own user details, not another person's
-    if(isUserDetailsPath(req.path)) {
+    if(isUserDetailsRoute(req)) {
       const pathId = parseInt(req.path.split('/').pop());
 
       if(pathId !== userId) {
@@ -53,19 +54,5 @@ const middleware = async (req, res, next) => {
     });
   }
 };
-
-function isProtected(req) {
-  // route for getting data of current user data
-  // if their access token has not expired, so they don't have to relogin
-  if(isUserDetailsPath(req.path)) {
-    return true;
-  }
-
-  return false;
-}
-
-function isUserDetailsPath(path) {
-  return /^\/users\/\d/.test(path);
-}
 
 export default middleware;
