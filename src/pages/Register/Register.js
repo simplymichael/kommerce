@@ -1,18 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import RegistrationForm from './RegistrationForm';
 import { makeSelectUser } from '../../store/users';
 
 class SignUpPage extends React.Component {
   componentDidMount() {
     // If user is logged in, redirect
-    /*if(this.props.authSuccessData.user.id) {
-      // redirect
-      return;
-    }*/
+    if(this.props.user.id) {
+      this.redirect();
+    }
+  }
+
+  componentDidUpdate() {
+    if(this.props.user.id) {
+      this.redirect();
+    }
+  }
+
+  redirect() {
+    const { redirect: pageTo } = queryString.parse(this.props.location.search);
+    this.props.history.push(pageTo || '/');
   }
 
   render() {
@@ -32,10 +44,12 @@ SignUpPage.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
   }),
+  history: PropTypes.object,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
 });
 
-export default connect(mapStateToProps)(SignUpPage);
+export default connect(mapStateToProps)(withRouter(SignUpPage));
