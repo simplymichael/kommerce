@@ -1,4 +1,4 @@
-export const isUsersRoute = req => req.path.indexOf('/users') === 0;
+export const isUsersRoute = req => req.path.indexOf('/user') === 0;
 
 export const isLoginRoute = req =>
   /^\/users\/login\/?$/.test(req.path) && req.method.toLowerCase() === 'post';
@@ -6,14 +6,28 @@ export const isLoginRoute = req =>
 export const isRegistrationRoute = req =>
   /^\/users\/?$/.test(req.path) && req.method.toLowerCase() === 'post';
 
+// Route for getting data of current user data using their Id (/users/:id)
+// if their access token has not expired
 export const isUserDetailsRoute = req => {
   return /^\/users\/\d/.test(req.path);
 };
 
+// Route (/user) for getting the current user's details
+// using their access token without their id or any other login credentials.
+// This is so they don't have to relogin if their token has not expired.
+// The access token is sent in the Authorization header:
+// GET /user
+// Headers: { Authorization: Bearer <accessToken>, ... }
+export const isUserDetailsWithTokenRoute = req => {
+  return req.path === '/user' && req.method.toLowerCase() === 'get';
+};
+
 export const isProtectedRoute = req => {
-  // route for getting data of current user data
-  // if their access token has not expired, so they don't have to relogin
   if(isUserDetailsRoute(req)) {
+    return true;
+  }
+
+  if(isUserDetailsWithTokenRoute(req)) {
     return true;
   }
 

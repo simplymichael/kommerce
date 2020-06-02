@@ -17,7 +17,10 @@ export const filterBy = async (filters) => {
       if(key === 'password') {
         includeUser = checkPassword(value, user.password);
       } else {
-        if(user[key].toLowerCase() !== value.toLowerCase()) {
+        if(typeof user[key] === 'string' && typeof value === 'string' &&
+           (user[key].toLowerCase() !== value.toLowerCase())) {
+          includeUser = false;
+        } else if(user[key] !== value) {
           includeUser = false;
         }
       }

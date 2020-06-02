@@ -7,6 +7,7 @@ import * as routeHelper from './utils/route';
 
 import authenticationMiddleware from './middlewares/auth-middleware';
 import dateAddedMiddleware from './middlewares/date-added-middleware';
+import getUserByTokenMiddleware from './middlewares/get-user-by-token-middleware';
 import loginMiddleware from './middlewares/login-middleware';
 import registrationMiddleware from './middlewares/registration-middleware';
 import usersFilterMiddleware from './middlewares/users-filter-middleware';
@@ -22,6 +23,7 @@ const routes = require('./routes'); // Defines our custom routes
 server.use(defaults); // default middlewares (logger, static, cors, no-cache)
 server.use(jsonServer.bodyParser); // parse POST, PUT and PATCH requests body
 server.use(authenticationMiddleware); // guard protected routes
+server.use(getUserByTokenMiddleware); // get user details by access token
 server.use(loginMiddleware); // validate login data
 server.use(registrationMiddleware); // validate registration data
 server.use(usersFilterMiddleware); // filter users by name, email, password, etc
@@ -85,6 +87,29 @@ router.render = (req, res) => {
       user,
       accessToken: `Bearer ${token}`,
       expiresIn: expiry,
+    });
+
+    return;
+  }
+
+  // If we are getting the user's details via their access token
+  if(routeHelper.isUserDetailsWithTokenRoute(req)) {
+    if(req.body.filter.users.length === 0) {
+      // No match found for email + password combination
+      res.status(404).jsonp({
+        error: 'User not found!'
+      });
+
+      return;
+    }
+
+    const userData = req.body.filter.users.shift();
+    const user = { ...userData };
+
+    delete user.password; // Remove the user's password from the response
+
+    res.status(200).jsonp({
+      user,
     });
 
     return;
