@@ -92,6 +92,30 @@ router.render = (req, res) => {
     return;
   }
 
+  // Whenever a user accesses any other protected route,
+  // (apart from userDetailsWithTokenRoute [/user]),
+  // e.g /users/:id,
+  if(routeHelper.isProtectedRoute(req)) {
+    // generate a new token and expiry
+    // and send back as part of the response.
+    // I could instead choose to just auto-refresh the token
+    // using, for example, this example:
+    // https://gist.github.com/ziluvatar/a3feb505c4c0ec37059054537b38fc48
+    // But I chose to create and send a new one to the client,
+    // and let the client decide to overwrite the previously stored token
+    // with this one.
+    // This may have some security implications, but this is just a demo-server.
+    //
+    // The currentUser key is added to the request body
+    // by the auth-middleware
+    // after the user's access token is authenticated and decoded.
+    const { currentUser: { id, email } } = req.body;
+    const { token, expiry } = generateAuthToken(id, email);
+
+    res.locals.data.accessToken = `Bearer ${token}`;
+    res.locals.data.expiresIn = expiry;
+  }
+
   // If we are getting the user's details via their access token
   if(routeHelper.isUserDetailsWithTokenRoute(req)) {
     if(req.body.filter.users.length === 0) {
@@ -110,6 +134,11 @@ router.render = (req, res) => {
 
     res.status(200).jsonp({
       user,
+
+      // The values below come from the
+      // if(routeHelper.isProtectedRoute(req)) right above this block
+      accessToken: res.locals.data.accessToken,
+      expiresIn: res.locals.data.expiresIn,
     });
 
     return;
@@ -140,6 +169,7 @@ router.render = (req, res) => {
 
   // Otherwise, just send the normal response
   res.end(JSON.stringify(res.locals.data));
+
 };
 
 server.listen(port, () => {
