@@ -23,7 +23,7 @@ function* login(action) {
       expiresIn
     } = yield call(() => service.loginUser(loginData));
 
-    cacheUser(user, expiresIn);
+    cacheUser(user);
     saveAuthToken({
       token: accessToken,
       expires: expiresIn,
@@ -45,7 +45,7 @@ function* createUser(action) {
       expiresIn
     } = yield call(() => service.createUser(registrationData));
 
-    cacheUser(user, expiresIn);
+    cacheUser(user);
     saveAuthToken({
       token: accessToken,
       expires: expiresIn,
@@ -59,7 +59,7 @@ function* createUser(action) {
 
 function* fetchCurrentUser() {
   try {
-    const user = yield call(() => service.getCurrentUser());
+    const { user } = yield call(() => service.getCurrentUser());
 
     yield put(fetchCurrentUserSuccess(user));
   } catch (err) {
