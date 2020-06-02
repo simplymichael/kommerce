@@ -1,4 +1,5 @@
 import env from '../.env';
+import { hashPassword } from '../utils/auth';
 import { isRegistrationRoute } from '../utils/route';
 import { isValidEmail, isValidPassword } from '../utils/validator';
 
@@ -44,6 +45,8 @@ const middleware = (req, res, next) => {
 
     return;
   }
+
+  req.body.password = hashPassword(req.body.password);
 
   next();
 };

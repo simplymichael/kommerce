@@ -1,3 +1,4 @@
+import shajs from 'sha.js';
 import jwt from 'jsonwebtoken';
 import randomBytes from 'random-bytes';
 import env from '../.env';
@@ -17,4 +18,12 @@ export const verifyAuthToken = async (token) => {
   const decoded = await jwt.verify(token, tokenSecret);
 
   return decoded;
+};
+
+export const hashPassword = (password) => {
+  return shajs('sha256').update(password).digest('hex');
+};
+
+export const checkPassword = (password, hashedPassword) => {
+  return hashPassword(password) === hashedPassword;
 };
