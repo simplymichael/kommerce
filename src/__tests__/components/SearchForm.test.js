@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { act, render, cleanup, fireEvent } from '@testing-library/react';
-import SearchForm from '../../../components/MainNavigation/SearchForm';
+import SearchForm from '../../components/SearchForm';
 
 afterEach(cleanup);
 
@@ -16,7 +16,7 @@ describe('SearchForm', () => {
     );
 
     const { getByRole } = Component;
-    const searchForm = getByRole('top-navigation-search-form');
+    const searchForm = getByRole('search-form');
     const inputField = searchForm.querySelector('[role="search-input-field"]');
     const toggleBtn = searchForm.querySelector(
       '[role="input-field-toggle-button"]');
@@ -34,7 +34,7 @@ describe('SearchForm', () => {
     );
 
     const { getByRole } = Component;
-    const searchForm = getByRole('top-navigation-search-form');
+    const searchForm = getByRole('search-form');
     const inputField = searchForm.querySelector('[role="search-input-field"]');
     const toggleBtn = searchForm.querySelector(
       '[role="input-field-toggle-button"]');

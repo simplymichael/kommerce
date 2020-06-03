@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import Logo from '../Logo';
-import SearchForm from './SearchForm';
 import NavListItem from './NavListItem';
 import NavigationList from './NavigationList';
 
@@ -29,7 +28,6 @@ const MainNavigation = () => (
         <Logo width="32px" height="22px">{strings.appName}</Logo>
       </NavListItem>
       <NavigationList />
-      <SearchForm />
     </nav>
   </Navigation>
 );

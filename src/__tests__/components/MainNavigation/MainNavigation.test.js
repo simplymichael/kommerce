@@ -56,11 +56,4 @@ describe('Main Navigation', () => {
       expect(item.href).toMatch(regex);
     });
   });
-
-  it('renders search form', () => {
-    const { getByRole } = Component;
-    const searchForm = getByRole('top-navigation-search-form');
-
-    expect(searchForm).toBeInTheDocument();
-  });
 });

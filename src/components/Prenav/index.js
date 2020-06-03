@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col';
 import SmartCartLink from './SmartCartLink';
 import UserLink from './UserLink';
 
+import SearchForm from '../SearchForm';
+
 const Header = styled.header`
   margin-top: 10px;
   margin-bottom: 0;
@@ -14,11 +16,13 @@ const Header = styled.header`
 const Prenav = () => (
   <Header className="py-3" role="prenav-header">
     <Row className="flex-nowrap justify-content-between align-items-center">
-      <Col md="4" className="pt-1">
+      <Col md="3" className="pt-1">
         <UserLink />
       </Col>
-      <Col md="4" className="text-center">&nbsp;</Col>
-      <Col md="4">
+      <Col md="7" className="text-center">
+        <SearchForm />
+      </Col>
+      <Col md="2">
         <SmartCartLink />
       </Col>
     </Row>

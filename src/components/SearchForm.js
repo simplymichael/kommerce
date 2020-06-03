@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import device from '../../utils/device';
-import Icon from '../Icons/Icon';
+import device from '../utils/device';
+import Icon from './Icons/Icon';
 
 const SearchDiv = styled.div`
   float: right;
@@ -96,7 +96,7 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <SearchDiv role="top-navigation-search-form">
+      <SearchDiv role={this.props.role || 'search-form'}>
         <SearchInput
           type="text"
           role="search-input-field"
@@ -115,6 +115,10 @@ InputFieldToggleBtn.propTypes = {
   to: PropTypes.string,
   role: PropTypes.string,
   clickHandler: PropTypes.func,
+};
+
+SearchForm.propTypes = {
+  role: PropTypes.string,
 };
 
 export default SearchForm;
