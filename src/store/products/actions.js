@@ -9,12 +9,14 @@ import {
   FETCH_RECENT_PRODUCTS_SUCCESS,
 } from './constants';
 
+/**
+ * queryData object with properties:
+ * page = 1, limit = 0,
+ * colors = [], sizes = [], brands = [],
+ * orderBy = {}, priceRange = {}, categories = []
+ */
 export function fetchProducts(queryData = {}) {
-  const { page = 1, limit = 0, colors = [], sizes = [], brands = [],
-    orderBy = {}, priceRange = {}} = queryData;
-
-  return generateAction(FETCH_PRODUCTS,
-    { page, limit, colors, sizes, brands, orderBy, priceRange });
+  return generateAction(FETCH_PRODUCTS, queryData);
 }
 
 export function fetchProductsError(error) {

@@ -13,6 +13,7 @@ class ProductService extends Service {
       brands = [],
       orderBy = {}, // price, dateAdded,
       priceRange = {}, // properties: min (number), max (number)
+      categories = [],
     } = queryData;
 
     let path = { ...route };
@@ -68,6 +69,22 @@ class ProductService extends Service {
       const { min, max } = priceRange;
       pathString += getLeadingQueryStringChar(pathString);
       pathString += `price_gte=${min}&price_lte=${max}`;
+
+      path.url += pathString;
+    }
+
+    if(categories.length) {
+      if(categories.length === 1) {
+        pathString += getLeadingQueryStringChar(pathString);
+        pathString += `category_like=${categories.shift().replace('-', ' ')}`;
+      } else {
+        const catPaths = categories.map(cat =>
+          encodeURIComponent(cat.replace('-', ' ')));
+
+        pathString += getLeadingQueryStringChar(pathString);
+        pathString += `category_like=${catPaths.shift()}&category_like=`;
+        pathString += catPaths.join('&category_like=');
+      }
 
       path.url += pathString;
     }

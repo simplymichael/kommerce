@@ -71,7 +71,13 @@ class ProductsList extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchProducts(this.state.queryData);
+    let queryData = { ...this.state.queryData };
+
+    if(this.props.category) {
+      queryData.categories = [this.props.category];
+    }
+
+    this.props.fetchProducts(queryData);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -95,6 +101,16 @@ class ProductsList extends React.Component {
     }
 
     if(needsUpdate) {
+      const setStateCallback = () => {
+        let queryData = { ...this.state.queryData };
+
+        if(this.props.category) {
+          queryData.categories = [this.props.category];
+        }
+
+        props.fetchProducts(queryData);
+      };
+
       this.setState(currState => ({
         queryData: {
           ...currState.queryData,
@@ -103,7 +119,7 @@ class ProductsList extends React.Component {
           brands: props.selectedBrands,
           sizes: props.selectedSizes,
         }
-      }), () => props.fetchProducts(this.state.queryData));
+      }), setStateCallback);
     }
   }
 
@@ -178,6 +194,7 @@ class ProductsList extends React.Component {
 
 ProductsList.propTypes = {
   products: PropTypes.array,
+  category: PropTypes.string,
   container: PropTypes.node,
   weight: PropTypes.string,
   renderer: PropTypes.node,
