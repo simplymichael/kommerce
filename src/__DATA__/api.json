@@ -1,36 +1,43 @@
  {
   "brands": [
     {
+      "id": 1,
       "name": "Abercrombie & Fitch",
       "value": "abercrombie-and-fitch",
       "selected": false
     },
     {
+      "id": 2,
       "name": "Adidas Originals",
       "value": "adidas-originals",
       "selected": false
     },
     {
+      "id": 3,
       "name": "Apple",
       "value": "apple",
       "selected": false
     },
     {
+      "id": 4,
       "name": "Asos",
       "value": "asos",
       "selected": false
     },
     {
+      "id": 5,
       "name": "Cheap Monday",
       "value": "cheap-monday",
       "selected": false
     },
     {
+      "id": 6,
       "name": "Microsoft",
       "value": "microsoft",
       "selected": false
     },
     {
+      "id": 7,
       "name": "Samsung",
       "value": "samsung",
       "selected": false
@@ -38,26 +45,31 @@
   ],
   "categories": [
     {
+      "id": 1,
       "name": "Electronics",
       "slug": "electronics",
       "image": "https://imgur.com/rPQITCD.png"
     },
     {
+      "id": 2,
       "name": "Home Appliances",
       "slug": "home-appliances",
       "image": "https://imgur.com/7W6QKeu.png"
     },
     {
+      "id": 3,
       "name": "Phones & Accessories",
       "slug": "phones-accessories",
       "image": "https://imgur.com/IvQn0bv.png"
     },
     {
+      "id": 4,
       "name": "Shirts",
       "slug": "shirts",
       "image": "https://imgur.com/lExWFST.png"
     },
     {
+      "id": 5,
       "name": "Shoes",
       "slug": "shoes",
       "image": "https://imgur.com/T1FduoW.png"
@@ -65,46 +77,57 @@
   ],
   "colors": [
     {
+      "id": 1,
       "name": "black",
       "selected": false
     },
     {
+      "id": 2,
       "name": "blue",
       "selected": false
     },
     {
+      "id": 3,
       "name": "brown",
       "selected": false
     },
     {
+      "id": 4,
       "name": "green",
       "selected": false
     },
     {
+      "id": 5,
       "name": "indigo",
       "selected": false
     },
     {
+      "id": 6,
       "name": "red",
       "selected": false
     },
     {
+      "id": 7,
       "name": "orange",
       "selected": false
     },
     {
+      "id": 8,
       "name": "pink",
       "selected": false
     },
     {
+      "id": 9,
       "name": "violet",
       "selected": false
     },
     {
+      "id": 10,
       "name": "yellow",
       "selected": false
     },
     {
+      "id": 11,
       "name": "white",
       "selected": false
     }
@@ -414,26 +437,31 @@
   "product-reviews": [],
   "sizes": [
     {
+      "id": 1,
       "key": "XS",
       "value": "XS",
       "selected": false
     },
     {
+      "id": 2,
       "key": "S",
       "value": "S",
       "selected": false
     },
     {
+      "id": 3,
       "key": "M",
       "value": "M",
       "selected": false
     },
     {
+      "id": 4,
       "key": "L",
       "value": "L",
       "selected": false
     },
     {
+      "id": 5,
       "key": "XL",
       "value": "XL",
       "selected": false
