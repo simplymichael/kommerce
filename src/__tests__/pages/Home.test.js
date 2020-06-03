@@ -161,19 +161,12 @@ describe('Home Page', () => {
 
     it('renders a list of products', async () => {
       const { getByRole, findAllByRole } = Component;
-      const mainContentSection = getByRole('main-content');
-      const productsContainer = mainContentSection.querySelector(
-        '[role="products-list-container"]');
-
+    
       await waitForElementToBeRemoved(() =>
         getByRole('products-loading-indicator'));
 
       const renderedProducts = await findAllByRole(productRegex);
 
-      // productsContainer's existence being truthy
-      // means our retrieving it via mainContentSection succeeded,
-      // so it exists in mainContent section
-      expect(productsContainer).toBeInTheDocument();
       expect(renderedProducts).not.toBeNull();
 
       // Iterate the products, and make assertions about each product

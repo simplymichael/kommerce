@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import Col from 'react-bootstrap/Col';
+import { Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Pagination from 'react-js-pagination';
 import Loading from '../Notifications/Loading';
@@ -184,22 +184,30 @@ class ProductsList extends React.Component {
 
     return (
       <>
-        {productsArray.map(product => (
-          <ProductContainer key={product.id} md={containerWeight}
-            role="product-container">
-            <ProcessorComponent product={product} />
-          </ProductContainer>
-        ))}
-        <div style={{ margin: 'auto' }}>
-          <Pagination
-            activePage={this.state.queryData.page}
-            itemsCountPerPage={config.products.perPage || 10}
-            totalItemsCount={14}
-            pageRangeDisplayed={4}
-            onChange={this.handlePageChange.bind(this)}
-            itemClass="page-item"
-            linkClass="page-link" />
-        </div>
+        <Row role="products-list-container">
+          {productsArray.map(product => (
+            <ProductContainer key={product.id} md={containerWeight}
+              role="product-container">
+              <ProcessorComponent product={product} />
+            </ProductContainer>
+          ))}
+        </Row>
+        <Row>
+          <Col md="4">&nbsp;</Col>
+          <Col md="4">
+            <div style={{ margin: 'auto' }}>
+              <Pagination
+                activePage={this.state.queryData.page}
+                itemsCountPerPage={config.products.perPage || 10}
+                totalItemsCount={14}
+                pageRangeDisplayed={4}
+                onChange={this.handlePageChange.bind(this)}
+                itemClass="page-item"
+                linkClass="page-link" />
+            </div>
+          </Col>
+          <Col md="4">&nbsp;</Col>
+        </Row>
       </>
     );
   }

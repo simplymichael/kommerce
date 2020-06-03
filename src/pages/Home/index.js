@@ -24,9 +24,7 @@ const Home = () => (
       </FiltersContainer>
     </Col>
     <Col md="9" role="main-content">
-      <Row role="products-list-container">
-        <ProductsList weight="4" />
-      </Row>
+      <ProductsList weight="4" />
     </Col>
   </Row>
 );

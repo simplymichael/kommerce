@@ -25,11 +25,9 @@ const Category = (props) => {
         </FiltersContainer>
       </Col>
       <Col md="9" role="main-content">
-        <Row role="products-list-container">
-          <ProductsList
-            weight="4"
-            category={ props.match.params.id /* eslint-disable-line */ } />
-        </Row>
+        <ProductsList
+          weight="4"
+          category={ props.match.params.id /* eslint-disable-line */ } />
       </Col>
     </Row>
   );
