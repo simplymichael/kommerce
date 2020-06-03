@@ -28,6 +28,9 @@ export default {
       sizeHeader: 'Size',
     },
   },
+  category: {
+    fetchCategoriesError: 'Error retrieving categories. Please, try again',
+  },
   checkout: {
     header: 'Checkout',
     enterDetailsMessage: `Please enter your details below
