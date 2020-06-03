@@ -1,19 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import ImageText from '../ImageText';
 import NavListItem from './NavListItem';
+import {
+  fetchCategories,
+  makeSelectCategories,
+  makeSelectFetchCategoriesError,
+  makeSelectIsFetchingCategories,
+} from '../../store/categories';
 
 const NavigationList = ({ categories }) => {
-  if(categories && !Array.isArray(categories)) {
-    return null;
-  }
-  
-  categories = categories || [
+
+  categories = (categories.length ? categories : [
     { name: 'Shirts', slug: '', image: 'https://imgur.com/3u2mj7h.png' },
     { name: 'Shoes', slug: '', image: 'https://imgur.com/dV36lmS.png' },
     { name: 'Electronics', slug: '', image: 'https://imgur.com/3u2mj7h.png' },
     { name: 'Home Appliances', slug: '', image: 'https://imgur.com/dV36lmS.png' }
-  ];
+  ]);
 
   let navItems = categories.slice().sort();
 
@@ -39,6 +44,19 @@ const NavigationList = ({ categories }) => {
 
 NavigationList.propTypes = {
   categories: PropTypes.array,
+  fetchCategories: PropTypes.func,
+  isFetchingCategories: PropTypes.bool,
+  fetchCategoriesError: PropTypes.string,
 };
 
-export default NavigationList;
+const mapDispatchToProps = dispatch => ({
+  fetchCategories: () => dispatch(fetchCategories()),
+});
+
+const mapStateToProps = createStructuredSelector({
+  categories: makeSelectCategories(),
+  isFetchingCategories: makeSelectIsFetchingCategories(),
+  fetchCategoriesError: makeSelectFetchCategoriesError()
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationList);

@@ -3,6 +3,7 @@ import Service from '../services/Service';
 
 import { sagas as brandSagas } from './brands';
 import { sagas as cartSagas } from './cart';
+import { sagas as categorySagas } from './categories';
 import { sagas as colorSagas } from './colors';
 import { sagas as orderSagas } from './orders';
 import { sagas as priceSagas } from './prices';
@@ -22,6 +23,11 @@ const sagas = [
   {
     factory: cartSagas,
     service: 'CartService',
+    apiCredentials,
+  },
+  {
+    factory: categorySagas,
+    service: 'CategoryService',
     apiCredentials,
   },
   {
