@@ -50,6 +50,18 @@ class Service {
     const computedRoute = { ...route, url: requestUrl };
 
     const redirect = path => {
+      // Keeps redirecting if we are trying to fetch the user's details
+      // via route (/user or /users/:id),
+      // and this call is made in the main navigation header,
+      // which is present on every page, so it keeps trying to
+      // fetch the user's data and redirecting endlessly.
+      // Fix it:
+      // If we are not trying to make request to either /user or /users
+      // then redirect
+      if(path !== '/user') {
+        return;
+      }
+
       const url = `/signin?redirect=${encodeURIComponent(path)}`;
       window.location = url;
     };
