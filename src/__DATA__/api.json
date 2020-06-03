@@ -11,6 +11,11 @@
       "selected": false
     },
     {
+      "name": "Apple",
+      "value": "apple",
+      "selected": false
+    },
+    {
       "name": "Asos",
       "value": "asos",
       "selected": false
@@ -19,6 +24,43 @@
       "name": "Cheap Monday",
       "value": "cheap-monday",
       "selected": false
+    },
+    {
+      "name": "Microsoft",
+      "value": "microsoft",
+      "selected": false
+    },
+    {
+      "name": "Samsung",
+      "value": "samsung",
+      "selected": false
+    }
+  ],
+  "categories": [
+    {
+      "name": "Electronics",
+      "slug": "electronics",
+      "image": "https://imgur.com/rPQITCD.png"
+    },
+    {
+      "name": "Home Appliances",
+      "slug": "home-appliances",
+      "image": "https://imgur.com/7W6QKeu.png"
+    },
+    {
+      "name": "Phones & Accessories",
+      "slug": "phones-accessories",
+      "image": "https://imgur.com/IvQn0bv.png"
+    },
+    {
+      "name": "Shirts",
+      "slug": "shirts",
+      "image": "https://imgur.com/lExWFST.png"
+    },
+    {
+      "name": "Shoes",
+      "slug": "shoes",
+      "image": "https://imgur.com/T1FduoW.png"
     }
   ],
   "colors": [
@@ -32,10 +74,6 @@
     },
     {
       "name": "brown",
-      "selected": false
-    },
-    {
-      "name": "cream",
       "selected": false
     },
     {
@@ -65,6 +103,10 @@
     {
       "name": "yellow",
       "selected": false
+    },
+    {
+      "name": "white",
+      "selected": false
     }
   ],
   "products": [
@@ -75,6 +117,7 @@
       "color": "red",
       "size": "M",
       "brand": "Abercrombie & Fitch",
+      "category": "Shoes",
       "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/cRnIqnE.png", "default": true },
@@ -89,6 +132,7 @@
       "color": "yellow",
       "size": "XS",
       "brand": "Asos",
+      "category": "Shirts",
       "dateAdded": 1590809623769,
       "images": [
         { "url": "https://imgur.com/UyFBYHR.png", "default": true },
@@ -103,6 +147,7 @@
       "color": "blue",
       "size": "M",
       "brand": "Asos",
+      "category": "Shoes",
       "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/Rgx8MBp.png", "default": true },
@@ -117,6 +162,7 @@
       "color": "brown",
       "size": "S",
       "brand": "Adidas Originals",
+      "category": "Shoes",
       "dateAdded": 1590809623770,
       "images": [
         { "url": "https://imgur.com/xP552vg.png", "default": true },
@@ -131,6 +177,7 @@
       "color": "pink",
       "size": "M",
       "brand": "Adidas Originals",
+      "category": "Shoes",
       "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/0GI6AHJ.png", "default": true },
@@ -145,6 +192,7 @@
       "color": "red",
       "size": "L",
       "brand": "Cheap Monday",
+      "category": "Shirts",
       "dateAdded": 1590809623767,
       "images": [
         { "url": "https://imgur.com/70vwSjx.png", "default": true },
@@ -154,11 +202,12 @@
     },
     {
       "id": 7,
-      "name": "Cream T-Shirt",
+      "name": "White T-Shirt",
       "price": 125.00,
-      "color": "cream",
+      "color": "White",
       "size": "M",
       "brand": "Cheap Monday",
+      "category": "Shirts",
       "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/lExWFST.png", "default": true },
@@ -173,6 +222,7 @@
       "color": "red",
       "size": "M",
       "brand": "Asos",
+      "category": "Shoes",
       "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/X8tySG3.png", "default": true },
@@ -187,6 +237,7 @@
       "color": "white",
       "size": "XL",
       "brand": "Cheap Monday",
+      "category": "Shirts",
       "dateAdded": 1590809623768,
       "images": [
         { "url": "https://imgur.com/NPhYgJp.png", "default": true },
@@ -201,6 +252,7 @@
       "color": "white",
       "size": "M",
       "brand": "Asos",
+      "category": "Shoes",
       "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/T1FduoW.png", "default": true },
@@ -215,6 +267,7 @@
       "color": "white",
       "size": "M",
       "brand": "Asos",
+      "category": "Shoes",
       "dateAdded": 1590809623771,
       "images": [
         { "url": "https://imgur.com/2fkk0j2.png", "default": true },
@@ -229,11 +282,132 @@
       "color": "indigo",
       "size": "M",
       "brand": "Asos",
+      "category": "Shirts",
       "dateAdded": 1590809623766,
       "images": [
         { "url": "https://imgur.com/jduSjCn.png", "default": true },
         { "url": "https://imgur.com/jduSjCn.png", "default": false },
         { "url": "https://imgur.com/jduSjCn.png", "default": false }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Air conditioning system",
+      "price": 300.00,
+      "color": "White",
+      "size": "M",
+      "brand": "Samsung",
+      "category": "Home Appliances",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/7W6QKeu.png", "default": true },
+        { "url": "https://imgur.com/7W6QKeu.png", "default": false },
+        { "url": "https://imgur.com/7W6QKeu.png", "default": false }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Smart watch",
+      "price": 1000.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Apple",
+      "category": "Electronics",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/WJPk5zM.png", "default": true },
+        { "url": "https://imgur.com/WJPk5zM.png", "default": false },
+        { "url": "https://imgur.com/WJPk5zM.png", "default": false }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Camera, Phone, and Mouse pack",
+      "price": 1000.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Apple",
+      "category": "Phones & Accessories",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/ivXyaNT.png", "default": true },
+        { "url": "https://imgur.com/ivXyaNT.png", "default": false },
+        { "url": "https://imgur.com/ivXyaNT.png", "default": false }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Personal Gaming set",
+      "price": 1000.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Microsoft",
+      "category": "Electronics",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/rPQITCD.png", "default": true },
+        { "url": "https://imgur.com/rPQITCD.png", "default": false },
+        { "url": "https://imgur.com/rPQITCD.png", "default": false }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Funky Headset",
+      "price": 200.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Microsoft",
+      "category": "Electronics",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/8sa14nC.png", "default": true },
+        { "url": "https://imgur.com/8sa14nC.png", "default": false },
+        { "url": "https://imgur.com/8sa14nC.png", "default": false }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Sleek Smartphone with wireless headset",
+      "price": 1000.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Samsung",
+      "category": "Phones & Accessories",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/IvQn0bv.png", "default": true },
+        { "url": "https://imgur.com/IvQn0bv.png", "default": false },
+        { "url": "https://imgur.com/IvQn0bv.png", "default": false }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Game console",
+      "price": 250.00,
+      "color": "White",
+      "size": "M",
+      "brand": "Microsoft",
+      "category": "Electronics",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/RAqJ9QF.png", "default": true },
+        { "url": "https://imgur.com/RAqJ9QF.png", "default": false },
+        { "url": "https://imgur.com/RAqJ9QF.png", "default": false }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Set of nice T-shirts",
+      "price": 250.00,
+      "color": "Blue",
+      "size": "M",
+      "brand": "Asos",
+      "category": "Shirts",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/fPHYW6W.png", "default": true },
+        { "url": "https://imgur.com/BRcxbjP.png", "default": false },
+        { "url": "https://imgur.com/70vwSjx.png", "default": false }
       ]
     }
   ],

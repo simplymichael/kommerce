@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Shirts",
+    "slug": "shirts",
+    "image": "https://imgur.com/3u2mj7h.png"
+  },
+  {
+    "name": "Shoes",
+    "slug": "shoes",
+    "image": "https://imgur.com/dV36lmS.png"
+  },
+  {
+    "name": "Electronics",
+    "slug": "electronics",
+    "image": "https://imgur.com/3u2mj7h.png"
+  },
+  {
+    "name": "Home Appliances",
+    "slug": "home-appliances",
+    "image": "https://imgur.com/dV36lmS.png"
+  }
+]
