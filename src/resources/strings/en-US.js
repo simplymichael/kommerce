@@ -85,6 +85,10 @@ export default {
                      Be the first to add a review.`
     }
   },
+  search: {
+    error: 'An error occurred while searching. Please, try again',
+    text: 'Type in your search, and hit the Enter button',
+  },
   shop: {
     browse: 'Browser our shop',
   }

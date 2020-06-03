@@ -2,6 +2,7 @@ import Service from './Service';
 import { getLeadingQueryStringChar } from '../utils/url';
 
 const route = { url: '/products', method: 'get', isProtected: false };
+const defaultLimit = 10;
 
 class ProductService extends Service {
   getProducts(queryData = {}) {
@@ -14,11 +15,15 @@ class ProductService extends Service {
       orderBy = {}, // price, dateAdded,
       priceRange = {}, // properties: min (number), max (number)
       categories = [],
+
+      // When we are in active search, using the search form,
+      // we want the pagination results to be related to the search term
+      searchTerm = '',
     } = queryData;
 
     let path = { ...route };
     const reqPage = (parseInt(page) <= 0 ? 1 : parseInt(page));
-    const reqLimit = (parseInt(limit) <= 0 ? 10 : parseInt(limit));
+    const reqLimit = (parseInt(limit) <= 0 ? defaultLimit : parseInt(limit));
     const reqData = { page: reqPage, limit: reqLimit };
     let pathString = '';
 
@@ -89,6 +94,10 @@ class ProductService extends Service {
       path.url += pathString;
     }
 
+    if(searchTerm) {
+      reqData['q'] = searchTerm;
+    }
+
     return this.request(path, reqData)
       .then(result => result)
       .catch(err => {
@@ -153,6 +162,29 @@ class ProductService extends Service {
 
     return this.request(path, { productId })
       .then(reviews => reviews)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  searchProducts(queryData = {}) {
+    const path = { ...route };
+    const {
+      query = '',
+      page = 1,
+      limit = 10,
+    } = queryData;
+
+    const reqPage = (parseInt(page) <= 0 ? 1 : parseInt(page));
+    const reqLimit = (parseInt(limit) <= 0 ? defaultLimit : parseInt(limit));
+    const reqData = {
+      q: query,
+      page: reqPage,
+      limit: reqLimit
+    };
+
+    return this.request(path, reqData)
+      .then(result => result)
       .catch(err => {
         throw err;
       });

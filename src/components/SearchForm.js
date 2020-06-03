@@ -1,11 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import config from '../.config';
 import device from '../utils/device';
+import strings from '../resources/strings';
 import Icon from './Icons/Icon';
+import { Error } from './Notifications';
+import {
+  searchProducts,
+  makeSelectIsSearchingProducts,
+  makeSelectSearchProductsError,
+} from '../store/products';
 
-const SearchDiv = styled.div`
+const Form = styled.form`
   float: right;
   display: inline-block;
   margin-top: 1px;
@@ -77,8 +87,9 @@ class SearchForm extends React.Component {
     super(props);
 
     this.state = {
-      'focused': false,
-      'collapsed': true
+      focused: false,
+      collapsed: true,
+      validationError: '',
     };
   }
 
@@ -94,19 +105,68 @@ class SearchForm extends React.Component {
     );
   }
 
+  handleInputChange() {
+    // clear the error
+    this.setState({
+      validationError: '',
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const query = this.searchInput.value;
+
+    if(!query) {
+      this.setState({
+        validationError: 'Please enter a query in the input field',
+      });
+
+      return;
+    }
+
+    const queryData = {
+      query,
+      page  : 1,
+      limit : config.products.perPage || 10,
+    };
+
+    this.props.searchProducts(queryData);
+  }
+
   render() {
+    const { isSearchingProducts, searchProductsError } = this.props;
+    const { validationError } = this.state;
+    let error = validationError;
+
+    if(isSearchingProducts) {
+      // do something
+    }
+
+    if(searchProductsError) {
+      error = strings.search.error || searchProductsError;
+    }
+
     return (
-      <SearchDiv role={this.props.role || 'search-form'}>
-        <SearchInput
-          type="text"
-          role="search-input-field"
-          placeholder="Search"
-          data-collapsed={this.state.collapsed}
-          collapsed={this.state.collapsed}
-          ref={input => this.searchInput = input} />
-        <InputFieldToggleBtn to="#" role="input-field-toggle-button"
-          clickHandler={e => this.clickHandler(e)} />
-      </SearchDiv>
+      <>
+        <Error>{error}</Error>
+        <Form
+          role={this.props.role || 'search-form'}
+          onSubmit={this.handleSubmit.bind(this)}>
+          <SearchInput
+            type="text"
+            role="search-input-field"
+            placeholder={strings.search.text}
+            data-collapsed={this.state.collapsed}
+            collapsed={this.state.collapsed}
+            disabled={isSearchingProducts}
+            className={isSearchingProducts ? 'not-allowed' : ''}
+            ref={input => this.searchInput = input}
+            onChange={() => this.handleInputChange()}/>
+          <InputFieldToggleBtn to="#" role="input-field-toggle-button"
+            clickHandler={e => this.clickHandler(e)} />
+        </Form>
+      </>
     );
   }
 }
@@ -119,6 +179,18 @@ InputFieldToggleBtn.propTypes = {
 
 SearchForm.propTypes = {
   role: PropTypes.string,
+  searchProducts: PropTypes.func,
+  isSearchingProducts: PropTypes.bool,
+  searchProductsError: PropTypes.string,
 };
 
-export default SearchForm;
+const mapDispatchToProps = dispatch => ({
+  searchProducts: (queryData) => dispatch(searchProducts(queryData)),
+});
+
+const mapStateToProps = createStructuredSelector({
+  isSearchingProducts: makeSelectIsSearchingProducts(),
+  searchProductsError: makeSelectSearchProductsError()
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

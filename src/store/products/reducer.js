@@ -8,6 +8,12 @@ import {
   FETCH_RECENT_PRODUCTS,
   FETCH_RECENT_PRODUCTS_ERROR,
   FETCH_RECENT_PRODUCTS_SUCCESS,
+
+  SEARCH_PRODUCTS,
+  SEARCH_PRODUCTS_ERROR,
+  SEARCH_PRODUCTS_SUCCESS,
+
+  CLEAR_SEARCH,
 } from './constants';
 
 export const reducerName = 'products';
@@ -19,6 +25,10 @@ export const initialState = fromJS({
   recentProducts: [],
   isFetchingRecentProducts: false,
   fetchRecentProductsError: null,
+
+  searchTerm: '',
+  isSearchingProducts: false,
+  searchProductsError: null,
 });
 
 export default function reducer(state = initialState, action) {
@@ -54,6 +64,29 @@ export default function reducer(state = initialState, action) {
       .set('fetchRecentProductsError', null)
       .set('isFetchingRecentProducts', false)
       .set('recentProducts', fromJS(action.payload.products));
+
+  case SEARCH_PRODUCTS: 
+    return state
+      .set('searchTerm', action.payload.query)
+      .set('isSearchingProducts', true)
+      .set('searchProductsError', null);
+
+  case SEARCH_PRODUCTS_ERROR:
+    return state
+      .set('isSearchingProducts', false)
+      .set('searchProductsError', action.error);
+
+  case SEARCH_PRODUCTS_SUCCESS:
+    return state
+      .set('isSearchingProducts', false)
+      .set('searchProductsError', null)
+      .set('products', fromJS(action.payload.products));
+
+  case CLEAR_SEARCH:
+    return state
+      .set('searchTerm', '')
+      .set('isSearchingProducts', false)
+      .set('searchProductsError', null);
 
   default: return state;
   }

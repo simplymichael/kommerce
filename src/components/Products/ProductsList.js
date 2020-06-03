@@ -16,6 +16,7 @@ import { makeSelectSelectedSizes } from '../../store/sizes';
 import {
   fetchProducts,
   makeSelectProducts,
+  makeSelectSearchTerm,
   makeSelectFetchProductsError,
   makeSelectIsFetchingProducts,
 } from '../../store/products';
@@ -104,8 +105,20 @@ class ProductsList extends React.Component {
       const setStateCallback = () => {
         let queryData = { ...this.state.queryData };
 
+        // On category pages, we'll have the category
+        // supplied by the parent via props received from
+        // react-router-dom's props.match.params.category
         if(this.props.category) {
           queryData.categories = [this.props.category];
+        }
+
+        // When an active search is on,
+        // we receive the 'searchTerm' prop
+        // via the products' slice of the store,
+        // and pagination requests should include and return results
+        // based on the search term.
+        if(this.props.searchTerm)  {
+          queryData.searchTerm = this.props.searchTerm;
         }
 
         props.fetchProducts(queryData);
@@ -206,6 +219,7 @@ ProductsList.propTypes = {
   selectedBrands: PropTypes.array,
   selectedColors: PropTypes.array,
   selectedSizes: PropTypes.array,
+  searchTerm: PropTypes.string,
   fetchProducts: PropTypes.func,
   isFetchingProducts: PropTypes.bool,
   fetchProductsError: PropTypes.string,
@@ -221,6 +235,7 @@ const mapStateToProps = createStructuredSelector({
   selectedBrands: makeSelectSelectedBrands(),
   selectedColors: makeSelectSelectedColors(),
   selectedSizes: makeSelectSelectedSizes(),
+  searchTerm: makeSelectSearchTerm(),
   isFetchingProducts: makeSelectIsFetchingProducts(),
   fetchProductsError: makeSelectFetchProductsError()
 });

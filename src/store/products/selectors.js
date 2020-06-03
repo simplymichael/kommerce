@@ -20,3 +20,12 @@ export const makeSelectFetchRecentProductsError = () =>
 
 export const makeSelectIsFetchingRecentProducts = () =>
   createSelector(localState, state => state.get('isFetchingRecentProducts'));
+
+export const makeSelectSearchProductsError = () =>
+  createSelector(localState, state => state.get('searchProductsError'));
+
+export const makeSelectIsSearchingProducts = () =>
+  createSelector(localState, state => state.get('isSearchingProducts'));
+
+export const makeSelectSearchTerm = () =>
+  createSelector(localState, state => state.get('searchTerm'));

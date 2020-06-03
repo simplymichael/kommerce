@@ -1,6 +1,11 @@
 import sagas from './sagas';
 import reducer from './reducer';
-import { fetchProducts, fetchRecentProducts } from './actions';
+import {
+  fetchProducts,
+  fetchRecentProducts,
+  searchProducts,
+  clearSearch,
+} from './actions';
 import {
   makeSelectProducts,
   makeSelectIsFetchingProducts,
@@ -9,6 +14,10 @@ import {
   makeSelectRecentProducts,
   makeSelectIsFetchingRecentProducts,
   makeSelectFetchRecentProductsError,
+
+  makeSelectSearchTerm,
+  makeSelectIsSearchingProducts,
+  makeSelectSearchProductsError,
 } from './selectors';
 
 export {
@@ -23,4 +32,11 @@ export {
   makeSelectRecentProducts,
   makeSelectIsFetchingRecentProducts,
   makeSelectFetchRecentProductsError,
+
+  searchProducts,
+  makeSelectSearchTerm,
+  makeSelectIsSearchingProducts,
+  makeSelectSearchProductsError,
+
+  clearSearch,
 };

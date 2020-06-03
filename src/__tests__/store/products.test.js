@@ -3,7 +3,7 @@ import { initialState } from '../../store/products/reducer';
 import { reducer, fetchProducts } from '../../store/products';
 import {
   fetchProductsError,
-  fetchProductsSuccess
+  fetchProductsSuccess,
 } from '../../store/products/actions';
 /*import {
   FETCH_PRODUCTS,
@@ -24,6 +24,10 @@ const stateTree = {
   recentProducts: [],
   fetchRecentProductsError: null,
   isFetchingRecentProducts: false,
+
+  searchTerm: '',
+  isSearchingProducts: false,
+  searchProductsError: null,
 };
 
 describe('Store:Products', () => {

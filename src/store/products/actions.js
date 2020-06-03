@@ -7,6 +7,12 @@ import {
   FETCH_RECENT_PRODUCTS,
   FETCH_RECENT_PRODUCTS_ERROR,
   FETCH_RECENT_PRODUCTS_SUCCESS,
+
+  SEARCH_PRODUCTS,
+  SEARCH_PRODUCTS_ERROR,
+  SEARCH_PRODUCTS_SUCCESS,
+
+  CLEAR_SEARCH,
 } from './constants';
 
 /**
@@ -37,4 +43,24 @@ export function fetchRecentProductsError(error) {
 
 export function fetchRecentProductsSuccess(products) {
   return generateAction(FETCH_RECENT_PRODUCTS_SUCCESS, { products });
+}
+
+// queryData object with properties:
+// query string required
+// page number optional
+// limit number optional
+export function searchProducts(queryData) {
+  return generateAction(SEARCH_PRODUCTS, queryData);
+}
+
+export function searchProductsError(error) {
+  return generateErrorAction(SEARCH_PRODUCTS_ERROR, error);
+}
+
+export function searchProductsSuccess(products) {
+  return generateAction(SEARCH_PRODUCTS_SUCCESS, { products });
+}
+
+export function clearSearch() {
+  return generateAction(CLEAR_SEARCH);
 }
