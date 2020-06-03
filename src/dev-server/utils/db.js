@@ -2,6 +2,10 @@ import db from '../../__DATA__/api';
 
 const all = () => db;
 
+// A generalisation of the users() method below
+const get = (key) => db[key.toLowerCase()] ? db[key.toLowerCase()] : [];
+
+// Get the users' slice of the json database
 const users = () => db.users;
 
 // Helper method to concatenate a new user
@@ -16,6 +20,12 @@ const users = () => db.users;
 // in order for our implementation of login to work.
 const syncUser = (user) =>  db.users = db.users.concat([user]);
 
+// A generalisation of the syncUser(user) method.
+// Since we now implement a way of handling /:resource/count routes,
+// we need the in-memory DB to be aware of any new additions to any
+// collection resource, e.g products, categories, etc.
+const syncData = (key, data) => db[key] = db[key].concat([data]);
+
 /**
  * Only this db module (should) use default export in this utils directory.
  * Because of its peculiar nature of reaching out to the __DATA__/api.json file,
@@ -24,6 +34,8 @@ const syncUser = (user) =>  db.users = db.users.concat([user]);
  */
 export default {
   all,
+  get,
   users,
   syncUser,
+  syncData,
 };

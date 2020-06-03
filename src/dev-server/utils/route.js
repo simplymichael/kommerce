@@ -33,3 +33,12 @@ export const isProtectedRoute = req => {
 
   return false;
 };
+
+// Every route for counting things
+// /count/<products|categores|users|...>
+export const isCountRoute = req =>
+  /\/count\/?$/i.test(req.path) && req.method.toLowerCase() === 'get';
+
+// Every resource creation (POST requests) route
+export const isResourceCreationRoute = req =>
+  !isLoginRoute(req) && req.method.toLowerCase() === 'post';

@@ -35,6 +35,19 @@ server.use(router); // Use default router
 
 // Customise response
 router.render = (req, res) => {
+  // If we are on a route for counting items (/:resource/count) of any sort:
+  // /users/count, /products/count, /categories/count, /brands/count, etc.
+  if(routeHelper.isCountRoute(req)) {
+    const itemToCount = req.path.split(/\/count\/?$/i)[0].split('/').pop();
+    const count = db.get(itemToCount).length;
+
+    res.jsonp({
+      count,
+    });
+
+    return;
+  }
+
   // If the request is for new user registrations
   if(routeHelper.isRegistrationRoute(req)) {
     const { id: userId, email } = res.locals.data;
@@ -64,6 +77,22 @@ router.render = (req, res) => {
     });
 
     return;
+  }
+
+  // A generalisation of the routeHelper.isRegistrationRoute() above.
+  // This should probably go into a middleware, but since we are using the db,
+  // we don't want to spread the db around in middlewares, if we can help it.
+  // For now, the db is used in just two files:
+  // this file,  and utils/user.js file.
+  //
+  // If we just created a resource,
+  if(routeHelper.isResourceCreationRoute(req)) {
+    const resourceType = req.path.replace('/', '');
+
+    // Sync it to our in-memory DB
+    // else, our /:resource/count route implementation
+    // may not work properly.
+    db.syncData(resourceType, res.locals.data);
   }
 
   // If the request is for new user login
