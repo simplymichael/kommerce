@@ -10,7 +10,7 @@ const Btn = styled.span`
   margin-right: 10px;
   text-align: center;
   vertical-align: middle;
-  display: 'inline-block';
+  display: inline-block;
   cursor: ${props => props.cursor || 'pointer'};
   border: 1px solid #ccc;
   border-radius: ${props => props.borderRadius || '50%'};
