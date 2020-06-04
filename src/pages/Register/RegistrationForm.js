@@ -19,11 +19,24 @@ const Clearfix = styled.div`
 `;
 
 const Input = styled(FormControl)`
-  margin-bottom: 25px;
+  margin-bottom: 40px;
+  margin-left: 0;
+  padding-left: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+
+  :focus {
+    border-top-color: transparent !important;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    box-shadow: none !important;
+  }
 `;
 
 const InputLabel = styled.label`
-  display: inline-block;
+  display: none;
   vertical-align: top;
 `;
 
@@ -73,7 +86,7 @@ class RegistrationForm extends React.Component {
             <FormGroup>
               <InputLabel>Full Name:</InputLabel>
               <Input type="text" name="name" value={name}
-                placeholder="E.g John Doe"
+                placeholder="Name"
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -83,7 +96,7 @@ class RegistrationForm extends React.Component {
             <FormGroup>
               <InputLabel>Email:</InputLabel>
               <Input type="email" name="email" value={email}
-                placeholder="E.g yourname@domain.com"
+                placeholder="Email"
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -93,7 +106,7 @@ class RegistrationForm extends React.Component {
             <FormGroup>
               <InputLabel>Password:</InputLabel>
               <Input type="password" name="password" value={password}
-                placeholder="Enter a hard-to-guess password"
+                placeholder="Password"
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>

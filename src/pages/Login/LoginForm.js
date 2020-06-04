@@ -23,10 +23,24 @@ const Clearfix = styled.div`
 
 const Input = styled(FormControl)`
   margin-bottom: 25px;
+  margin-left: 0;
+  padding-left: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+
+  :focus {
+    border-top-color: transparent !important;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    box-shadow: none !important;
+  }
 `;
 
 const InputLabel = styled.label`
   display: inline-block;
+  visibility: hidden;
   vertical-align: top;
 `;
 
@@ -79,7 +93,7 @@ class LoginForm extends React.Component {
                 type="email"
                 name="email"
                 value={email}
-                placeholder="Enter your login email"
+                placeholder="Email"
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -92,7 +106,7 @@ class LoginForm extends React.Component {
                 type="password"
                 name="password"
                 value={password}
-                placeholder="Enter your login password"
+                placeholder="Password"
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
