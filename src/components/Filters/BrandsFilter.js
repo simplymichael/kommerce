@@ -10,7 +10,11 @@ import {
   makeSelectBrands
 } from '../../store/brands';
 
-const Input = styled.input``;
+const Input = styled.input`
+  margin-right: 5px;
+  position: relative;
+  top: 1px;
+`;
 
 const UnorderedList = styled.ul`
   padding: 0;

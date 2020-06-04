@@ -31,6 +31,10 @@ const Color = styled.span`
     border-radius: 30px;
     text-align: center;
   `}
+
+  ${props => props.transparent && css`
+    border: 1px solid #999;
+  `}
 `;
 
 const ColorFilter = ({color, selected, clickHandler}) => {
@@ -42,6 +46,7 @@ const ColorFilter = ({color, selected, clickHandler}) => {
         outer
         role={role}
         selected={selected}
+        transparent={color === 'white'}
         title={`Click to clear color filter: ${color}`}
         onClick={() => clickHandler(color, false)}>
         <Color backgroundColor={color} />
@@ -51,6 +56,7 @@ const ColorFilter = ({color, selected, clickHandler}) => {
     return (
       <Color
         role={role}
+        transparent={color === 'white'}
         backgroundColor={color}
         title={`Click to filter by color: ${color}`}
         onClick={() => clickHandler(color, true)} />
