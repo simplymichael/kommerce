@@ -5,6 +5,9 @@ Responsive E-commerce store front, made with React.
 ### Home page
 ![Home page image](https://imgur.com/sicPgIC.png)
 
+### Product details page
+![Product details page image](https://imgur.com/mRiLzLK.png)
+
 ### Cart page
 ![Cart page image](https://imgur.com/NR88aHi.png)
 
