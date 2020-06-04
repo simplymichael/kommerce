@@ -70,6 +70,10 @@ class LoginForm extends React.Component {
         password: '',
       },
       validationError: '',
+      placeholders: {
+        email: 'Email',
+        password: 'Password',
+      },
     };
   }
 
@@ -79,6 +83,10 @@ class LoginForm extends React.Component {
     const {
       user: { email,  password },
       validationError,
+      placeholders: {
+        email: emailPlaceholder,
+        password: passwordPlaceholder
+      },
     } = this.state;
 
     const error = loginError || validationError;
@@ -93,7 +101,9 @@ class LoginForm extends React.Component {
                 type="email"
                 name="email"
                 value={email}
-                placeholder="Email"
+                placeholder={emailPlaceholder}
+                onFocus={(e) => this.handleInputFocus(e)}
+                onBlur={(e) => this.handleInputBlur(e)}
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -106,7 +116,9 @@ class LoginForm extends React.Component {
                 type="password"
                 name="password"
                 value={password}
-                placeholder="Password"
+                placeholder={passwordPlaceholder}
+                onFocus={(e) => this.handleInputFocus(e)}
+                onBlur={(e) => this.handleInputBlur(e)}
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -116,6 +128,7 @@ class LoginForm extends React.Component {
             {error &&
              <Error>{error}</Error>}
             <SubmitBtn as={Button}
+              style={{ borderRadius: '5px', width: '100%', marginTop: '25px' }}
               className={'action-btn' +
               (isLoggingIn ? ' btn-processing disabled' : '')}>
               Sign In
@@ -141,6 +154,39 @@ class LoginForm extends React.Component {
     }
 
     this.props.login(this.state.user);
+  }
+
+  handleInputFocus(e) {
+    e.preventDefault();
+
+    const field = e.target.name;
+
+    this.setState(currState => ({
+      placeholders: {
+        ...currState.placeholders,
+        [field]: ''
+      }
+    }));
+  }
+
+  handleInputBlur(e) {
+    e.preventDefault();
+
+    let value = '';
+    const field = e.target.name;
+
+    switch(field) {
+    case 'email': value = 'Email'; break;
+    case 'password': value = 'Password'; break;
+    default: value = '';
+    }
+
+    this.setState(currState => ({
+      placeholders: {
+        ...currState.placeholders,
+        [field]: value,
+      }
+    }));
   }
 
   handleInputChange(e) {

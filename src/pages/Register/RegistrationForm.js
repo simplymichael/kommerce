@@ -19,7 +19,7 @@ const Clearfix = styled.div`
 `;
 
 const Input = styled(FormControl)`
-  margin-bottom: 40px;
+  margin-bottom: 25px;
   margin-left: 0;
   padding-left: 0;
   border-top: none;
@@ -36,7 +36,8 @@ const Input = styled(FormControl)`
 `;
 
 const InputLabel = styled.label`
-  display: none;
+  display: inline-block;
+  visibility: hidden;
   vertical-align: top;
 `;
 
@@ -66,6 +67,11 @@ class RegistrationForm extends React.Component {
         email: '',
         password: '',
       },
+      placeholders: {
+        name: 'Name',
+        email: 'Email',
+        password: 'Password',
+      },
       validationError: '',
     };
   }
@@ -75,6 +81,11 @@ class RegistrationForm extends React.Component {
     const {
       user: { name,  email,  password },
       validationError,
+      placeholders: {
+        name: namePlaceholder,
+        email: emailPlaceholder,
+        password: passwordPlaceholder
+      },
     } = this.state;
 
     const error = createUserError || validationError;
@@ -86,7 +97,9 @@ class RegistrationForm extends React.Component {
             <FormGroup>
               <InputLabel>Full Name:</InputLabel>
               <Input type="text" name="name" value={name}
-                placeholder="Name"
+                placeholder={namePlaceholder}
+                onFocus={(e) => this.handleInputFocus(e)}
+                onBlur={(e) => this.handleInputBlur(e)}
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -96,7 +109,9 @@ class RegistrationForm extends React.Component {
             <FormGroup>
               <InputLabel>Email:</InputLabel>
               <Input type="email" name="email" value={email}
-                placeholder="Email"
+                placeholder={emailPlaceholder}
+                onFocus={(e) => this.handleInputFocus(e)}
+                onBlur={(e) => this.handleInputBlur(e)}
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -106,7 +121,9 @@ class RegistrationForm extends React.Component {
             <FormGroup>
               <InputLabel>Password:</InputLabel>
               <Input type="password" name="password" value={password}
-                placeholder="Password"
+                placeholder={passwordPlaceholder}
+                onFocus={(e) => this.handleInputFocus(e)}
+                onBlur={(e) => this.handleInputBlur(e)}
                 onChange={evt => this.handleInputChange(evt)} />
             </FormGroup>
           </Col>
@@ -115,6 +132,7 @@ class RegistrationForm extends React.Component {
           <Col md="12">
             { error && <Error>{error}</Error>}
             <SubmitBtn as={Button}
+              style={{ borderRadius: '5px', width: '100%', marginTop: '25px' }}
               className={'action-btn' +
               (isCreatingUser ? 'btn-processing disabled' : '')}>
               Sign Up
@@ -152,6 +170,40 @@ class RegistrationForm extends React.Component {
       user: {
         ...currState.user,
         [field]: value
+      }
+    }));
+  }
+
+  handleInputFocus(e) {
+    e.preventDefault();
+
+    const field = e.target.name;
+
+    this.setState(currState => ({
+      placeholders: {
+        ...currState.placeholders,
+        [field]: ''
+      }
+    }));
+  }
+
+  handleInputBlur(e) {
+    e.preventDefault();
+
+    let value = '';
+    const field = e.target.name;
+
+    switch(field) {
+    case 'name': value = 'Name'; break;
+    case 'email': value = 'Email'; break;
+    case 'password': value = 'Password'; break;
+    default: value = '';
+    }
+
+    this.setState(currState => ({
+      placeholders: {
+        ...currState.placeholders,
+        [field]: value,
       }
     }));
   }
