@@ -17,12 +17,34 @@ Responsive E-commerce store front, made with React.
 ## [Requirements Document](./requirements.md)
 
 ## Tech
-- React
-- React-Bootstrap
-- Styled Components
+- [React](https://www.npmjs.com/package/create-react-app)
+- [React-Bootstrap](https://www.npmjs.com/package/react-bootstrap)
+- [React Router](https://www.npmjs.com/package/react-router-dom)
+- [Styled Components](https://www.npmjs.com/package/styled-components)
+- [JSON-server](https://www.npmjs.com/package/json-server)
 
 ## Available Features
 - Clean and responsive interface, plays well on Laptop, tablet and smartphone devices
+- List products in store (Home page)
+- List products by categories (Product Category page)
+- Filter products by brand, color, size, and price range
+- Display details of a selected product (Product page)
+- Display product reviews (Product page)
+- "Add product review" form with 5-star rating
+- Add item to cart
+- Remove item from cart
+- Increase or decrease quantity of given item in cart
+- Specify product Color and Size while adding item to cart
+- View items in cart (Cart page)
+- Clear (empty) items in cart (Cart page)
+- Smart cart link detects when products have been added to the cart,
+  and displays a count of the unique products in the cart, allowing navigation to the cart
+- Checkout page with billing address, payment method, and order review and checkout sections
+- Credit Card or Paypal payment options
+- Signup and Signin pages
+- Demo API server
+
+## Page sections
 - Pre-nav
     - Login and registration links
     - Search form
@@ -31,6 +53,7 @@ Responsive E-commerce store front, made with React.
         - click to navigate to cart page
 - Top Navigation
     - category links
+- Page body (with Sidebar and Main content sections)
 - Footer
     - Contact information
     - Social media links
