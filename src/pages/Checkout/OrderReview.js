@@ -173,7 +173,11 @@ class OrderReview extends React.Component {
         <ItemCol md="4">
           <Pull right>
             ${item.price}&nbsp;
-            <SmallText onClick={() => removeProductFromCart(item)}>x</SmallText>
+            <SmallText
+              title="Remove item"
+              onClick={() => removeProductFromCart(item)}>
+              x
+            </SmallText>
           </Pull>
         </ItemCol>
       </ItemRow>

@@ -114,7 +114,7 @@ const ProductAttribute = styled.span`
   border: 1px solid transparent;
   border-radius: 5px;
   color: #fff;
-  background: #555; /* ${props => props.backgroundColor} */
+  background: #999; /* ${props => props.backgroundColor} */
   font-weight: 700;
   text-transform: capitalize;
 `;

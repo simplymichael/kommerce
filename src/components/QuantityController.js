@@ -22,9 +22,16 @@ const QuantityController = ({currentValue, onIncrement, onDecrement}) => {
 
   return (
     <Div>
-      <Btn onClick={onDecrement} cursor={cursor}> - </Btn>
-      <Btn background="transparent" cursor="default">{currentValue}</Btn>
-      <Btn onClick={onIncrement}> + </Btn>
+      <Btn onClick={onDecrement} cursor={cursor} title="Decrease quantity">
+        -
+      </Btn>
+      <Btn
+        background="transparent"
+        cursor="default"
+        title={`Current quantity: ${currentValue}`}>
+        {currentValue}
+      </Btn>
+      <Btn onClick={onIncrement} title="Increase quantity"> + </Btn>
     </Div>
   );
 };
