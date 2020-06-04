@@ -1,5 +1,5 @@
 import http from '../utils/http';
-import { getSavedAuthToken } from '../utils/auth';
+import { getAccessToken, deleteAccessToken } from '../utils/auth';
 
 class Service {
   static getService(serviceName, {host, port} = {}) {
@@ -82,10 +82,11 @@ class Service {
     }
 
     if(computedRoute.isProtected) {
-      authToken = getSavedAuthToken();
+      authToken = getAccessToken();
 
       if (!authToken) {
         redirect(window.location.pathname);
+        return;
       }
     }
 
@@ -94,6 +95,11 @@ class Service {
       .then(responseParser)
       .catch(err => {
         console.error('Error in Service::request(): ', err);
+
+        if(requestPath === '/user' &&
+           err.message.indexOf('User not found') === 0) { 
+          deleteAccessToken();
+        }
 
         if (err.message === 'Unauthorized') {
           redirect(window.location.pathname);
@@ -125,7 +131,7 @@ class Service {
  *
  * @param response object HTTP response object
  */
-function checkStatus(response) { 
+function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }

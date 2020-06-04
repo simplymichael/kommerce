@@ -1,4 +1,5 @@
 import cookies from './cookies';
+const accessToken = 'accessToken';
 
 /**
  * @param data mixed required: data to store
@@ -45,10 +46,10 @@ export const clearCachedUser = () => {
   localStorage.removeItem('user');
 };
 
-export const saveAuthToken = ({ token, expires }) => {
+export const saveAccessToken = ({ token, expires }) => {
   const expiry = parseInt(expires, 10);
 
-  cookies.set('accessToken', token, {
+  cookies.set(accessToken, token, {
     path: '/',
     maxAge: expiry,
     //expires: new Date(Date.now() + expiry), // OR
@@ -56,6 +57,6 @@ export const saveAuthToken = ({ token, expires }) => {
   });
 };
 
-export const getSavedAuthToken = () => {
-  return cookies.get('accessToken');
-};
+export const getAccessToken = () => cookies.get(accessToken);
+
+export const deleteAccessToken = () => cookies.remove(accessToken);

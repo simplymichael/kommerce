@@ -1,5 +1,5 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { cacheUser, saveAuthToken } from '../../utils/auth';
+import { cacheUser, saveAccessToken } from '../../utils/auth';
 import sagaRegistry from '../saga-registry';
 import { LOGIN, CREATE_USER, FETCH_CURRENT_USER } from './constants';
 import {
@@ -24,7 +24,7 @@ function* login(action) {
     } = yield call(() => service.loginUser(loginData));
 
     cacheUser(user);
-    saveAuthToken({
+    saveAccessToken({
       token: accessToken,
       expires: expiresIn,
     });
@@ -46,7 +46,7 @@ function* createUser(action) {
     } = yield call(() => service.createUser(registrationData));
 
     cacheUser(user);
-    saveAuthToken({
+    saveAccessToken({
       token: accessToken,
       expires: expiresIn,
     });
