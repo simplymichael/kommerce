@@ -36,6 +36,7 @@ Responsive E-commerce store front, made with React.
 - List products in store (Home page)
 - List products by categories (Product Category page)
 - Filter products by brand, color, size, and price range
+- Full-text searching of products 
 - Display details of a selected product (Product page)
 - Display product reviews (Product page)
 - "Add product review" form with 5-star rating
