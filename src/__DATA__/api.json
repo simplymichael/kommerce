@@ -150,21 +150,51 @@
     },
     {
       "id": 2,
-      "name": "Yellow T-Shirt",
-      "price": 80.00,
-      "color": "yellow",
-      "size": "XS",
-      "brand": "Asos",
-      "category": "Shirts",
-      "dateAdded": 1590809623769,
+      "name": "Smart watch",
+      "price": 1000.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Apple",
+      "category": "Electronics",
+      "dateAdded": 1590809623766,
       "images": [
-        { "url": "https://imgur.com/UyFBYHR.png", "default": true },
-        { "url": "https://imgur.com/UyFBYHR.png", "default": false },
-        { "url": "https://imgur.com/UyFBYHR.png", "default": false }
+        { "url": "https://imgur.com/WJPk5zM.png", "default": true },
+        { "url": "https://imgur.com/WJPk5zM.png", "default": false },
+        { "url": "https://imgur.com/WJPk5zM.png", "default": false }
       ]
     },
     {
       "id": 3,
+      "name": "Funky Headset",
+      "price": 200.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Microsoft",
+      "category": "Electronics",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/8sa14nC.png", "default": true },
+        { "url": "https://imgur.com/8sa14nC.png", "default": false },
+        { "url": "https://imgur.com/8sa14nC.png", "default": false }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Sleek Smartphone with wireless headset",
+      "price": 1000.00,
+      "color": "Black",
+      "size": "M",
+      "brand": "Samsung",
+      "category": "Phones & Accessories",
+      "dateAdded": 1590809623766,
+      "images": [
+        { "url": "https://imgur.com/IvQn0bv.png", "default": true },
+        { "url": "https://imgur.com/IvQn0bv.png", "default": false },
+        { "url": "https://imgur.com/IvQn0bv.png", "default": false }
+      ]
+    },
+    {
+      "id": 5,
       "name": "Blue female heels",
       "price": 300.00,
       "color": "blue",
@@ -176,36 +206,6 @@
         { "url": "https://imgur.com/Rgx8MBp.png", "default": true },
         { "url": "https://imgur.com/Rgx8MBp.png", "default": false },
         { "url": "https://imgur.com/Rgx8MBp.png", "default": false }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Brown Shoe",
-      "price": 100.00,
-      "color": "brown",
-      "size": "S",
-      "brand": "Adidas Originals",
-      "category": "Shoes",
-      "dateAdded": 1590809623770,
-      "images": [
-        { "url": "https://imgur.com/xP552vg.png", "default": true },
-        { "url": "https://imgur.com/xP552vg.png", "default": false },
-        { "url": "https://imgur.com/xP552vg.png", "default": false }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Brilliant subtle-pink shoes",
-      "price": 250.00,
-      "color": "pink",
-      "size": "M",
-      "brand": "Adidas Originals",
-      "category": "Shoes",
-      "dateAdded": 1590809623771,
-      "images": [
-        { "url": "https://imgur.com/0GI6AHJ.png", "default": true },
-        { "url": "https://imgur.com/0GI6AHJ.png", "default": false },
-        { "url": "https://imgur.com/0GI6AHJ.png", "default": false }
       ]
     },
     {
@@ -330,17 +330,17 @@
     },
     {
       "id": 14,
-      "name": "Smart watch",
-      "price": 1000.00,
-      "color": "Black",
-      "size": "M",
-      "brand": "Apple",
-      "category": "Electronics",
-      "dateAdded": 1590809623766,
+      "name": "Brown Shoe",
+      "price": 100.00,
+      "color": "brown",
+      "size": "S",
+      "brand": "Adidas Originals",
+      "category": "Shoes",
+      "dateAdded": 1590809623770,
       "images": [
-        { "url": "https://imgur.com/WJPk5zM.png", "default": true },
-        { "url": "https://imgur.com/WJPk5zM.png", "default": false },
-        { "url": "https://imgur.com/WJPk5zM.png", "default": false }
+        { "url": "https://imgur.com/xP552vg.png", "default": true },
+        { "url": "https://imgur.com/xP552vg.png", "default": false },
+        { "url": "https://imgur.com/xP552vg.png", "default": false }
       ]
     },
     {
@@ -375,32 +375,32 @@
     },
     {
       "id": 17,
-      "name": "Funky Headset",
-      "price": 200.00,
-      "color": "Black",
-      "size": "M",
-      "brand": "Microsoft",
-      "category": "Electronics",
-      "dateAdded": 1590809623766,
+      "name": "Yellow T-Shirt",
+      "price": 80.00,
+      "color": "yellow",
+      "size": "XS",
+      "brand": "Asos",
+      "category": "Shirts",
+      "dateAdded": 1590809623769,
       "images": [
-        { "url": "https://imgur.com/8sa14nC.png", "default": true },
-        { "url": "https://imgur.com/8sa14nC.png", "default": false },
-        { "url": "https://imgur.com/8sa14nC.png", "default": false }
+        { "url": "https://imgur.com/UyFBYHR.png", "default": true },
+        { "url": "https://imgur.com/UyFBYHR.png", "default": false },
+        { "url": "https://imgur.com/UyFBYHR.png", "default": false }
       ]
     },
     {
       "id": 18,
-      "name": "Sleek Smartphone with wireless headset",
-      "price": 1000.00,
-      "color": "Black",
+      "name": "Brilliant subtle-pink shoes",
+      "price": 250.00,
+      "color": "pink",
       "size": "M",
-      "brand": "Samsung",
-      "category": "Phones & Accessories",
-      "dateAdded": 1590809623766,
+      "brand": "Adidas Originals",
+      "category": "Shoes",
+      "dateAdded": 1590809623771,
       "images": [
-        { "url": "https://imgur.com/IvQn0bv.png", "default": true },
-        { "url": "https://imgur.com/IvQn0bv.png", "default": false },
-        { "url": "https://imgur.com/IvQn0bv.png", "default": false }
+        { "url": "https://imgur.com/0GI6AHJ.png", "default": true },
+        { "url": "https://imgur.com/0GI6AHJ.png", "default": false },
+        { "url": "https://imgur.com/0GI6AHJ.png", "default": false }
       ]
     },
     {

@@ -59,12 +59,12 @@ export default {
     fetchRecentProductsError: 'Error retrieving products. Please, try again',
   },
   priceRangeSelector: {
-    min   : 0,
-    max   : 500,
+    min   : 10,
+    max   : 2000,
     step  : 1,
     currency: '$',
-    initialMinValue : 0,
-    initialMaxValue : 500,
+    initialMinValue : 10,
+    initialMaxValue : 2000,
   },
   product: {
     linkTitle: 'Click to view product details',
