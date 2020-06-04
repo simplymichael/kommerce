@@ -6,30 +6,16 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import config from '../.config';
 import device from '../utils/device';
-import strings from '../resources/strings';
 import Icon from './Icons/Icon';
-import { Error } from './Notifications';
 import {
   searchProducts,
   makeSelectIsSearchingProducts,
-  makeSelectSearchProductsError,
 } from '../store/products';
 
 const Form = styled.form`
-  float: right;
   display: inline-block;
-  margin-top: 0px;
-  margin-right: 0px;
-  padding-left: 2px;
-  padding-right: 0px;
-  padding-top: 0;
-  padding-bottom: 0;
   border: 1px solid #bbb;
   border-radius: 2px;
-
-  @media (min-width: ${device.mobileS}) and (max-width: ${device.tablet}) { /* 375 */
-    float: none;
-  }
 `;
 
 const SearchLink = styled(Link)`
@@ -51,17 +37,13 @@ const SearchLink = styled(Link)`
 const SearchInput = styled.input`
   width: 550px;
   padding: 0 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
   margin-left: 3px;
   margin-right: 3px;
   margin-top: 0;
   border: none;
   border-radius: 3px;
-  background: transparent;
   color: #222;
   outline: 0;
-  transition: all .25s linear;
 
   :focus {
     color: #222;
@@ -108,7 +90,6 @@ class SearchForm extends React.Component {
 
     this.state = {
       focused: false,
-      collapsed: false,
       validationError: '',
     };
   }
@@ -116,22 +97,7 @@ class SearchForm extends React.Component {
   clickHandler(e) {
     e.preventDefault();
 
-    /*this.setState(
-      currState => ({
-        'focused': !currState.focused,
-        'collapsed': !currState.collapsed
-      }),
-      () => this.state.focused && this.searchInput.focus()
-    );*/
-
     this.handleSubmit(e);
-  }
-
-  handleInputChange() {
-    // clear the error
-    this.setState({
-      validationError: '',
-    });
   }
 
   handleSubmit(e) {
@@ -140,10 +106,6 @@ class SearchForm extends React.Component {
     const query = this.searchInput.value;
 
     if(!query) {
-      /*this.setState({
-        validationError: 'Please enter a query in the input field',
-      });*/
-
       return;
     }
 
@@ -167,21 +129,10 @@ class SearchForm extends React.Component {
   }
 
   render() {
-    const { isSearchingProducts, searchProductsError } = this.props;
-    const { validationError } = this.state;
-    let error = validationError;
-
-    if(isSearchingProducts) {
-      // do something
-    }
-
-    if(searchProductsError) {
-      error = strings.search.error || searchProductsError;
-    }
+    const { isSearchingProducts } = this.props;
 
     return (
       <>
-        <Error>{error}</Error>
         <Form
           role={this.props.role || 'search-form'}
           onSubmit={this.handleSubmit.bind(this)}>
@@ -189,14 +140,11 @@ class SearchForm extends React.Component {
             type="text"
             role="search-input-field"
             placeholder="..."
-            data-collapsed={this.state.collapsed}
-            collapsed={this.state.collapsed}
             disabled={isSearchingProducts}
             className={isSearchingProducts ? 'not-allowed' : ''}
             ref={input => this.searchInput = input}
             onFocus={() => this.searchInput.placeholder = ''}
-            onBlur={() => this.searchInput.placeholder = '...'}
-            onChange={() => this.handleInputChange()}/>
+            onBlur={() => this.searchInput.placeholder = '...'} />
           <SearchIconBtn to="#" role="search-icon-button"
             clickHandler={e => this.clickHandler(e)} />
         </Form>
@@ -215,7 +163,6 @@ SearchForm.propTypes = {
   role: PropTypes.string,
   searchProducts: PropTypes.func,
   isSearchingProducts: PropTypes.bool,
-  searchProductsError: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -224,7 +171,6 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = createStructuredSelector({
   isSearchingProducts: makeSelectIsSearchingProducts(),
-  searchProductsError: makeSelectSearchProductsError()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchForm));

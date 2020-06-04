@@ -32,6 +32,9 @@ const Paragraph = styled.p`
   color: ${colors.footer.text};
 `;
 
+const currYear = new Date().getFullYear();
+const footerDate = currYear > 2020 ? `2020 - ${currYear}` : currYear;
+
 const Footer = () => (
   <FooterContainer role="footer">
     <Container>
@@ -72,7 +75,7 @@ const Footer = () => (
       <Row>
         <Col md="6">
           <Paragraph>
-            &copy; 2020. All rights reserved. {strings.appName}.
+            &copy; {footerDate}. All rights reserved. {strings.appName}.
           </Paragraph>
         </Col>
         <Col md="6" className="text-right">
