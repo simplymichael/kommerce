@@ -28,6 +28,10 @@ const stateTree = {
   searchTerm: '',
   isSearchingProducts: false,
   searchProductsError: null,
+
+  productsCount: 0,
+  isCountingProducts: false,
+  countProductsError: null,
 };
 
 describe('Store:Products', () => {

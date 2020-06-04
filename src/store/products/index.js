@@ -5,6 +5,7 @@ import {
   fetchRecentProducts,
   searchProducts,
   clearSearch,
+  countProducts,
 } from './actions';
 import {
   makeSelectProducts,
@@ -18,6 +19,10 @@ import {
   makeSelectSearchTerm,
   makeSelectIsSearchingProducts,
   makeSelectSearchProductsError,
+
+  makeSelectProductsCount,
+  makeSelectIsCountingProducts,
+  makeSelectCountProductsError,
 } from './selectors';
 
 export {
@@ -39,4 +44,9 @@ export {
   makeSelectSearchProductsError,
 
   clearSearch,
+
+  countProducts,
+  makeSelectProductsCount,
+  makeSelectIsCountingProducts,
+  makeSelectCountProductsError,
 };

@@ -6,6 +6,127 @@ const defaultLimit = 10;
 
 class ProductService extends Service {
   getProducts(queryData = {}) {
+    const { path, requestData } = this._prepareQueryData(queryData);
+
+    return this.request(path, requestData)
+      .then(result => result)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  // The development API server uses json-server.
+  // Json-server does not provide a built-in /:resource/count/ route
+  // but it returns an X-Total-Count header for_start and _end or _limit queries.
+  // We are leveraging that here to implement a products count functionality.
+  //
+  // In production, this countProducts() function
+  // would be re-implemetnted to work with the API server.
+  countProducts(queryData = {}) {
+    const { path, requestData } = this._prepareQueryData(queryData);
+    const responseHandler = (response) => response.headers.get('X-Total-Count');
+
+    return this.request(path, requestData, { responseHandler })
+      .then(result => result)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  searchProducts(queryData = {}) {
+    /*
+    const path = { ...route };
+
+    const {
+      query = '',
+      page = 1,
+      limit = 10,
+    } = queryData;
+
+    const reqPage = (parseInt(page) <= 0 ? 1 : parseInt(page));
+    const reqLimit = (parseInt(limit) <= 0 ? defaultLimit : parseInt(limit));
+    const reqData = {
+      q: query,
+      page: reqPage,
+      limit: reqLimit
+    };
+
+    return this.request(path, reqData)
+      .then(result => result)
+      .catch(err => {
+        throw err;
+      });
+    */
+
+    // queryData: { query = '', page = 1, limit = 10, categories = [] }
+    const reqData = { ...queryData, searchTerm: queryData.query };
+    delete reqData.query;
+
+    const { path, requestData } = this._prepareQueryData(queryData);
+
+    return this.request(path, requestData)
+      .then(result => result)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  getProduct(productId) {
+    const path = { ...route, url: `${route.url}/:productId` };
+
+    return this.request(path, { productId })
+      .then(product => product)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  getRelatedProducts(productId) {
+    const path = { ...route, url: `${route.url}/:productId/related` };
+
+    return this.request(path, { productId })
+      .then(products => products)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  addProductReview(productId, reviewData) {
+    const { author, body, rating } = reviewData;
+    const path = {
+      ...route,
+      url: `${route.url}/:productId/reviews`,
+      method: 'post'
+    };
+
+    const postData = {
+      productId,
+      body: {
+        productId,
+        author,
+        rating,
+        body,
+      }
+    };
+
+    return this.request(path, postData)
+      .then(review => review)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  getProductReviews(productId) {
+    const path = { ...route, url: `${route.url}/:productId/reviews` };
+
+    return this.request(path, { productId })
+      .then(reviews => reviews)
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  _prepareQueryData(queryData) {
     const {
       page = 1,
       limit = 10,
@@ -98,96 +219,10 @@ class ProductService extends Service {
       reqData['q'] = searchTerm;
     }
 
-    return this.request(path, reqData)
-      .then(result => result)
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  /*getLatestProducts(count) {
-    return this.getProducts({
-      orderBy: {},
-      limit: count
-    });
-  }*/
-
-  getProduct(productId) {
-    const path = { ...route, url: `${route.url}/:productId` };
-
-    return this.request(path, { productId })
-      .then(product => product)
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  getRelatedProducts(productId) {
-    const path = { ...route, url: `${route.url}/:productId/related` };
-
-    return this.request(path, { productId })
-      .then(products => products)
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  addProductReview(productId, reviewData) {
-    const { author, body, rating } = reviewData;
-    const path = {
-      ...route,
-      url: `${route.url}/:productId/reviews`,
-      method: 'post'
+    return {
+      path,
+      requestData: reqData,
     };
-
-    const postData = {
-      productId,
-      body: {
-        productId,
-        author,
-        rating,
-        body,
-      }
-    };
-
-    return this.request(path, postData)
-      .then(review => review)
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  getProductReviews(productId) {
-    const path = { ...route, url: `${route.url}/:productId/reviews` };
-
-    return this.request(path, { productId })
-      .then(reviews => reviews)
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  searchProducts(queryData = {}) {
-    const path = { ...route };
-    const {
-      query = '',
-      page = 1,
-      limit = 10,
-    } = queryData;
-
-    const reqPage = (parseInt(page) <= 0 ? 1 : parseInt(page));
-    const reqLimit = (parseInt(limit) <= 0 ? defaultLimit : parseInt(limit));
-    const reqData = {
-      q: query,
-      page: reqPage,
-      limit: reqLimit
-    };
-
-    return this.request(path, reqData)
-      .then(result => result)
-      .catch(err => {
-        throw err;
-      });
   }
 }
 

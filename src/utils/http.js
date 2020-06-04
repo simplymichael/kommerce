@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 
 /**
  * Make an HTTP request
+ * by wrapping the whatwg-fetch window.fetch() call
  *
  * @param route object e.g: {
  *   url: "http://localhost:3000/posts/:postId", // request url with placeholders allowed
@@ -14,32 +15,10 @@ import 'whatwg-fetch';
  *   name: "James" // will be appended to query string, since no matching placeholder exists in route.url
  *   body: {} // // appended to request body for POST|PUT requests
  * }
+ *
+ * @param authToken string authorization token for making request to protected resources 
  */
 function request(route, params, authToken) {
-  return wrapFetch(route, params, authToken)
-    .then(checkStatus)
-    .then(parseJSON)
-    .catch(err => {
-      throw err;
-    });
-}
-
-/**
- * wrap the whatwg-fetch window.fetch() call
- *
- * @param route object e.g: {
- *   url: "/posts/:postId",
- *   method: "GET|POST|..."
- * }
- *
- * @param params e.g: {
- *   postId: 1,
- *   body: {}
- * }
- *
- * @param authToken string
- */
-function wrapFetch(route, params, authToken) {
   let computedRoute = route.url;
   const mutableParams = { ...params } || {};
   const computedOptions = {
@@ -78,32 +57,6 @@ function wrapFetch(route, params, authToken) {
 
   // Process the request
   return fetch(computedRoute, computedOptions);
-}
-
-/**
- * Check the status of a returned HTTP request
- *
- * @param response object HTTP response object
- */
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-
-  return response.json().then(({ error }) => {
-    if (response.status === 401) {
-      throw new Error('Unauthorized');
-    } else {
-      throw new Error(error || 'API error');
-    }
-  });
-}
-
-/**
- * Parse JSON returned by a request
- */
-function parseJSON(response) {
-  return response.json();
 }
 
 export default {

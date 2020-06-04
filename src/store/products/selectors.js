@@ -29,3 +29,12 @@ export const makeSelectIsSearchingProducts = () =>
 
 export const makeSelectSearchTerm = () =>
   createSelector(localState, state => state.get('searchTerm'));
+
+export const makeSelectProductsCount = () =>
+  createSelector(localState, state => state.get('productsCount'));
+
+export const makeSelectIsCountingProducts = () =>
+  createSelector(localState, state => state.get('isCountingProducts'));
+
+export const makeSelectCountProductsError = () =>
+  createSelector(localState, state => state.get('countProductsError'));

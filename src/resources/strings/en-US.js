@@ -69,6 +69,7 @@ export default {
   product: {
     linkTitle: 'Click to view product details',
     notFound: 'The product you are looking for was not found',
+    countProductsError: 'Error getting products count. Please, try again',
     fetchProductsError: 'Error retrieving products. Please, try again',
     fetchDetailsError: `Error in retrieving product details.
     Please refresh the page to try again`,

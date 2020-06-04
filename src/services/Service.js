@@ -38,8 +38,15 @@ class Service {
    *    name: "James" // will be appended to query string, since no matching placeholder exists in route.url
    *    body: { ... } // appended to request body for POST|PUT requests
    * }
+   *
+   * @param options optional object with properties:
+   *   - responseHandler function called to handle the responses
+   *     The function is passed the response object.
+   *     NOTE:
+   *     If this function is supplied, it is responsible for processing the response,
+   *     If it is not supplied, the default handler returns the response as JSON
    */
-  request(route, params) {
+  request(route, params, options = {}) {
     let authToken = '';
     const { host: apiHost, port: apiPort } = this.getApiData();
     const { host = apiHost, port = apiPort } = route;
@@ -48,6 +55,8 @@ class Service {
     const requestUrl = [baseUrl, requestPath].join(
       requestPath.charAt(0) === '/' ? '' : '/');
     const computedRoute = { ...route, url: requestUrl };
+    const { responseHandler } = options;
+    const responseParser = responseHandler || parseJSON;
 
     const redirect = path => {
       // Keeps redirecting if we are trying to fetch the user's details
@@ -81,7 +90,8 @@ class Service {
     }
 
     return http.request(computedRoute, params, authToken)
-      .then(json => json)
+      .then(checkStatus)
+      .then(responseParser)
       .catch(err => {
         console.error('Error in Service::request(): ', err);
 
@@ -109,5 +119,32 @@ class Service {
     }
   }
 }
+
+/**
+ * Check the status of a returned HTTP request
+ *
+ * @param response object HTTP response object
+ */
+function checkStatus(response) { 
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+
+  return response.json().then(({ error }) => {
+    if (response.status === 401) {
+      throw new Error('Unauthorized');
+    } else {
+      throw new Error(error || 'API error');
+    }
+  });
+}
+
+/**
+ * Parse JSON returned by a request
+ */
+function parseJSON(response) {
+  return response.json();
+}
+
 
 export default Service;

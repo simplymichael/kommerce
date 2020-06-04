@@ -14,6 +14,10 @@ import {
   SEARCH_PRODUCTS_SUCCESS,
 
   CLEAR_SEARCH,
+
+  COUNT_PRODUCTS,
+  COUNT_PRODUCTS_ERROR,
+  COUNT_PRODUCTS_SUCCESS,
 } from './constants';
 
 export const reducerName = 'products';
@@ -29,6 +33,10 @@ export const initialState = fromJS({
   searchTerm: '',
   isSearchingProducts: false,
   searchProductsError: null,
+
+  productsCount: 0,
+  isCountingProducts: false,
+  countProductsError: null,
 });
 
 export default function reducer(state = initialState, action) {
@@ -65,7 +73,7 @@ export default function reducer(state = initialState, action) {
       .set('isFetchingRecentProducts', false)
       .set('recentProducts', fromJS(action.payload.products));
 
-  case SEARCH_PRODUCTS: 
+  case SEARCH_PRODUCTS:
     return state
       .set('searchTerm', action.payload.query)
       .set('isSearchingProducts', true)
@@ -87,6 +95,22 @@ export default function reducer(state = initialState, action) {
       .set('searchTerm', '')
       .set('isSearchingProducts', false)
       .set('searchProductsError', null);
+
+  case COUNT_PRODUCTS:
+    return state
+      .set('isCountingProducts', true)
+      .set('countProductsError', null);
+
+  case COUNT_PRODUCTS_ERROR:
+    return state
+      .set('isCountingProducts', false)
+      .set('countProductsError', action.error);
+
+  case COUNT_PRODUCTS_SUCCESS:
+    return state
+      .set('isCountingProducts', false)
+      .set('countProductsError', null)
+      .set('productsCount', parseInt(action.payload.count));
 
   default: return state;
   }

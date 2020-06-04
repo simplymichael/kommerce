@@ -4,6 +4,7 @@ import {
   FETCH_PRODUCTS,
   FETCH_RECENT_PRODUCTS,
   SEARCH_PRODUCTS,
+  COUNT_PRODUCTS,
 } from './constants';
 import {
   fetchProductsError,
@@ -12,6 +13,8 @@ import {
   fetchRecentProductsSuccess,
   searchProductsError,
   searchProductsSuccess,
+  countProductsError,
+  countProductsSuccess,
 } from './actions';
 
 let service = null;
@@ -46,6 +49,16 @@ function* searchProducts(action) {
   }
 }
 
+function* countProducts(action) {
+  try {
+    const count = yield call(() => service.countProducts(action.payload));
+
+    yield put(countProductsSuccess(count));
+  } catch (err) {
+    yield put(countProductsError(err.toString()));
+  }
+}
+
 export const sagaName = 'products';
 export default function(injectedService) {
   service = injectedService;
@@ -55,6 +68,7 @@ export default function(injectedService) {
       takeEvery(FETCH_PRODUCTS, fetchProducts),
       takeEvery(FETCH_RECENT_PRODUCTS, fetchRecentProducts),
       takeEvery(SEARCH_PRODUCTS, searchProducts),
+      takeEvery(COUNT_PRODUCTS, countProducts),
     ]);
   }
 

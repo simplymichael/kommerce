@@ -4,7 +4,7 @@ const pages = [
     'path': 'src/pages/Home'
   },
   {
-    'route': '/categories/:id',
+    'route': '/categories/:categoryId',
     'path': 'src/pages/Category'
   },
   {

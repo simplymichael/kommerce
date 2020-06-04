@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled, { css } from 'styled-components';
@@ -125,10 +125,20 @@ class SearchForm extends React.Component {
       return;
     }
 
+    // eslint-disable-next-line
+    let category = '';
+    const { pathname } = this.props.location; // eslint-disable-line
+
+    // eslint-disable-next-line
+    if(pathname.indexOf('/categories') === 0) {
+      category = pathname.split('/categories/')[1]; //eslint-disable-line
+    }
+
     const queryData = {
       query,
       page  : 1,
       limit : config.products.perPage || 10,
+      categories: [category],
     };
 
     this.props.searchProducts(queryData);
@@ -193,4 +203,4 @@ const mapStateToProps = createStructuredSelector({
   searchProductsError: makeSelectSearchProductsError()
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchForm));

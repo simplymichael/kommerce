@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import Pagination from 'react-js-pagination';
 import Loading from '../Notifications/Loading';
 import { Error } from '../Notifications';
+import Pagination from './Pagination';
 import ProductSummary from './ProductSummary';
 import config from '../../.config';
 import strings from '../../resources/strings';
@@ -61,12 +61,13 @@ class ProductsList extends React.Component {
     this.state = {
       queryData: {
         page    : 1,
-        limit   : config.products.perPage || 10,
+        limit   : config.products.perPage,
         colors  : [],
         sizes   : [],
         brands  : [],
         orderBy : {},
         priceRange : { min, max },
+        searchTerm: '',
       }
     };
   }
@@ -86,7 +87,7 @@ class ProductsList extends React.Component {
     const { props } = this;
     const watched = [
       'priceRange', 'selectedColors',
-      'selectedBrands', 'selectedSizes'
+      'selectedBrands', 'selectedSizes', 'searchTerm',
     ];
 
     for(let i = 0; i < watched.length; i++) {
@@ -112,15 +113,6 @@ class ProductsList extends React.Component {
           queryData.categories = [this.props.category];
         }
 
-        // When an active search is on,
-        // we receive the 'searchTerm' prop
-        // via the products' slice of the store,
-        // and pagination requests should include and return results
-        // based on the search term.
-        if(this.props.searchTerm)  {
-          queryData.searchTerm = this.props.searchTerm;
-        }
-
         props.fetchProducts(queryData);
       };
 
@@ -131,6 +123,7 @@ class ProductsList extends React.Component {
           colors: props.selectedColors,
           brands: props.selectedBrands,
           sizes: props.selectedSizes,
+          searchTerm: props.searchTerm,
         }
       }), setStateCallback);
     }
@@ -147,10 +140,11 @@ class ProductsList extends React.Component {
 
   render() {
     const {
-      products, container, weight,
-      renderer, isFetchingProducts,
-      fetchProductsError,
+      products, container, weight, renderer, category,
+      isFetchingProducts, fetchProductsError,
     } = this.props;
+
+    const { page } = this.state.queryData;
 
     if(isFetchingProducts) {
       return (
@@ -197,13 +191,10 @@ class ProductsList extends React.Component {
           <Col md="4">
             <div style={{ margin: 'auto' }}>
               <Pagination
-                activePage={this.state.queryData.page}
-                itemsCountPerPage={config.products.perPage || 10}
-                totalItemsCount={14}
-                pageRangeDisplayed={4}
-                onChange={this.handlePageChange.bind(this)}
-                itemClass="page-item"
-                linkClass="page-link" />
+                currentPage={page}
+                category={category}
+                itemsCountPerPage={config.products.perPage}
+                pageChangeHandler={this.handlePageChange.bind(this)} />
             </div>
           </Col>
           <Col md="4">&nbsp;</Col>
@@ -245,7 +236,7 @@ const mapStateToProps = createStructuredSelector({
   selectedSizes: makeSelectSelectedSizes(),
   searchTerm: makeSelectSearchTerm(),
   isFetchingProducts: makeSelectIsFetchingProducts(),
-  fetchProductsError: makeSelectFetchProductsError()
+  fetchProductsError: makeSelectFetchProductsError(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);

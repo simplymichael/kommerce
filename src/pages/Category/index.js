@@ -27,7 +27,7 @@ const Category = (props) => {
       <Col md="9" role="main-content">
         <ProductsList
           weight="4"
-          category={ props.match.params.id /* eslint-disable-line */ } />
+          category={ props.match.params.categoryId /* eslint-disable-line */ } />
       </Col>
     </Row>
   );

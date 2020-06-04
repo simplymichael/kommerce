@@ -13,13 +13,17 @@ import {
   SEARCH_PRODUCTS_SUCCESS,
 
   CLEAR_SEARCH,
+
+  COUNT_PRODUCTS,
+  COUNT_PRODUCTS_ERROR,
+  COUNT_PRODUCTS_SUCCESS,
 } from './constants';
 
 /**
  * queryData object with properties:
  * page = 1, limit = 0,
  * colors = [], sizes = [], brands = [],
- * orderBy = {}, priceRange = {}, categories = []
+ * orderBy = {}, priceRange = {}, categories = [], searchTerm = ''
  */
 export function fetchProducts(queryData = {}) {
   return generateAction(FETCH_PRODUCTS, queryData);
@@ -63,4 +67,25 @@ export function searchProductsSuccess(products) {
 
 export function clearSearch() {
   return generateAction(CLEAR_SEARCH);
+}
+
+/**
+ * Count the total number of products that meet the 'search' query parameters.
+ * Useful for getting the total products count in pagination routines.
+ *
+ * @param queryData object with properties:
+ * page = 1, limit = 0,
+ * colors = [], sizes = [], brands = [],
+ * orderBy = {}, priceRange = {}, categories = [], searchTerm = ''
+ */
+export function countProducts(queryData = {}) {
+  return generateAction(COUNT_PRODUCTS, queryData);
+}
+
+export function countProductsError(error) {
+  return generateErrorAction(COUNT_PRODUCTS_ERROR, error);
+}
+
+export function countProductsSuccess(count) {
+  return generateAction(COUNT_PRODUCTS_SUCCESS, { count });
 }
