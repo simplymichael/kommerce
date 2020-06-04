@@ -8,20 +8,29 @@ import {
   fetchCurrentUser,
   makeSelectIsFetchingCurrentUser,
   makeSelectFetchCurrentUserError,
+  logout,
 } from '../../store/users';
 
 const UserLink = (props) => {
-  const {
-    user,
-    fetchCurrentUser,
-  } = props;
+  const { user, logout, fetchCurrentUser } = props;
 
   useEffect(() => {
     fetchCurrentUser(); // eslint-disable-next-line
   }, []);
 
   if(user.id) {
-    return `Welcome ${user.name}`;
+    return (
+      <>
+        Welcome {user.name}
+        &nbsp; | &nbsp;
+        <Link to="#" onClick={(e) => {
+          e.preventDefault();
+          logout();
+        }}>
+        Sign out
+        </Link>
+      </>
+    );
   }
 
   return (
@@ -43,12 +52,14 @@ UserLink.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
   }),
+  logout: PropTypes.func,
   fetchCurrentUser: PropTypes.func,
   isFetchingCurrentUser: PropTypes.bool,
   fetchCurrentUserError: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
   fetchCurrentUser: () => dispatch(fetchCurrentUser()),
 });
 

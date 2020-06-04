@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable';
 import reducerRegistry from '../reducer-registry';
+import { clearCachedUser, deleteAccessToken } from '../../utils/auth';
 import {
   LOGIN,
   LOGIN_SUCCESS,
@@ -12,8 +13,9 @@ import {
   FETCH_CURRENT_USER,
   FETCH_CURRENT_USER_ERROR,
   FETCH_CURRENT_USER_SUCCESS,
-} from './constants';
 
+  LOGOUT,
+} from './constants';
 
 export const reducerName = 'auth';
 export const initialState = fromJS({
@@ -75,6 +77,12 @@ export default function reducer(state = initialState, action) {
       .set('isFetchingCurrentUser', false)
       .set('fetchCurrentUserError', null)
       .set('user', fromJS(action.payload.user));
+
+  case LOGOUT:
+    clearCachedUser();
+    deleteAccessToken();
+    return state
+      .set('user', fromJS({}));
 
   default: return state;
   }

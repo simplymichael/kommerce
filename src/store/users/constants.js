@@ -15,3 +15,5 @@ export const FETCH_CURRENT_USER_ERROR = generateActionName(
   'FETCH_CURRENT_USER_ERROR', NS);
 export const FETCH_CURRENT_USER_SUCCESS = generateActionName(
   'FETCH_CURRENT_USER_SUCCESS', NS);
+
+export const LOGOUT = generateActionName('LOGOUT', NS);

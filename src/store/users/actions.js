@@ -11,6 +11,8 @@ import {
   FETCH_CURRENT_USER,
   FETCH_CURRENT_USER_ERROR,
   FETCH_CURRENT_USER_SUCCESS,
+
+  LOGOUT,
 } from './constants';
 
 export function loginUser(user) {
@@ -47,4 +49,8 @@ export function fetchCurrentUserError(error) {
 
 export function fetchCurrentUserSuccess(user) {
   return generateAction(FETCH_CURRENT_USER_SUCCESS, { user });
+}
+
+export function logout() {
+  return generateAction(LOGOUT);
 }
