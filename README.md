@@ -2,6 +2,15 @@
 
 Responsive E-commerce store front, made with React.
 
+### Home page
+![Home page image](https://imgur.com/sicPgIC.png)
+
+### Cart page
+![Cart page image](https://imgur.com/NR88aHi.png)
+
+### Checkout page
+![Checkout page image](https://imgur.com/gz1oj2N.png)
+
 ## [Requirements Document](./requirements.md)
 
 ## Tech
@@ -10,15 +19,15 @@ Responsive E-commerce store front, made with React.
 - Styled Components
 
 ## Available Features
-- Clean and responsive interface, plays well on Laptop, tablet and mobile phone devices
+- Clean and responsive interface, plays well on Laptop, tablet and smartphone devices
 - Pre-nav
-    - login and registration links
+    - Login and registration links
+    - Search form
     - Smart cart link
         - displays a count of the unique products in the cart,
         - click to navigate to cart page
 - Top Navigation
     - category links
-    - search form
 - Footer
     - Contact information
     - Social media links
@@ -35,10 +44,6 @@ Responsive E-commerce store front, made with React.
 | [Sign-up Page](./src/pages/Register/index.js)   | `/signup`         |
 | [Cart page](./src/pages/Cart/index.js)          | `/cart`           |
 | [Checkout page](./src/pages/Checkout/index.js)  | `/checkout`       |
-| [About us page](./src/pages/About/index.js)     | `/about`          |
-| [Privacy page](./src/pages/Privacy/index.js)    | `/privacy`        |
-| [FAQs page](./src/pages/Faq/index.js)           | `/faq`            |
-| [Contact us page](./src/pages/Contact/index.js) | `/contact`        |
 
 ## Running
 This project uses [run-script-os](https://www.npmjs.com/package/run-script-os)
