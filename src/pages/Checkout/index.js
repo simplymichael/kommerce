@@ -5,6 +5,7 @@ import device from '../../utils/device';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import { PlusIcon, MinusIcon } from '../../components/Icons';
+import * as validator from '../../utils/validator';
 import OrderReview from './OrderReview';
 import PaymentForm from './PaymentForm';
 import BillingAddressForm from './BillingAddressForm';
@@ -108,17 +109,30 @@ const Checkout = () => {
   const [paymentCard, setPaymentCard] = useState(null);
 
   function validateUser(user) {
-    const requiredData = [
-      'firstname', 'lastname', 'email', 'phone',
-      'address1', 'country', 'state', 'city', 'postcode',
-    ];
+    const requiredData = {
+      firstname : 'First Name',
+      lastname  : 'Last Name',
+      email     : 'Email Address',
+      phone     : 'Telephone',
+      address1  : 'Address (Line 1)',
+      country   : 'Country',
+      state     : 'State/Territory',
+      city      : 'City/Suburb/Town',
+      postcode  : 'Postcode',
+    };
 
-    for(let i = 0; i < requiredData.length; i++) {
-      const key = requiredData[i];
-
-      if(!(user[key].trim())) {
-        return `${key} field is required`;
+    for(let [key, value] of Object.entries(requiredData)) {
+      if(!user[key].trim()) {
+        return `The ${value} field is required`;
       }
+    }
+
+    if(!validator.isValidEmail(user.email)) {
+      return 'The email address you have entered is invalid.';
+    }
+
+    if(!validator.isValidPhone(user.phone)) {
+      return 'The phone number you have entered is invalid.';
     }
 
     setBillingAddress(user);
@@ -127,17 +141,22 @@ const Checkout = () => {
   }
 
   function validatePaymentCard(card) {
-    const requiredData = [
-      'type', 'number',
-      'expiryYear', 'expiryMonth', 'cvv'
-    ];
+    const requiredData = {
+      type        : 'Card Type',
+      number      : 'Card Number',
+      expiryYear  : 'Year', 
+      expiryMonth : 'Month',
+      cvv         : 'CVV'
+    };
 
-    for(let i = 0; i < requiredData.length; i++) {
-      const key = requiredData[i];
-
-      if(!(card[key].trim())) {
-        return `${key} field is required`;
+    for(let [key, value] of Object.entries(requiredData)) {
+      if(!card[key].trim()) {
+        return `The ${value} field is required`;
       }
+    }
+
+    if(!validator.isValidCreditCard(card.number)) {
+      return 'The card number you have entered is invalid.';
     }
 
     setPaymentCard(card);

@@ -140,7 +140,7 @@ class BillingAddressForm extends React.Component {
             </Col>
             <Col md="12" className="form-group">
               <Label>Telephone</Label><Required />&nbsp;
-              <Small>Format: (+000) 123-456-7890</Small>
+              <Small>Example format: +000 123-456-7890</Small>
               <TextInput type="tel" name="phone" value={phone}
                 onChange={evt => this.handleInputChange(evt)} />
             </Col>

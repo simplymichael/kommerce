@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { Col, Row, Button, Form, FormGroup, FormControl } from 'react-bootstrap';
+import env from '../../.env';
 import colors from '../../resources/colors';
 import { Error } from '../../components/Notifications';
+import { isValidEmail, isValidPassword } from '../../utils/validator';
 import {
   createUser,
   makeSelectIsCreatingUser,
@@ -223,6 +225,23 @@ class RegistrationForm extends React.Component {
 
         return false;
       }
+    }
+
+    if(!isValidEmail(this.state.user.email)) {
+      this.setState({
+        validationError: 'The email address you have entered is invalid',
+      });
+
+      return false;
+    }
+
+    if(!isValidPassword(this.state.user.password)) {
+      this.setState({
+        validationError: `Password length must be at least
+                          ${env.auth.minPasswordLength} characters`,
+      });
+
+      return false;
     }
 
     return true;
