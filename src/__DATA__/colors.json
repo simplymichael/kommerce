@@ -1,32 +1,57 @@
-[{
+[
+  {
+    "id": 1,
     "name": "black",
     "selected": false
   },
   {
-    "name": "red",
-    "selected": false
-  },
-  {
-    "name": "orange",
-    "selected": false
-  },
-  {
-    "name": "yellow",
-    "selected": false
-  },
-  {
-    "name": "green",
-    "selected": false
-  },
-  {
+    "id": 2,
     "name": "blue",
     "selected": false
   },
   {
+    "id": 3,
+    "name": "brown",
+    "selected": false
+  },
+  {
+    "id": 4,
+    "name": "green",
+    "selected": false
+  },
+  {
+    "id": 5,
     "name": "indigo",
     "selected": false
   },
   {
+    "id": 6,
+    "name": "red",
+    "selected": false
+  },
+  {
+    "id": 7,
+    "name": "orange",
+    "selected": false
+  },
+  {
+    "id": 8,
+    "name": "pink",
+    "selected": false
+  },
+  {
+    "id": 9,
     "name": "violet",
     "selected": false
-}]
+  },
+  {
+    "id": 10,
+    "name": "yellow",
+    "selected": false
+  },
+  {
+    "id": 11,
+    "name": "white",
+    "selected": false
+  }
+]

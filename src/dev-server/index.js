@@ -13,9 +13,10 @@ import registrationMiddleware from './middlewares/registration-middleware';
 import usersFilterMiddleware from './middlewares/users-filter-middleware';
 import productsMiddleware from './middlewares/products-middleware';
 import queryStringMiddleware from './middlewares/query-string-middleware';
+import api from '../__DATA__/api.js';
 
 const server = jsonServer.create();
-const router = jsonServer.router('src/__DATA__/api.json');
+const router = jsonServer.router(api());
 const defaults = jsonServer.defaults();
 const port = env.host.port || 3001;
 const routes = require('./routes'); // Defines our custom routes

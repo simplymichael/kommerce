@@ -2,13 +2,14 @@ import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import ProductsList from '../../../components/Products/ProductsList';
 import config from '../../../.config';
-import api from '../../../__DATA__/api';
+import apiFactory from '../../../__DATA__/api';
 import {
   store,
   bindComponentToStore,
   wrapComponentInRouter
 } from '../../test-utils';
 
+const api = apiFactory();
 const products = api.products.slice().map(product => {
   product.defaultImage = product.images
     .filter(img => img.default === true)

@@ -1,20 +1,44 @@
-[{
+[
+  {
+    "id": 1,
     "name": "Abercrombie & Fitch",
     "value": "abercrombie-and-fitch",
     "selected": false
   },
   {
+    "id": 2,
     "name": "Adidas Originals",
     "value": "adidas-originals",
     "selected": false
   },
   {
+    "id": 3,
+    "name": "Apple",
+    "value": "apple",
+    "selected": false
+  },
+  {
+    "id": 4,
     "name": "Asos",
     "value": "asos",
     "selected": false
   },
   {
+    "id": 5,
     "name": "Cheap Monday",
     "value": "cheap-monday",
     "selected": false
-}]
+  },
+  {
+    "id": 6,
+    "name": "Microsoft",
+    "value": "microsoft",
+    "selected": false
+  },
+  {
+    "id": 7,
+    "name": "Samsung",
+    "value": "samsung",
+    "selected": false
+  }
+]

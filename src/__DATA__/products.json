@@ -1,114 +1,302 @@
 [
   {
     "id": 1,
-    "name": "First Item",
-    "price": 10.00,
-    "color": "black",
-    "size": "XS",
+    "name": "Red Trainers",
+    "price": 65.00,
+    "color": "red",
+    "size": "M",
     "brand": "Abercrombie & Fitch",
-    "dateAdded": "",
+    "category": "Shoes",
+    "dateAdded": 1590809623771,
     "images": [
-      { "url": "https://imgur.com/3u2mj7h.png", "default": true },
-      { "url": "https://imgur.com/dV36lmS.png", "default": false },
-      { "url": "https://imgur.com/3u2mj7h.png", "default": false }
+      { "url": "https://imgur.com/cRnIqnE.png", "default": true },
+      { "url": "https://imgur.com/cRnIqnE.png", "default": false },
+      { "url": "https://imgur.com/cRnIqnE.png", "default": false }
     ]
   },
   {
     "id": 2,
-    "name": "Second Item",
-    "price": 15.50,
-    "color": "red",
-    "size": "S",
-    "brand": "Adidas Originals",
-    "dateAdded": "",
+    "name": "Smart watch",
+    "price": 1000.00,
+    "color": "Black",
+    "size": "M",
+    "brand": "Apple",
+    "category": "Electronics",
+    "dateAdded": 1590809623766,
     "images": [
-      { "url": "https://imgur.com/66dvQ2E.png", "default": true },
-      { "url": "https://imgur.com/dV36lmS.png", "default": false },
-      { "url": "https://imgur.com/66dvQ2E.png", "default": false }
+      { "url": "https://imgur.com/WJPk5zM.png", "default": true },
+      { "url": "https://imgur.com/WJPk5zM.png", "default": false },
+      { "url": "https://imgur.com/WJPk5zM.png", "default": false }
     ]
   },
   {
     "id": 3,
-    "name": "Third Item",
-    "price": 10.00,
-    "color": "orange",
+    "name": "Funky Headset",
+    "price": 200.00,
+    "color": "Black",
     "size": "M",
-    "brand": "Asos",
-    "dateAdded": "",
+    "brand": "Microsoft",
+    "category": "Electronics",
+    "dateAdded": 1590809623766,
     "images": [
-      { "url": "https://imgur.com/dgR75Gd.png", "default": true },
-      { "url": "https://imgur.com/dgR75Gd.png", "default": false },
-      { "url": "https://imgur.com/dgR75Gd.png", "default": false }
+      { "url": "https://imgur.com/8sa14nC.png", "default": true },
+      { "url": "https://imgur.com/8sa14nC.png", "default": false },
+      { "url": "https://imgur.com/8sa14nC.png", "default": false }
     ]
   },
   {
     "id": 4,
-    "name": "Fourth Item",
-    "price": 200.00,
-    "color": "yellow",
-    "size": "L",
-    "brand": "Cheap Monday",
-    "dateAdded": "",
+    "name": "Sleek Smartphone with wireless headset",
+    "price": 1000.00,
+    "color": "Black",
+    "size": "M",
+    "brand": "Samsung",
+    "category": "Phones & Accessories",
+    "dateAdded": 1590809623766,
     "images": [
-      { "url": "https://imgur.com/jiYwS7Z.png", "default": true },
-      { "url": "https://imgur.com/jiYwS7Z.png", "default": false },
-      { "url": "https://imgur.com/jiYwS7Z.png", "default": false }
+      { "url": "https://imgur.com/IvQn0bv.png", "default": true },
+      { "url": "https://imgur.com/IvQn0bv.png", "default": false },
+      { "url": "https://imgur.com/IvQn0bv.png", "default": false }
     ]
   },
   {
     "id": 5,
-    "name": "Fifth Item",
-    "price": 100.50,
-    "color": "green",
-    "size": "XL",
-    "brand": "Cheap Monday",
-    "dateAdded": "",
+    "name": "Blue female heels",
+    "price": 300.00,
+    "color": "blue",
+    "size": "M",
+    "brand": "Asos",
+    "category": "Shoes",
+    "dateAdded": 1590809623771,
     "images": [
-      { "url": "https://imgur.com/hqeYRhO.png", "default": true },
-      { "url": "https://imgur.com/hqeYRhO.png", "default": false },
-      { "url": "https://imgur.com/hqeYRhO.png", "default": false }
+      { "url": "https://imgur.com/Rgx8MBp.png", "default": true },
+      { "url": "https://imgur.com/Rgx8MBp.png", "default": false },
+      { "url": "https://imgur.com/Rgx8MBp.png", "default": false }
     ]
   },
   {
     "id": 6,
-    "name": "Sixth Item",
-    "price": 80.00,
-    "color": "blue",
-    "size": "XS",
-    "brand": "Asos",
-    "dateAdded": "",
+    "name": "Red T-Shirt",
+    "price": 200.00,
+    "color": "red",
+    "size": "L",
+    "brand": "Cheap Monday",
+    "category": "Shirts",
+    "dateAdded": 1590809623767,
     "images": [
-      { "url": "https://imgur.com/0hMCNsL.png", "default": true },
-      { "url": "https://imgur.com/0hMCNsL.png", "default": false },
-      { "url": "https://imgur.com/0hMCNsL.png", "default": false }
+      { "url": "https://imgur.com/70vwSjx.png", "default": true },
+      { "url": "https://imgur.com/70vwSjx.png", "default": false },
+      { "url": "https://imgur.com/70vwSjx.png", "default": false }
     ]
   },
   {
     "id": 7,
-    "name": "Seventh Item",
-    "price": 100.00,
-    "color": "indigo",
-    "size": "S",
-    "brand": "Adidas Originals",
-    "dateAdded": "",
+    "name": "White T-Shirt",
+    "price": 125.00,
+    "color": "White",
+    "size": "M",
+    "brand": "Cheap Monday",
+    "category": "Shirts",
+    "dateAdded": 1590809623771,
     "images": [
-      { "url": "https://imgur.com/0hMCNsL.png", "default": true },
-      { "url": "https://imgur.com/0hMCNsL.png", "default": false },
-      { "url": "https://imgur.com/0hMCNsL.png", "default": false }
+      { "url": "https://imgur.com/lExWFST.png", "default": true },
+      { "url": "https://imgur.com/lExWFST.png", "default": false },
+      { "url": "https://imgur.com/lExWFST.png", "default": false }
     ]
   },
   {
     "id": 8,
-    "name": "Eighth Item",
-    "price": 65.00,
-    "color": "violet",
+    "name": "Red Boot-up",
+    "price": 125.00,
+    "color": "red",
     "size": "M",
-    "brand": "Abercrombie & Fitch",
-    "dateAdded": "",
+    "brand": "Asos",
+    "category": "Shoes",
+    "dateAdded": 1590809623771,
     "images": [
-      { "url": "https://imgur.com/0hMCNsL.png", "default": true },
-      { "url": "https://imgur.com/0hMCNsL.png", "default": false },
-      { "url": "https://imgur.com/0hMCNsL.png", "default": false }
+      { "url": "https://imgur.com/X8tySG3.png", "default": true },
+      { "url": "https://imgur.com/X8tySG3.png", "default": false },
+      { "url": "https://imgur.com/X8tySG3.png", "default": false }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "White T-Shirt",
+    "price": 100.50,
+    "color": "white",
+    "size": "XL",
+    "brand": "Cheap Monday",
+    "category": "Shirts",
+    "dateAdded": 1590809623768,
+    "images": [
+      { "url": "https://imgur.com/NPhYgJp.png", "default": true },
+      { "url": "https://imgur.com/NPhYgJp.png", "default": false },
+      { "url": "https://imgur.com/NPhYgJp.png", "default": false }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Funky youth Shoes",
+    "price": 125.00,
+    "color": "white",
+    "size": "M",
+    "brand": "Asos",
+    "category": "Shoes",
+    "dateAdded": 1590809623771,
+    "images": [
+      { "url": "https://imgur.com/T1FduoW.png", "default": true },
+      { "url": "https://imgur.com/T1FduoW.png", "default": false },
+      { "url": "https://imgur.com/T1FduoW.png", "default": false }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Adidas Trainers",
+    "price": 155.00,
+    "color": "white",
+    "size": "M",
+    "brand": "Asos",
+    "category": "Shoes",
+    "dateAdded": 1590809623771,
+    "images": [
+      { "url": "https://imgur.com/2fkk0j2.png", "default": true },
+      { "url": "https://imgur.com/2fkk0j2.png", "default": false },
+      { "url": "https://imgur.com/2fkk0j2.png", "default": false }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Indigo T-Shirt",
+    "price": 10.00,
+    "color": "indigo",
+    "size": "M",
+    "brand": "Asos",
+    "category": "Shirts",
+    "dateAdded": 1590809623766,
+    "images": [
+      { "url": "https://imgur.com/jduSjCn.png", "default": true },
+      { "url": "https://imgur.com/jduSjCn.png", "default": false },
+      { "url": "https://imgur.com/jduSjCn.png", "default": false }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Air conditioning system",
+    "price": 300.00,
+    "color": "White",
+    "size": "M",
+    "brand": "Samsung",
+    "category": "Home Appliances",
+    "dateAdded": 1590809623766,
+    "images": [
+      { "url": "https://imgur.com/7W6QKeu.png", "default": true },
+      { "url": "https://imgur.com/7W6QKeu.png", "default": false },
+      { "url": "https://imgur.com/7W6QKeu.png", "default": false }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Brown Shoe",
+    "price": 100.00,
+    "color": "brown",
+    "size": "S",
+    "brand": "Adidas Originals",
+    "category": "Shoes",
+    "dateAdded": 1590809623770,
+    "images": [
+      { "url": "https://imgur.com/xP552vg.png", "default": true },
+      { "url": "https://imgur.com/xP552vg.png", "default": false },
+      { "url": "https://imgur.com/xP552vg.png", "default": false }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Camera, Phone, and Mouse pack",
+    "price": 1000.00,
+    "color": "Black",
+    "size": "M",
+    "brand": "Apple",
+    "category": "Phones & Accessories",
+    "dateAdded": 1590809623766,
+    "images": [
+      { "url": "https://imgur.com/ivXyaNT.png", "default": true },
+      { "url": "https://imgur.com/ivXyaNT.png", "default": false },
+      { "url": "https://imgur.com/ivXyaNT.png", "default": false }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Personal Gaming set",
+    "price": 1000.00,
+    "color": "Black",
+    "size": "M",
+    "brand": "Microsoft",
+    "category": "Electronics",
+    "dateAdded": 1590809623766,
+    "images": [
+      { "url": "https://imgur.com/rPQITCD.png", "default": true },
+      { "url": "https://imgur.com/rPQITCD.png", "default": false },
+      { "url": "https://imgur.com/rPQITCD.png", "default": false }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Yellow T-Shirt",
+    "price": 80.00,
+    "color": "yellow",
+    "size": "XS",
+    "brand": "Asos",
+    "category": "Shirts",
+    "dateAdded": 1590809623769,
+    "images": [
+      { "url": "https://imgur.com/UyFBYHR.png", "default": true },
+      { "url": "https://imgur.com/UyFBYHR.png", "default": false },
+      { "url": "https://imgur.com/UyFBYHR.png", "default": false }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Brilliant subtle-pink shoes",
+    "price": 250.00,
+    "color": "pink",
+    "size": "M",
+    "brand": "Adidas Originals",
+    "category": "Shoes",
+    "dateAdded": 1590809623771,
+    "images": [
+      { "url": "https://imgur.com/0GI6AHJ.png", "default": true },
+      { "url": "https://imgur.com/0GI6AHJ.png", "default": false },
+      { "url": "https://imgur.com/0GI6AHJ.png", "default": false }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Game console",
+    "price": 250.00,
+    "color": "White",
+    "size": "M",
+    "brand": "Microsoft",
+    "category": "Electronics",
+    "dateAdded": 1590809623766,
+    "images": [
+      { "url": "https://imgur.com/RAqJ9QF.png", "default": true },
+      { "url": "https://imgur.com/RAqJ9QF.png", "default": false },
+      { "url": "https://imgur.com/RAqJ9QF.png", "default": false }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Set of nice T-shirts",
+    "price": 250.00,
+    "color": "Blue",
+    "size": "M",
+    "brand": "Asos",
+    "category": "Shirts",
+    "dateAdded": 1590809623766,
+    "images": [
+      { "url": "https://imgur.com/fPHYW6W.png", "default": true },
+      { "url": "https://imgur.com/BRcxbjP.png", "default": false },
+      { "url": "https://imgur.com/70vwSjx.png", "default": false }
     ]
   }
 ]

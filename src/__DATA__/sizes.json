@@ -1,25 +1,32 @@
-[{
+[
+  {
+    "id": 1,
     "key": "XS",
     "value": "XS",
     "selected": false
   },
   {
+    "id": 2,
     "key": "S",
     "value": "S",
     "selected": false
   },
   {
+    "id": 3,
     "key": "M",
     "value": "M",
     "selected": false
   },
   {
+    "id": 4,
     "key": "L",
     "value": "L",
     "selected": false
   },
   {
+    "id": 5,
     "key": "XL",
     "value": "XL",
     "selected": false
-}]
+  }
+]

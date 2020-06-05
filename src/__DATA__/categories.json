@@ -1,22 +1,32 @@
 [
   {
-    "name": "Shirts",
-    "slug": "shirts",
-    "image": "https://imgur.com/3u2mj7h.png"
-  },
-  {
-    "name": "Shoes",
-    "slug": "shoes",
-    "image": "https://imgur.com/dV36lmS.png"
-  },
-  {
+    "id": 1,
     "name": "Electronics",
     "slug": "electronics",
-    "image": "https://imgur.com/3u2mj7h.png"
+    "image": "https://imgur.com/rPQITCD.png"
   },
   {
+    "id": 2,
     "name": "Home Appliances",
     "slug": "home-appliances",
-    "image": "https://imgur.com/dV36lmS.png"
+    "image": "https://imgur.com/7W6QKeu.png"
+  },
+  {
+    "id": 3,
+    "name": "Phones & Accessories",
+    "slug": "phones-&-accessories",
+    "image": "https://imgur.com/IvQn0bv.png"
+  },
+  {
+    "id": 4,
+    "name": "Shirts",
+    "slug": "shirts",
+    "image": "https://imgur.com/lExWFST.png"
+  },
+  {
+    "id": 5,
+    "name": "Shoes",
+    "slug": "shoes",
+    "image": "https://imgur.com/T1FduoW.png"
   }
 ]
