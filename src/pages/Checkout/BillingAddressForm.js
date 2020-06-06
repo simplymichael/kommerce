@@ -5,6 +5,9 @@ import { Col, Row } from 'react-bootstrap';
 import device from '../../utils/device';
 import colors from '../../resources/colors';
 import { Error } from '../../components/Notifications';
+import Service from '../../services/Service';
+
+const countryService = Service.getService('CountryService');
 
 const Small = styled.small`
   font-size: 12px;
@@ -70,6 +73,8 @@ class BillingAddressForm extends React.Component {
       },
       countries: [],
       states: [],
+      isFetchingCountries: false,
+      isFetchingStates: false,
     };
   }
 
@@ -78,7 +83,15 @@ class BillingAddressForm extends React.Component {
   }
 
   render() {
-    const { countries, states, user, error } = this.state;
+    const {
+      countries,
+      states,
+      user,
+      error,
+      isFetchingCountries,
+      isFetchingStates,
+    } = this.state;
+
     const {
       firstname,
       lastname,
@@ -160,7 +173,11 @@ class BillingAddressForm extends React.Component {
           <Row>
             <Col md="6" className="form-group">
               <Label>Country</Label><Required />
-              <Dropdown name="country" value={country}
+              <Dropdown
+                name="country"
+                value={country}
+                disabled={isFetchingCountries}
+                className={isFetchingCountries ? 'btn-processing' : ''}
                 onChange={ evt => {
                   this.handleInputChange(evt);
                   this.initStates(evt);
@@ -170,7 +187,11 @@ class BillingAddressForm extends React.Component {
             </Col>
             <Col md="6" className="form-group">
               <Label>State/Territory</Label><Required />
-              <Dropdown name="state" value={state}
+              <Dropdown
+                name="state"
+                value={state}
+                disabled={isFetchingStates}
+                className={isFetchingStates ? 'btn-processing' : ''}
                 onChange={evt => this.handleInputChange(evt)}>
                 {statesList}
               </Dropdown>
@@ -209,27 +230,73 @@ class BillingAddressForm extends React.Component {
   }
 
   initCountries() {
-    const countries = [
-      { code: 'NG', name: 'Nigeria' },
-      { code: 'US', name: 'United States of America' },
-      { code: 'UK', name: 'United Kingdom' },
-    ];
-
     this.setState({
-      countries,
+      isFetchingCountries: true,
     });
+
+    countryService
+      .getCountries()
+      .then(countries => {
+        this.setState({
+          countries: countries.map(country => {
+            return {
+              code: country.country,
+              name: country.country,
+            };
+          }),
+        });
+      })
+      .catch(err => {
+        this.setState({
+          error: err.toString()
+        });
+      })
+      .finally(() => {
+        this.setState({
+          isFetchingCountries: false,
+        });
+      });
   }
 
   initStates(evt) {
-    const country = evt.target.value;
-    const states = !country ? [] : [
-      {code: 'LAG', name: 'Lagos' },
-      { code: 'ENU', name: 'Enugu' },
-    ];
-
     this.setState({
-      states,
+      isFetchingStates: true,
     });
+
+    const country = this.state.countries.filter(country =>
+      country.code === evt.target.value).pop();
+
+    if(!country) {
+      this.setState({
+        states: [],
+        isFetchingStates: false,
+      });
+
+      return;
+    }
+
+    countryService
+      .getByName(country.name)
+      .then(countryData => {
+        this.setState({
+          states: countryData.states.map(state => {
+            return {
+              code: state,
+              name: state,
+            };
+          }),
+        });
+      })
+      .catch(err => {
+        this.setState({
+          error: err.toString()
+        });
+      })
+      .finally(() => {
+        this.setState({
+          isFetchingStates: false,
+        });
+      });
   }
 
   validateUserData() {
