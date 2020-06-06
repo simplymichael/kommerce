@@ -238,12 +238,7 @@ class BillingAddressForm extends React.Component {
       .getCountries()
       .then(countries => {
         this.setState({
-          countries: countries.map(country => {
-            return {
-              code: country.country,
-              name: country.country,
-            };
-          }),
+          countries,
         });
       })
       .catch(err => {
@@ -276,15 +271,10 @@ class BillingAddressForm extends React.Component {
     }
 
     countryService
-      .getByName(country.name)
-      .then(countryData => {
+      .getStates(country.name)
+      .then(states => {
         this.setState({
-          states: countryData.states.map(state => {
-            return {
-              code: state,
-              name: state,
-            };
-          }),
+          states,
         });
       })
       .catch(err => {
