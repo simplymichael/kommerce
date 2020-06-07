@@ -16,7 +16,6 @@ import {
   makeSelectProductsCount,
   makeSelectIsCountingProducts,
   makeSelectCountProductsError,
-  makeSelectSearchTerm,
 } from '../../store/products';
 
 const { priceRangeSelector } = strings;
@@ -35,7 +34,6 @@ class CustomPagination extends React.Component {
         brands  : [],
         orderBy : {},
         priceRange : { min, max },
-        searchTerm: '',
       }
     };
   }
@@ -45,6 +43,10 @@ class CustomPagination extends React.Component {
 
     if(this.props.category) {
       queryData.categories = [this.props.category];
+    }
+
+    if(this.props.searchTerm) {
+      queryData.searchTerm = this.props.searchTerm;
     }
 
     this.props.countProducts(queryData);
@@ -77,6 +79,10 @@ class CustomPagination extends React.Component {
           queryData.categories = [this.props.category];
         }
 
+        if(this.props.searchTerm) {
+          queryData.searchTerm = this.props.searchTerm;
+        }
+
         this.props.countProducts(queryData);
       };
 
@@ -87,7 +93,6 @@ class CustomPagination extends React.Component {
           colors: props.selectedColors,
           brands: props.selectedBrands,
           sizes: props.selectedSizes,
-          searchTerm: props.searchTerm,
         }
       }), setStateCallback);
     }
@@ -168,7 +173,6 @@ const mapStateToProps = createStructuredSelector({
   selectedBrands: makeSelectSelectedBrands(),
   selectedColors: makeSelectSelectedColors(),
   selectedSizes: makeSelectSelectedSizes(),
-  searchTerm: makeSelectSearchTerm(),
   isCountingProducts: makeSelectIsCountingProducts(),
   countProductsError: makeSelectCountProductsError(),
 });

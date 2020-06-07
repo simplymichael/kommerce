@@ -16,7 +16,6 @@ import { makeSelectSelectedSizes } from '../../store/sizes';
 import {
   fetchProducts,
   makeSelectProducts,
-  makeSelectSearchTerm,
   makeSelectFetchProductsError,
   makeSelectIsFetchingProducts,
 } from '../../store/products';
@@ -67,7 +66,6 @@ class ProductsList extends React.Component {
         brands  : [],
         orderBy : {},
         priceRange : { min, max },
-        searchTerm: '',
       }
     };
   }
@@ -75,8 +73,15 @@ class ProductsList extends React.Component {
   componentDidMount() {
     let queryData = { ...this.state.queryData };
 
+    // Comes from parent component
+    // The Category component holding category pages
     if(this.props.category) {
       queryData.categories = [this.props.category];
+    }
+
+    // Comes from parent component: The Search component
+    if(this.props.searchTerm) {
+      queryData.searchTerm = this.props.searchTerm;
     }
 
     this.props.fetchProducts(queryData);
@@ -109,8 +114,12 @@ class ProductsList extends React.Component {
         // On category pages, we'll have the category
         // supplied by the parent via props received from
         // react-router-dom's props.match.params.category
-        if(this.props.category) {
-          queryData.categories = [this.props.category];
+        if(props.category) {
+          queryData.categories = [props.category];
+        }
+
+        if(props.searchTerm) {
+          queryData.searchTerm = props.searchTerm;
         }
 
         props.fetchProducts(queryData);
@@ -123,7 +132,6 @@ class ProductsList extends React.Component {
           colors: props.selectedColors,
           brands: props.selectedBrands,
           sizes: props.selectedSizes,
-          searchTerm: props.searchTerm,
         }
       }), setStateCallback);
     }
@@ -141,7 +149,7 @@ class ProductsList extends React.Component {
   render() {
     const {
       products, container, weight, renderer, category,
-      isFetchingProducts, fetchProductsError,
+      searchTerm, isFetchingProducts, fetchProductsError,
     } = this.props;
 
     const { page } = this.state.queryData;
@@ -193,6 +201,7 @@ class ProductsList extends React.Component {
               <Pagination
                 currentPage={page}
                 category={category}
+                searchTerm={searchTerm}
                 itemsCountPerPage={config.products.perPage}
                 pageChangeHandler={this.handlePageChange.bind(this)} />
             </div>
@@ -234,7 +243,6 @@ const mapStateToProps = createStructuredSelector({
   selectedBrands: makeSelectSelectedBrands(),
   selectedColors: makeSelectSelectedColors(),
   selectedSizes: makeSelectSelectedSizes(),
-  searchTerm: makeSelectSearchTerm(),
   isFetchingProducts: makeSelectIsFetchingProducts(),
   fetchProductsError: makeSelectFetchProductsError(),
 });

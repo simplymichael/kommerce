@@ -25,10 +25,6 @@ const stateTree = {
   fetchRecentProductsError: null,
   isFetchingRecentProducts: false,
 
-  searchTerm: '',
-  isSearchingProducts: false,
-  searchProductsError: null,
-
   productsCount: 0,
   isCountingProducts: false,
   countProductsError: null,

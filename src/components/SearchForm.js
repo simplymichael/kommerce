@@ -1,16 +1,9 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import config from '../.config';
 import device from '../utils/device';
 import Icon from './Icons/Icon';
-import {
-  searchProducts,
-  makeSelectIsSearchingProducts,
-} from '../store/products';
 
 const Form = styled.form`
   display: inline-block;
@@ -85,70 +78,43 @@ const SearchIconBtn = ({ to, role, clickHandler }) => (
 );
 
 class SearchForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      focused: false,
-      validationError: '',
-    };
-  }
-
-  clickHandler(e) {
-    e.preventDefault();
-
-    this.handleSubmit(e);
-  }
-
   handleSubmit(e) {
     e.preventDefault();
 
-    const query = this.searchInput.value;
+    let searchPath = '';
 
-    if(!query) {
-      return;
-    }
+    // We want to support paths like /categories/<categoryName|ID>
+    // This way, if you search from category pages,
+    // The search results will be displayed on category pages,
+    // and also include the category results.
+    //const currPath = this.props.location.pathname;
 
-    // eslint-disable-next-line
-    let category = '';
-    const { pathname } = this.props.location; // eslint-disable-line
+    /*if(currPath.indexOf('categories') > -1) {
+      searchPath += `/${currPath}`;
+    }*/
 
-    // eslint-disable-next-line
-    if(pathname.indexOf('/categories') === 0) {
-      category = pathname.split('/categories/')[1]; //eslint-disable-line
-    }
+    searchPath += `/search?query=${this.searchInput.value}`;
 
-    const queryData = {
-      query,
-      page  : 1,
-      limit : config.products.perPage || 10,
-      categories: [category],
-    };
-
-    this.props.searchProducts(queryData);
+    this.props.history.push(searchPath);
   }
 
   render() {
-    const { isSearchingProducts } = this.props;
-
     return (
-      <>
-        <Form
-          role={this.props.role || 'search-form'}
-          onSubmit={this.handleSubmit.bind(this)}>
-          <SearchInput
-            type="text"
-            role="search-input-field"
-            placeholder="..."
-            disabled={isSearchingProducts}
-            className={isSearchingProducts ? 'not-allowed' : ''}
-            ref={input => this.searchInput = input}
-            onFocus={() => this.searchInput.placeholder = ''}
-            onBlur={() => this.searchInput.placeholder = '...'} />
-          <SearchIconBtn to="#" role="search-icon-button"
-            clickHandler={e => this.clickHandler(e)} />
-        </Form>
-      </>
+      <Form
+        ref={form => this.searchForm = form}
+        method="get" action="/search"
+        role={this.props.role || 'search-form'}
+        onSubmit={this.handleSubmit.bind(this)}>
+        <SearchInput
+          type="text"
+          role="search-input-field"
+          placeholder="..."
+          ref={input => this.searchInput = input}
+          onFocus={() => this.searchInput.placeholder = ''}
+          onBlur={() => this.searchInput.placeholder = '...'} />
+        <SearchIconBtn to='#' role="search-icon-button"
+          clickHandler={e => this.handleSubmit(e)} />
+      </Form>
     );
   }
 }
@@ -161,16 +127,12 @@ SearchIconBtn.propTypes = {
 
 SearchForm.propTypes = {
   role: PropTypes.string,
-  searchProducts: PropTypes.func,
-  isSearchingProducts: PropTypes.bool,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
 };
 
-const mapDispatchToProps = dispatch => ({
-  searchProducts: (queryData) => dispatch(searchProducts(queryData)),
-});
-
-const mapStateToProps = createStructuredSelector({
-  isSearchingProducts: makeSelectIsSearchingProducts(),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchForm));
+export default withRouter(SearchForm);

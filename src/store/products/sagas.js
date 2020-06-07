@@ -3,7 +3,6 @@ import sagaRegistry from '../saga-registry';
 import {
   FETCH_PRODUCTS,
   FETCH_RECENT_PRODUCTS,
-  SEARCH_PRODUCTS,
   COUNT_PRODUCTS,
 } from './constants';
 import {
@@ -11,8 +10,6 @@ import {
   fetchProductsSuccess,
   fetchRecentProductsError,
   fetchRecentProductsSuccess,
-  searchProductsError,
-  searchProductsSuccess,
   countProductsError,
   countProductsSuccess,
 } from './actions';
@@ -39,16 +36,6 @@ function* fetchRecentProducts(action) {
   }
 }
 
-function* searchProducts(action) {
-  try {
-    const products = yield call(() => service.searchProducts(action.payload));
-
-    yield put(searchProductsSuccess(products));
-  } catch (err) {
-    yield put(searchProductsError(err.toString()));
-  }
-}
-
 function* countProducts(action) {
   try {
     const count = yield call(() => service.countProducts(action.payload));
@@ -67,7 +54,6 @@ export default function(injectedService) {
     yield all([
       takeEvery(FETCH_PRODUCTS, fetchProducts),
       takeEvery(FETCH_RECENT_PRODUCTS, fetchRecentProducts),
-      takeEvery(SEARCH_PRODUCTS, searchProducts),
       takeEvery(COUNT_PRODUCTS, countProducts),
     ]);
   }

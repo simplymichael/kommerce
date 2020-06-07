@@ -3,8 +3,6 @@ import reducer from './reducer';
 import {
   fetchProducts,
   fetchRecentProducts,
-  searchProducts,
-  clearSearch,
   countProducts,
 } from './actions';
 import {
@@ -15,10 +13,6 @@ import {
   makeSelectRecentProducts,
   makeSelectIsFetchingRecentProducts,
   makeSelectFetchRecentProductsError,
-
-  makeSelectSearchTerm,
-  makeSelectIsSearchingProducts,
-  makeSelectSearchProductsError,
 
   makeSelectProductsCount,
   makeSelectIsCountingProducts,
@@ -37,13 +31,6 @@ export {
   makeSelectRecentProducts,
   makeSelectIsFetchingRecentProducts,
   makeSelectFetchRecentProductsError,
-
-  searchProducts,
-  makeSelectSearchTerm,
-  makeSelectIsSearchingProducts,
-  makeSelectSearchProductsError,
-
-  clearSearch,
 
   countProducts,
   makeSelectProductsCount,

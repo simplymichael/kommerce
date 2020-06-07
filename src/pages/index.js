@@ -28,20 +28,8 @@ const pages = [
     'path': 'src/pages/Checkout',
   },
   {
-    'route': '/about',
-    'path': 'src/pages/About',
-  },
-  {
-    'route': '/privacy',
-    'path': 'src/pages/Privacy',
-  },
-  {
-    'route': '/faq',
-    'path': 'src/pages/Faq',
-  },
-  {
-    'route': '/contact',
-    'path': 'src/pages/Contact',
+    'route': '/search',
+    'path': 'src/pages/Search',
   },
 ];
 
