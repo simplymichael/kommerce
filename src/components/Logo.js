@@ -5,7 +5,7 @@ import ImageText from './ImageText';
 export default function Logo (props) {
   const { width = '64px', height = '45px', children = '' } = props;
   return (
-    <ImageText src="logo.png" alt="Site logo" width={width} height={height}>
+    <ImageText src="/logo.png" alt="Site logo" width={width} height={height}>
       {children}
     </ImageText>
   );

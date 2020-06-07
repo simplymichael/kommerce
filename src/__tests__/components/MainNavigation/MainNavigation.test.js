@@ -33,7 +33,7 @@ describe('Main Navigation', () => {
 
     expect(navbarNav).toBeInTheDocument();
     expect(homeLink.href).toEqual(`${protocol}//${hostname}/`);
-    expect(image.getAttribute('src')).toBe('logo.png');
+    expect(image.getAttribute('src')).toBe('/logo.png');
   });
 
   it('renders links to category pages', async () => {
