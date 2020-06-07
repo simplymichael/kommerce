@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import Login from '../../pages/Login';
+import Login from '../../../pages/Login';
 import {
   store,
   bindComponentToStore,
   wrapComponentInRouter
-} from '../test-utils';
+} from '../../test-utils';
 
 let Component;
 const ConnectedLogin = bindComponentToStore(store)(wrapComponentInRouter(Login));

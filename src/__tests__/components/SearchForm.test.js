@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { fireEvent, render, cleanup } from '@testing-library/react';
 import SearchForm from '../../components/SearchForm';
 import {
   store,
@@ -19,14 +19,54 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('SearchForm', () => {
-  it('renders text input field and search icon button', () => {
+  it('renders a search input field', () => {
     const { getByRole } = Component;
     const searchForm = getByRole('search-form');
     const inputField = searchForm.querySelector('[role="search-input-field"]');
+
+    expect(inputField).toBeInTheDocument();
+    expect(inputField.getAttribute('type')).toEqual('text');
+    expect(inputField.getAttribute('placeholder')).toEqual('...');
+  });
+
+  it('renders search icon submit button', () => {
+    const { getByRole } = Component;
+    const searchForm = getByRole('search-form');
     const searchIconBtn = searchForm.querySelector(
       '[role="search-icon-button"]');
 
-    expect(inputField).toBeInTheDocument();
     expect(searchIconBtn).toBeInTheDocument();
+  });
+
+  describe('Search input field', () => {
+    it('has an empty placeholder on focus', () => {
+      const { getByRole } = Component;
+      const searchForm = getByRole('search-form');
+      const inputField = searchForm.querySelector('[role="search-input-field"]');
+
+      expect(inputField).toBeInTheDocument();
+      expect(inputField.getAttribute('placeholder')).toEqual('...');
+
+      fireEvent.focus(inputField);
+
+      expect(inputField.getAttribute('placeholder')).toEqual('');
+    });
+
+    it('has an ellipsis "..." placeholder on blur', () => {
+      const { getByRole } = Component;
+      const searchForm = getByRole('search-form');
+      const inputField = searchForm.querySelector('[role="search-input-field"]');
+
+      expect(inputField).toBeInTheDocument();
+      expect(inputField.getAttribute('placeholder')).toEqual('...');
+
+      fireEvent.focus(inputField);
+
+      expect(inputField.getAttribute('placeholder')).toEqual('');
+
+      fireEvent.blur(inputField);
+
+      expect(inputField.getAttribute('placeholder')).toEqual('...');
+    });
   });
 });
