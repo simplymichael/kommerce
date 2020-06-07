@@ -11,7 +11,7 @@ const P = styled.p`
 `;
 
 const Notification = ({ type, children }) => (
-  <P type={type}>
+  <P type={type} role={`${type}-notification`}>
     {children}
   </P>
 );
