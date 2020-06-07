@@ -81,21 +81,7 @@ class SearchForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    let searchPath = '';
-
-    // We want to support paths like /categories/<categoryName|ID>
-    // This way, if you search from category pages,
-    // The search results will be displayed on category pages,
-    // and also include the category results.
-    //const currPath = this.props.location.pathname;
-
-    /*if(currPath.indexOf('categories') > -1) {
-      searchPath += `/${currPath}`;
-    }*/
-
-    searchPath += `/search?query=${this.searchInput.value}`;
-
-    this.props.history.push(searchPath);
+    this.props.history.push(`/search?query=${this.searchInput.value}`);
   }
 
   render() {
