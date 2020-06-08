@@ -36,7 +36,7 @@ Responsive E-commerce store front, made with React.
 - List products in store (Home page)
 - List products by categories (Product Category page)
 - Filter products by brand, color, size, and price range
-- Full-text searching of products 
+- Full-text searching of products
 - Display details of a selected product (Product page)
 - Display product reviews (Product page)
 - "Add product review" form with 5-star rating
@@ -70,15 +70,16 @@ Responsive E-commerce store front, made with React.
     - Copyright info
 
 ## Routes
-| **Name**                                        |  **Route**        |
-|-------------------------------------------------|-------------------|
-| [Home page](./src/pages/Home/index.js)          | `/`               |
-| [Category Page](./src/pages/Category/index.js)  | `/categories/:id` |
-| [Product Page](./src/pages/Product/index.js)    | `/products/:id`   |
-| [Sign-in Page](./src/pages/Login/index.js)      | `/signin`         |
-| [Sign-up Page](./src/pages/Register/index.js)   | `/signup`         |
-| [Cart page](./src/pages/Cart/index.js)          | `/cart`           |
-| [Checkout page](./src/pages/Checkout/index.js)  | `/checkout`       |
+| **Name**                                        |  **Route**            |
+|-------------------------------------------------|-----------------------|
+| [Home page](./src/pages/Home/index.js)          | `/`                   |
+| [Category Page](./src/pages/Category/index.js)  | `/categories/:id`     |
+| [Search Page](./src/pages/Search/index.js)      | `/search?query=<str>` |
+| [Product Page](./src/pages/Product/index.js)    | `/products/:id`       |
+| [Sign-in Page](./src/pages/Login/index.js)      | `/signin`             |
+| [Sign-up Page](./src/pages/Register/index.js)   | `/signup`             |
+| [Cart page](./src/pages/Cart/index.js)          | `/cart`               |
+| [Checkout page](./src/pages/Checkout/index.js)  | `/checkout`           |
 
 ## Running
 This project uses [run-script-os](https://www.npmjs.com/package/run-script-os)
@@ -112,20 +113,19 @@ If the server is mistakenly stopped, it can be restarted by running: `npm run se
 
 
 ## Configuration
-The project contains three configuration files:
+The project uses three configuration files:
 
 - `src/.config.js`: This file holds configuration information related to the business or webiste;
   values that are usually stable, and can be configured by non-developers.
   It contain such things as the business address and social media handles that hardly change.
-
   To create this file, copy the `src/.config.example.js` file to `src/.config.js`, and modify the values as necessary.
+
 - `src/.env.js`: This file holds configuration information that are dynamic, and environment-dependent.
   Values such as the user language (for determining which language files to load),
   and ports for the API server are stored in this file.
-
   To create this file, copy the `src/.env.example.js` file to `src/.env.js`, and modify the values as necessary.
-- `src/dev-server/.env.js`: This file holds configuration information for the accompanying dev API server  for testing the application.
 
+- `src/dev-server/.env.js`: This file holds configuration information for the accompanying dev API server  for testing the application.
   To create this file, copy the `src/dev-server/.env.example.js` to `src/dev-server/.env.js` and edit the values as necessary.
 
 **Note**: The `api.port` port number inside `src/.env.js` must match the `host.port` in the `src/dev-server/.env.js` file.
@@ -135,14 +135,19 @@ This is as expected.
 - The `host.port` key of the `src/dev-server/.env.` allows you to configure the port on which the API server should run.
 
 ## Contributing
-### Steps for adding a new state item to the store
+### Adding a new page
 
-- If it relies on external data, you can mock the functionality by adding the data to the *src/__DATA__/api.json* file.
+- Create a new directory with the name of the page in the `src/pages/` directory.
+- Register it in the `src/pages/index.js` file.
+
+### Adding a new state item to the store
+
+- If it relies on external data, you can create a dev mock of the data as follows:
+    - Add the data to the *src/__DATA__/<resourceType>.json* file
+    - Import the file into the *src/__DATA__/api.js* file.
 - If it relies on a service, add its service to the *src/services/* directory.
 - Add its state handlers to the *src/store/* directory.
-  For example, to add a *users* item to the store,
-  you would create a directory named *users* under the *src/store/* directory.
-  This directory will the files for managing users' state data via the store.
+  For example, to add a *users* item to the store, you would create a directory named *users* under the *src/store/* directory.
+  This directory will contain the files for managing users' state data via the store.
 - Register it in the *src/store/sagas.js* file.
-- Bind the component that uses the state to the store with the `connect` method
-  of *react-redux*;
+- Bind the component that uses the state to the store with the `connect` method of *react-redux*;
