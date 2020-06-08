@@ -1,9 +1,21 @@
 import { cleanup } from '@testing-library/react';
 import Service from '../../services/Service';
+import CartService from '../../services/CartService';
+import UserService from '../../services/UserService';
 
 afterEach(cleanup);
 
 describe('Service', () => {
+  test('Static method "getService" returns an instance of the specified service', () => {
+    const cartService = Service.getService('CartService');
+    const userService = Service.getService('UserService');
+
+    expect(cartService).toBeInstanceOf(CartService);
+    expect(userService).toBeInstanceOf(UserService);
+    expect(cartService).not.toBeInstanceOf(UserService);
+    expect(userService).not.toBeInstanceOf(CartService);
+  });
+
   describe('Constructor', () => {
     it('Sets host to localhost when no host is specified', () => {
       const service = new Service();

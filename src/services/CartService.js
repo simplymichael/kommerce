@@ -8,7 +8,7 @@ class CartService extends Service {
     this.cartName = cartName;
   }
 
-  addToCart(product, quantity) {
+  async addToCart(product, quantity) {
     const productKey = this._generateProductKey(product);
     const cart = JSON.parse(localStorage.getItem(this.cartName)) || {};
     const existingProduct = cart[productKey];
@@ -37,10 +37,10 @@ class CartService extends Service {
 
     this._persistCart(cart);
 
-    return this.getItemsInCart();
+    return await this.getItemsInCart();
   }
 
-  removeFromCart(product) {
+  async removeFromCart(product) {
     const cart = JSON.parse(localStorage.getItem(this.cartName));
 
     if(cart) {
@@ -49,10 +49,10 @@ class CartService extends Service {
       this._persistCart(cart);
     }
 
-    return this.getItemsInCart();
+    return await this.getItemsInCart();
   }
 
-  getItemsInCart() {
+  async getItemsInCart() {
     const cart = JSON.parse(localStorage.getItem(this.cartName) || '{}');
     const data = [];
     // const route = { url: '/cart', method: 'get', isProtected: false };
@@ -94,10 +94,10 @@ class CartService extends Service {
     });
   }
 
-  emptyCart() {
+  async emptyCart() {
     localStorage.removeItem(this.cartName);
 
-    return this.getItemsInCart();
+    return await this.getItemsInCart();
   }
 
   _generateProductKey(product) {
