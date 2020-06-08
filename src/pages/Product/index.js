@@ -60,7 +60,7 @@ const Product = (props) => {
         <DetailsContainer role="product-details-container">
           <ProductDetails productId={productId} />
         </DetailsContainer>
-        <ReviewsContainer>
+        <ReviewsContainer role="product-reviews-container">
           <Row>
             <Col md="12">
               <Header>

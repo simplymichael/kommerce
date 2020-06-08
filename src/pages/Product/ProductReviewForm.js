@@ -88,6 +88,10 @@ class ProductReviewForm extends React.Component {
       reviewText: '',
       authorName: '',
       validationError: '',
+      placeholders: {
+        authorName: 'Enter your name',
+        reviewText: 'Enter your review',
+      },
     };
   }
 
@@ -126,9 +130,52 @@ class ProductReviewForm extends React.Component {
     this.setState({ rating: ratingValue });
   }
 
+  handleInputFocus(e) {
+    e.preventDefault();
+
+    const field = e.target.name;
+
+    this.setState(currState => ({
+      placeholders: {
+        ...currState.placeholders,
+        [field]: ''
+      }
+    }));
+  }
+
+  handleInputBlur(e) {
+    e.preventDefault();
+
+    let value = '';
+    const field = e.target.name;
+
+    switch(field) {
+    case 'authorName': value = 'Enter your name'; break;
+    case 'reviewText': value = 'Enter your review'; break;
+    default: value = '';
+    }
+
+    this.setState(currState => ({
+      placeholders: {
+        ...currState.placeholders,
+        [field]: value,
+      }
+    }));
+  }
+
   render() {
     const { isAddingProductReview, addProductReviewError } = this.props;
-    const { authorName, reviewText, rating, validationError } = this.state;
+    const {
+      authorName,
+      reviewText,
+      rating,
+      validationError,
+      placeholders: {
+        authorName: namePlaceholder,
+        reviewText: reviewPlaceholder
+      }
+    } = this.state;
+
     let error = validationError;
 
     if(addProductReviewError) {
@@ -137,23 +184,35 @@ class ProductReviewForm extends React.Component {
 
     return (
       <>
-        <Error>{error}</Error>
-        <ReviewForm onSubmit={evt => this.handleSubmit(evt)}>
+        { error && <Error>{error}</Error> }
+        <ReviewForm
+          role="product-review-form"
+          onSubmit={evt => this.handleSubmit(evt)}>
           <Row>
             <Col md="3">
-              <InputLabel>Name:</InputLabel>
+              <InputLabel htmlFor="authorName">Name:</InputLabel>
             </Col>
             <Col md="9">
-              <NameInput name="authorName" value={authorName}
+              <NameInput
+                name="authorName"
+                value={authorName}
+                placeholder={namePlaceholder}
+                onFocus={(e) => this.handleInputFocus(e)}
+                onBlur={(e) => this.handleInputBlur(e)}
                 onChange={evt => this.handleInputChange(evt)} />
             </Col>
           </Row>
           <Row>
             <Col md="3">
-              <InputLabel>Your Review:</InputLabel>
+              <InputLabel htmlFor="reviewText">Your Review:</InputLabel>
             </Col>
             <Col md="9">
-              <ReviewInput name="reviewText" value={reviewText}
+              <ReviewInput
+                name="reviewText"
+                value={reviewText}
+                placeholder={reviewPlaceholder}
+                onFocus={(e) => this.handleInputFocus(e)}
+                onBlur={(e) => this.handleInputBlur(e)}
                 onChange={evt => this.handleInputChange(evt)} />
             </Col>
           </Row>

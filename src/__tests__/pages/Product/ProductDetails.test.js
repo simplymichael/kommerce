@@ -1,39 +1,28 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import Product from '../../pages/Product';
+import ProductDetails from '../../../pages/Product/ProductDetails';
 import {
   store,
   bindComponentToStore,
   wrapComponentInRouter
-} from '../test-utils';
-import strings from '../../resources/strings';
+} from '../../test-utils';
+import strings from '../../../resources/strings';
 
 let Component;
 const ConnectedComponent = bindComponentToStore(store)(
-  wrapComponentInRouter(Product));
-
-// mimic the BrowserRouter's match object
-const match = {
-  params: {
-    id: 1
-  }
-};
+  wrapComponentInRouter(ProductDetails));
 
 beforeEach(() => {
   Component = render(
-    <ConnectedComponent match={match} />
+    <ConnectedComponent productId={1} />
   );
 });
 
 afterEach(cleanup);
 
-describe('Product details Page', () => {
+describe('Product Details Component', () => {
   it('renders the passed product', async () => {
-    const { getByRole, findByRole } = Component;
-    const productDetailsContainer = getByRole('product-details-container');
-
-    expect(productDetailsContainer).toBeInTheDocument();
-
+    const { findByRole } = Component;
     const productNameContainer = await findByRole('product-name');
     const productImage = await findByRole('product-image');
     const addToCartBtn = await findByRole('add-to-cart-button');
