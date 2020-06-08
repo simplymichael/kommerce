@@ -156,7 +156,7 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
   return (
     <ProductContainer
       role={`product-${product.id}-summary`}
-      title={`${product.name} (Brand: ${product.brand})`}>
+      title={`${product.name} (Brand: ${product.brand}, Category: ${product.category})`}>
       <ImageContainer>
         <ProductLink to={productPage} role={'product-image-link'}
           title={linkTitle}>
@@ -270,6 +270,7 @@ ProductSummary.propTypes = {
     name: PropTypes.string,
     brand: PropTypes.string,
     color: PropTypes.string,
+    category: PropTypes.string,
     defaultImage: PropTypes.shape({
       url: PropTypes.string,
     }),

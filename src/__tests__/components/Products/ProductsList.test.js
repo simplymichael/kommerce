@@ -73,7 +73,7 @@ describe('ProductsList', () => {
       expect(productImage.getAttribute('src')).toEqual(
         passedProduct.defaultImage.url);
       expect(renderedProduct.getAttribute('title')).toEqual(
-        `${passedProduct.name} (Brand: ${passedProduct.brand})`);
+        `${passedProduct.name} (Brand: ${passedProduct.brand}, Category: ${passedProduct.category})`);
     });
   });
 });

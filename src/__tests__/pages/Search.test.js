@@ -4,78 +4,54 @@ import {
   cleanup,
   waitForElementToBeRemoved
 } from '@testing-library/react';
-import Home from '../../pages/Home';
 import {
   store,
   bindComponentToStore,
   wrapComponentInRouter
 } from '../test-utils';
+import Search from '../../pages/Search';
 
 let Component;
-const ConnectedHome = bindComponentToStore(store)(wrapComponentInRouter(Home));
+const ConnectedComponent = bindComponentToStore(store)(
+  wrapComponentInRouter(Search));
 
-beforeEach(() => {
+// mimic the BrowserRouter's location object
+const location = {
+  search: '',
+  hostname: 'localhost',
+  protocol: 'http:',
+};
+
+/*beforeEach(() => {
   Component = render(
-    <ConnectedHome />
+    <ConnectedComponent location={location} />
   );
-});
+});*/
 
 afterEach(cleanup);
 
-describe('Home Page', () => {
+describe('Search Page', () => {
   it('renders Sidebar', () => {
-    const { getByRole } = Component;
+    const { getByRole } = render(
+      <ConnectedComponent location={location} />
+    );
     const sidebar = getByRole('sidebar');
     expect(sidebar).toBeInTheDocument();
   });
 
   it('renders Main content area', () => {
-    const { getByRole } = Component;
+    const { getByRole } = render(
+      <ConnectedComponent location={location} />
+    );
     const mainContentSection = getByRole('main-content');
     expect(mainContentSection).toBeInTheDocument();
   });
 
   describe('Sidebar', () => {
-    it('renders a list of brands', async () => {
-      const brandRegex = /brand-([a-z1-9-_]+)-list-item/;
-      const { getByRole, findAllByRole } = Component;
-      const sidebar = getByRole('sidebar');
-      const filtersContainer = sidebar.querySelector(
-        '[role="filters-container"]');
-      const brandsFilterContainer = filtersContainer.querySelector(
-        '[role="brands-filter-container"]');
-
-      // brandsFilterContainer has two children:
-      // [0]: header element which holds the title 'Brand';
-      // [1]: unordered list which holds the brands list items
-      const ul = brandsFilterContainer.childNodes[1];
-      const domBrands = ul.childNodes;
-      const renderedBrands = await findAllByRole(brandRegex);
-
-      // brandsFilterContainer's existence being truthy
-      // means our retrieving it via filtersContainer,
-      // which was retrieved via sidebar, succeeded.
-      // Therefore, it exists inside filtersContainer
-      // which exists inside sidebar section
-      expect(brandsFilterContainer).toBeInTheDocument();
-
-      // Iterate the brands, and make assertions about each
-      renderedBrands.forEach((renderedBrand, index) => {
-        // Assert that the brand exists inside brandsFilterContainer
-        // (role=brands-filter-container)
-        // which exists inside filtersContainer (role='filters-container')
-        // which exists inside sidebar section.
-        //
-        // renderedBrand is the <li> element retrieved using react-testing-library
-        // domBrands[index] is the <li> element retrieved via dom method
-        // both hold:
-        //   1. (checkbox) input element:
-        //     '<input (type="checkbox") role="brand-ID-selector"'
-        //   2. The brand name as text content
-        expect(renderedBrands).toContain(domBrands[index]);
-        expect(renderedBrand.firstChild).toEqual(domBrands[index].firstChild);
-        expect(renderedBrand.secondChild).toEqual(domBrands[index].secondChild);
-      });
+    beforeEach(() => {
+      Component = render(
+        <ConnectedComponent location={location} />
+      );
     });
 
     it('renders a list of colors', async () => {
@@ -154,13 +130,57 @@ describe('Home Page', () => {
         expect(renderedSize.textContent).toEqual(domSizes[index].textContent);
       });
     });
+
+    it('renders a list of brands', async () => {
+      const brandRegex = /brand-([a-z1-9-_]+)-list-item/;
+      const { getByRole, findAllByRole } = Component;
+      const sidebar = getByRole('sidebar');
+      const filtersContainer = sidebar.querySelector(
+        '[role="filters-container"]');
+      const brandsFilterContainer = filtersContainer.querySelector(
+        '[role="brands-filter-container"]');
+
+      // brandsFilterContainer has two children:
+      // [0]: header element which holds the title 'Brand';
+      // [1]: unordered list which holds the brands list items
+      const ul = brandsFilterContainer.childNodes[1];
+      const domBrands = ul.childNodes;
+      const renderedBrands = await findAllByRole(brandRegex);
+
+      // brandsFilterContainer's existence being truthy
+      // means our retrieving it via filtersContainer,
+      // which was retrieved via sidebar, succeeded.
+      // Therefore, it exists inside filtersContainer
+      // which exists inside sidebar section
+      expect(brandsFilterContainer).toBeInTheDocument();
+
+      // Iterate the brands, and make assertions about each
+      renderedBrands.forEach((renderedBrand, index) => {
+        // Assert that the brand exists inside brandsFilterContainer
+        // (role=brands-filter-container)
+        // which exists inside filtersContainer (role='filters-container')
+        // which exists inside sidebar section.
+        //
+        // renderedBrand is the <li> element retrieved using react-testing-library
+        // domBrands[index] is the <li> element retrieved via dom method
+        // both hold:
+        //   1. (checkbox) input element:
+        //     '<input (type="checkbox") role="brand-ID-selector"'
+        //   2. The brand name as text content
+        expect(renderedBrands).toContain(domBrands[index]);
+        expect(renderedBrand.firstChild).toEqual(domBrands[index].firstChild);
+        expect(renderedBrand.secondChild).toEqual(domBrands[index].secondChild);
+      });
+    });
   });
 
   describe('Main content area', () => {
     const productRegex = /product-(\d)-summary/i;
 
-    it('renders a list of products', async () => {
-      const { getByRole, findAllByRole } = Component;
+    it('renders a list of random products when no search query is specified', async () => {
+      const { getByRole, findAllByRole } = render(
+        <ConnectedComponent location={location} />
+      );
 
       await waitForElementToBeRemoved(() =>
         getByRole('products-loading-indicator'));
@@ -175,8 +195,32 @@ describe('Home Page', () => {
       });
     });
 
+    /*it('renders a list of products that match specified search query', async () => {
+      const searchTerm = 'shoes';
+      const updatedLocation = { ...location, search: `?query=${searchTerm}` };
+      const {getByRole, findAllByRole } = render(
+        <ConnectedComponent location={updatedLocation} />
+      );
+
+      await waitForElementToBeRemoved(() =>
+        getByRole('products-loading-indicator'));
+
+      const renderedProducts = await findAllByRole(productRegex);
+
+      expect(renderedProducts).not.toBeNull();
+
+      // Iterate the products, and make assertions about each product
+      renderedProducts.forEach((renderedProduct) => {
+        expect(renderedProduct).toBeTruthy();
+        expect(renderedProduct.title).toMatch(
+          new RegExp(`Category: ${searchTerm}`, 'i'));
+      });
+    }); */
+
     test('products container do not link to detail page', async () => {
-      const { findAllByRole } = Component;
+      const { findAllByRole } = render(
+        <ConnectedComponent location={location} />
+      );
 
       let renderedProducts = await findAllByRole(productRegex);
 
@@ -188,7 +232,9 @@ describe('Home Page', () => {
     });
 
     test('products name and image link to detail page', async () => {
-      const { findAllByRole } = Component;
+      const { findAllByRole } = render(
+        <ConnectedComponent location={location} />
+      );
       const renderedProducts = await findAllByRole(productRegex);
 
       renderedProducts.forEach((renderedProduct) => {

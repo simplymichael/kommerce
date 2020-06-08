@@ -16,7 +16,7 @@ const FiltersContainer = styled.div`
 `;
 
 const Search = (props) => {
-  const { query, category } = queryString.parse(props.location.search);
+  const { query } = queryString.parse(props.location.search);
 
   return (
     <Row>
@@ -29,7 +29,7 @@ const Search = (props) => {
         </FiltersContainer>
       </Col>
       <Col md="9" role="main-content">
-        <ProductsList weight="4" category={category} searchTerm={query} />
+        <ProductsList weight="4" searchTerm={query} />
       </Col>
     </Row>
   );

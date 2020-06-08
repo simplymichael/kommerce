@@ -1,19 +1,14 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import NotFound from '../../pages/NotFound';
-import {
-  store,
-  bindComponentToStore,
-  wrapComponentInRouter
-} from '../test-utils';
+import { wrapComponentInRouter } from '../test-utils';
 
 let Component;
-const ConnectedComponent = bindComponentToStore(store)(
-  wrapComponentInRouter(NotFound));
+const WrappedComponent = wrapComponentInRouter(NotFound);
 
 beforeEach(() => {
   Component = render(
-    <ConnectedComponent />
+    <WrappedComponent />
   );
 });
 
