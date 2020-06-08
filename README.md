@@ -151,3 +151,26 @@ This is as expected.
   This directory will contain the files for managing users' state data via the store.
 - Register it in the *src/store/sagas.js* file.
 - Bind the component that uses the state to the store with the `connect` method of *react-redux*;
+
+## Acknowledgements
+
+- The data for countries and states is taken from this [gist](https://gist.github.com/ebaranov/41bf38fdb1a2cb19a781)
+  by [Eugene Baranov](https://gist.github.com/ebaranov)
+- The demo shop images are taken from [unsplash](https://unsplash.com).
+  They were posted by the following users:
+    - [Revolt](https://unsplash.com/@revolt)
+    - [Paul Gaudriault](https://unsplash.com/@pl_gt)
+    - [Irene Kredenets](https://unsplash.com/@ikredenets)
+    - [Mohammad Metri](https://unsplash.com/@mohammadmetri)
+    - [Alexandra Gorn](https://unsplash.com/@alexagorn)
+    - [Wengang Zhai](https://unsplash.com/@wgzhai)
+    - [Malvestida Magazine](https://unsplash.com/@malvestida)
+    - [Md Salman](https://unsplash.com/@mohammadsalman)
+    - [Alex Haigh](https://unsplash.com/@kiikiiosaka)
+    - [Nicolas J Leclercq](https://unsplash.com/@nicolasjleclercq)
+    - [Patrik Michalicka](https://unsplash.com/@patrikmichalicka)
+    - [Gunnar Sigurðarson](https://unsplash.com/@sigurdarson)
+    - [Malte Wingen](https://unsplash.com/@maltewingen)
+    - [Álvaro Bernal](https://unsplash.com/@abn)
+    - [David Švihovec](https://unsplash.com/@iamdavid_10)
+    - [Muhannad Ajjan](https://unsplash.com/@isword)
