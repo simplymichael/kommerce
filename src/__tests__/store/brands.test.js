@@ -1,19 +1,26 @@
 import { fromJS } from 'immutable';
 import { initialState } from '../../store/brands/reducer';
-import { reducer, fetchBrands } from '../../store/brands';
+import { reducer, fetchBrands, onBrandClick } from '../../store/brands';
 import {
   fetchBrandsError,
-  fetchBrandsSuccess
+  fetchBrandsSuccess,
+  selectBrand,
+  deselectBrand,
 } from '../../store/brands/actions';
 import {
   FETCH_BRANDS,
   FETCH_BRANDS_ERROR,
-  FETCH_BRANDS_SUCCESS
+  FETCH_BRANDS_SUCCESS,
+
+  BRAND_CLICKED,
+  SELECT_BRAND,
+  DESELECT_BRAND,
 } from '../../store/brands/constants';
 import Service from '../../services/Service';
 import brands from '../../__DATA__/brands';
 
-const getMockBrands = () => brands;
+const getMockBrands = () => brands.slice();
+const brandService = Service.getService('BrandService');
 
 describe('Store:Brands', () => {
   describe('actions and reducers', () => {
@@ -58,8 +65,7 @@ describe('Store:Brands', () => {
     });
   });
 
-  describe('fetchBrands() dispatch calls', () => {
-    const brandService = Service.getService('BrandService');
+  describe('fetchBrands() sagas and dispatch calls', () => {
     const mockFetchBrands = async dispatch => {
       dispatch(fetchBrands());
 
@@ -119,6 +125,63 @@ describe('Store:Brands', () => {
       expect(mockDispatch.mock.calls).toEqual(expectedActions);
 
       brandService.getBrands.mockRestore();
+    });
+  });
+
+  describe('brandClick sagas and dispatch calls', () => {
+    const testBrand = getMockBrands().slice(0, 1).pop().name;
+    const mockBrandClick = async (dispatch, brandSelected) => {
+      dispatch(onBrandClick(testBrand, brandSelected));
+
+      try {
+        const action = brandSelected ? selectBrand : deselectBrand;
+
+        dispatch(action(testBrand));
+      } catch(err) {
+        console.error(err);
+      }
+    };
+
+    it('dispatches "selectBrand(clickedBrand) when second param to "onBrandClick" is truthy', async () => {
+      const mockDispatch = jest.fn();
+      const expectedActions = [
+        [{
+          type: BRAND_CLICKED,
+          payload: {
+            brand: testBrand,
+            checked: true,
+          }
+        }],
+        [{
+          type: SELECT_BRAND,
+          payload: { brand: testBrand }
+        }],
+      ];
+
+      mockBrandClick(mockDispatch, true);
+
+      expect(mockDispatch.mock.calls).toEqual(expectedActions);
+    });
+
+    it('dispatches "deselectBrand(clickedBrand) when second param to "onBrandClick" is falsy', async () => {
+      const mockDispatch = jest.fn();
+      const expectedActions = [
+        [{
+          type: BRAND_CLICKED,
+          payload: {
+            brand: testBrand,
+            checked: false,
+          }
+        }],
+        [{
+          type: DESELECT_BRAND,
+          payload: { brand: testBrand }
+        }],
+      ];
+
+      mockBrandClick(mockDispatch, false);
+
+      expect(mockDispatch.mock.calls).toEqual(expectedActions);
     });
   });
 });

@@ -1,18 +1,26 @@
 import { fromJS } from 'immutable';
 import { initialState } from '../../store/cart/reducer';
-import { reducer, fetchCartItems } from '../../store/cart';
+import { reducer, fetchCartItems, emptyCart } from '../../store/cart';
 import {
   fetchCartItemsError,
   fetchCartItemsSuccess,
+
+  emptyCartError,
+  emptyCartSuccess,
 } from '../../store/cart/actions';
 import {
   FETCH_CART_ITEMS,
   FETCH_CART_ITEMS_ERROR,
-  FETCH_CART_ITEMS_SUCCESS
+  FETCH_CART_ITEMS_SUCCESS,
+
+  EMPTY_CART,
+  EMPTY_CART_ERROR,
+  EMPTY_CART_SUCCESS,
 } from '../../store/cart/constants';
 import Service from '../../services/Service';
 
 const getMockCartItems = () => [];
+const cartService = Service.getService('CartService');
 const stateTree = {
   items: [],
   fetchCartItemsError: null,
@@ -64,10 +72,33 @@ describe('Store:Cart', () => {
         items: data,
       }));
     });
+
+    test('action: EMPTY_CART updates "isEmptyingCart" from false to true', () => {
+      expect(reducer(initialState, emptyCart())).toEqual(fromJS({
+        ...stateTree,
+        isEmptyingCart: true,
+      }));
+    });
+
+    test('action: EMPTY_CART_ERROR sets "emptyCartError" to specified error', () => {
+      const error = new Error('Failed to empty the cart');
+
+      expect(reducer(initialState, emptyCartError(error))).toEqual(fromJS({
+        ...stateTree,
+        emptyCartError: error,
+      }));
+    });
+
+    test('action: EMPTY_CART_SUCCESS sets the items to an empty array, and the itemsCount to 0', () => {
+      expect(reducer(initialState, emptyCartSuccess())).toEqual(fromJS({
+        ...stateTree,
+        items: [],
+        itemsCount: 0,
+      }));
+    });
   });
 
-  describe('fetchCartItems() dispatch calls', () => {
-    const cartService = Service.getService('CartService');
+  describe('fetchCartItems() sagas and dispatch calls', () => {
     const mockFetchCartItems = async dispatch => {
       dispatch(fetchCartItems());
 
@@ -127,6 +158,66 @@ describe('Store:Cart', () => {
       expect(mockDispatch.mock.calls).toEqual(expectedActions);
 
       cartService.getItemsInCart.mockRestore();
+    });
+  });
+
+  describe('emptyCart() sagas and dispatch calls', () => {
+    const mockEmptyCart = async dispatch => {
+      dispatch(emptyCart());
+
+      try {
+        dispatch(emptyCartSuccess(
+          await cartService.emptyCart()
+        ));
+      } catch(err) {
+        dispatch(emptyCartError(err.toString()));
+      }
+    };
+
+    it('dispatches "emptyCartSuccess() on success', async () => {
+      const mockDispatch = jest.fn();
+      const spy = jest
+        .spyOn(cartService, 'emptyCart')
+        .mockImplementation(() => Promise.resolve([]));
+      const expectedActions = [
+        [{ type: EMPTY_CART }],
+        [{ type: EMPTY_CART_SUCCESS }],
+      ];
+
+      expect(spy).not.toHaveBeenCalled();
+
+      await mockEmptyCart(mockDispatch);
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(mockDispatch.mock.calls).toEqual(expectedActions);
+
+      cartService.emptyCart.mockRestore();
+    });
+
+    it('dispatches "emptyCartError(thrownError)" on error', async () => {
+      const error = new Error('Network error');
+      const mockDispatch = jest.fn();
+      const spy = jest
+        .spyOn(cartService, 'emptyCart')
+        .mockImplementation(() => {
+          throw error;
+        });
+      const expectedActions = [
+        [{ type: EMPTY_CART }],
+        [{
+          type: EMPTY_CART_ERROR,
+          error: error.toString()
+        }],
+      ];
+
+      expect(spy).not.toHaveBeenCalled();
+
+      await mockEmptyCart(mockDispatch);
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(mockDispatch.mock.calls).toEqual(expectedActions);
+
+      cartService.emptyCart.mockRestore();
     });
   });
 });
