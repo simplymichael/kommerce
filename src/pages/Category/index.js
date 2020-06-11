@@ -1,11 +1,14 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import Layout from '../../components/Layout';
 import ProductsList from '../../components/Products/ProductsList';
 import BrandsFilter from '../../components/Filters/BrandsFilter';
 import ColorsFilter from '../../components/Filters/ColorsFilter';
 import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
+import strings from '../../resources/strings';
 
 const FiltersContainer = styled.div`
   background: ${props => props.background || '#fff'};
@@ -15,7 +18,8 @@ const FiltersContainer = styled.div`
 
 const Category = (props) => {
   return (
-    <Row>
+    <Layout
+      pageMeta={strings.pages.category(props.match.params.categoryId).pageMeta}>
       <Col md="3" role="sidebar">
         <FiltersContainer border="1px solid #eee" role="filters-container">
           <ColorsFilter role="colors-filter-container" />
@@ -29,8 +33,16 @@ const Category = (props) => {
           weight="4"
           category={ props.match.params.categoryId /* eslint-disable-line */ } />
       </Col>
-    </Row>
+    </Layout>
   );
+};
+
+Category.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      categoryId: PropTypes.string,
+    }),
+  }),
 };
 
 export default Category;

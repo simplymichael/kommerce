@@ -66,6 +66,7 @@ class ProductReviews extends React.Component {
       isFetchingProductReviews,
       fetchProductReviewsError
     } = this.props;
+    const productStrings = strings.pages.product({});
 
     if(isFetchingProductReviews) {
       return (
@@ -82,7 +83,7 @@ class ProductReviews extends React.Component {
     if(fetchProductReviewsError) {
       return (
         <Error>
-          {strings.product.reviews.fetchReviewsError ||
+          {productStrings.reviews.fetchReviewsError ||
             fetchProductReviewsError
           }
         </Error>
@@ -92,7 +93,7 @@ class ProductReviews extends React.Component {
     if(!productReviews || productReviews.length === 0) {
       return (
         <Info>
-          {strings.product.reviews.noReviewsYet}
+          {productStrings.reviews.noReviewsYet}
         </Info>
       );
     }

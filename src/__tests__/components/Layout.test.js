@@ -19,8 +19,8 @@ const pageMeta = {
 beforeEach(() => {
   Component = render(
     <ConnectedLayout pageMeta={pageMeta}>
-      <div role="sidebar"></div>
-      <div role="main-content"></div>
+      <div role="sidebar"></div> { /* eslint-disable-line */ }
+      <div role="main-content"></div> { /* eslint-disable-line */ }
     </ConnectedLayout>
   );
 });

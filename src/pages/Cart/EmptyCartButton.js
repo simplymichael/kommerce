@@ -15,6 +15,7 @@ import {
 } from '../../store/cart';
 
 const EmptyCartButton = (props) => {
+  const cartStrings = strings.pages.cart();
   const {
     cartItemsCount,
     isCountingCartItems,
@@ -42,7 +43,7 @@ const EmptyCartButton = (props) => {
       <Button
         disabled={true}
         className="action-btn btn-danger">
-        {strings.cart.countItemsError}
+        {cartStrings.countItemsError}
       </Button>
     );
   }
@@ -53,7 +54,7 @@ const EmptyCartButton = (props) => {
         role="clear-cart-button"
         disabled={true}
         className="action-btn btn-processing btn-danger">
-        {strings.cart.clearCart.text}
+        {cartStrings.clearCart.text}
       </Button>
     );
   }
@@ -63,18 +64,18 @@ const EmptyCartButton = (props) => {
       <Button
         disabled={true}
         className="action-btn btn-danger">
-        {strings.cart.noItems}
+        {cartStrings.noItems}
       </Button>
     );
   }
 
   return (
     <Button
-      title={strings.cart.clearCart.title}
+      title={cartStrings.clearCart.title}
       role="clear-cart-button"
       className="action-btn btn-danger"
       onClick={() => clearCart()}>
-      {strings.cart.clearCart.text}
+      {cartStrings.clearCart.text}
     </Button>
   );
 };

@@ -7,6 +7,7 @@ import BrandsFilter from '../../components/Filters/BrandsFilter';
 import ColorsFilter from '../../components/Filters/ColorsFilter';
 import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
+import strings from '../../resources/strings';
 
 const FiltersContainer = styled.div`
   background: ${props => props.background || '#fff'};
@@ -15,11 +16,7 @@ const FiltersContainer = styled.div`
 `;
 
 const Home = () => (
-  <Layout pageMeta={{
-    title: 'Home',
-    description: 'Responsive E-commerce store front, made with React.',
-    keywords: [ 'shop','commerce',  'e-commerce' ],
-  }}>
+  <Layout pageMeta={strings.pages.home().pageMeta}>
     <Col md="3" role="sidebar">
       <FiltersContainer border="1px solid #eee" role="filters-container">
         <ColorsFilter role="colors-filter-container" />

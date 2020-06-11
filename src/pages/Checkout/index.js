@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'react-bootstrap';
+import Layout from '../../components/Layout';
 import device from '../../utils/device';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
@@ -99,6 +100,7 @@ const CheckoutColumn = styled.div`
 `;
 
 const Checkout = () => {
+  const checkoutStrings = strings.pages.checkout();
   const [paymentMethod, setPaymentMethod] = useState('credit-card');
   const [paymentMethodVisible, setPaymentMethodVisible] = useState(true);
   const [
@@ -144,7 +146,7 @@ const Checkout = () => {
     const requiredData = {
       type        : 'Card Type',
       number      : 'Card Number',
-      expiryYear  : 'Year', 
+      expiryYear  : 'Year',
       expiryMonth : 'Month',
       cvv         : 'CVV'
     };
@@ -176,14 +178,14 @@ const Checkout = () => {
   }
 
   return (
-    <Row>
+    <Layout pageMeta={checkoutStrings.pageMeta}>
       <Col md="12" role="main-content">
         <Row>
           <Col md="12">
             <MainHeader>
-              {strings.checkout.header}
+              {checkoutStrings.header}
               <SmallHeader>
-                {strings.checkout.enterDetailsMessage}
+                {checkoutStrings.enterDetailsMessage}
               </SmallHeader>
             </MainHeader>
           </Col>
@@ -193,7 +195,7 @@ const Checkout = () => {
             <CheckoutColumn>
               <StepHeader>1</StepHeader>
               <ColumnHeader>
-                {strings.checkout.billingAddressHeader}
+                {checkoutStrings.billingAddressHeader}
               </ColumnHeader>
               <ToggleVisibilityHeader
                 title={
@@ -215,7 +217,7 @@ const Checkout = () => {
             <CheckoutColumn>
               <StepHeader>2</StepHeader>
               <ColumnHeader>
-                {strings.checkout.paymentMethodHeader}
+                {checkoutStrings.paymentMethodHeader}
               </ColumnHeader>
               <ToggleVisibilityHeader
                 title={
@@ -251,7 +253,7 @@ const Checkout = () => {
           <Col md="4" role="order-review-section">
             <StepHeader>3</StepHeader>
             <ColumnHeader>
-              {strings.checkout.reviewOrder}
+              {checkoutStrings.reviewOrder}
             </ColumnHeader>
             <Div>
               <OrderReview />
@@ -262,7 +264,7 @@ const Checkout = () => {
           </Col>
         </Row>
       </Col>
-    </Row>
+    </Layout>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'react-bootstrap';
+import Layout from '../../components/Layout';
 import ProductDetails from './ProductDetails';
 import colors from '../../resources/colors';
 import strings from '../../resources/strings';
@@ -50,21 +51,25 @@ const SmallHeader = styled.small`
 const Product = (props) => {
   const [showReviews, setShowReviews] = useState(true);
   const [showReviewForm, setShowReviewForm] = useState(true);
+  const [product, setProduct] = useState({});
+  const productStrings = strings.pages.product(product);
 
   //eslint-disable-next-line
   const productId = parseInt(props.match.params.id, 10);
 
   return (
-    <Row>
+    <Layout pageMeta={productStrings.pageMeta}>
       <Col md="12" role="main-content">
         <DetailsContainer role="product-details-container">
-          <ProductDetails productId={productId} />
+          <ProductDetails
+            productId={productId}
+            onProductReady={setProduct} />
         </DetailsContainer>
         <ReviewsContainer role="product-reviews-container">
           <Row>
             <Col md="12">
               <Header>
-                {strings.product.reviews.header}
+                {productStrings.reviews.header}
                 <SmallHeader
                   title={(showReviews ? 'Hide' : 'Show') + ' reviews'}
                   onClick={() => setShowReviews(!showReviews)}>
@@ -75,7 +80,7 @@ const Product = (props) => {
             </Col>
             <Col md="12">
               <Header>
-                {strings.product.reviews.addReviewHeader}
+                {productStrings.reviews.addReviewHeader}
                 <SmallHeader
                   title={(showReviewForm ? 'Hide' : 'Show') + ' review form'}
                   onClick={() => setShowReviewForm(!showReviewForm)}>
@@ -87,7 +92,7 @@ const Product = (props) => {
           </Row>
         </ReviewsContainer>
       </Col>
-    </Row>
+    </Layout>
   );
 };
 

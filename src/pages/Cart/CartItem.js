@@ -34,6 +34,7 @@ const PullRight = styled.span`
 `;
 
 const CartItem = (props) => {
+  const cartStrings = strings.pages.cart();
   const {
     item,
     incrementClickHandler,
@@ -48,9 +49,9 @@ const CartItem = (props) => {
         <InfoContainer>
           {item.name} <br />
           <SmallText
-            title={strings.cart.removeFromCart.title}
+            title={cartStrings.removeFromCart.title}
             onClick={() => removeFromCartHandler(item)}>
-            x {strings.cart.removeFromCart.text}
+            x {cartStrings.removeFromCart.text}
           </SmallText>
         </InfoContainer>
       </Col>

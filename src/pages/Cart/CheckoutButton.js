@@ -27,6 +27,7 @@ const Btn = styled(Button)`
 `;
 
 const CheckoutButton = (props) => {
+  const cartStrings = strings.pages.cart();
   const {cartItemsCount, isCountingCartItems, countCartItemsError } = props;
 
   if(isCountingCartItems) {
@@ -44,7 +45,7 @@ const CheckoutButton = (props) => {
       <Btn
         disabled={true}
         className="btn action-btn btn-primary">
-        {strings.cart.countItemsError}
+        {cartStrings.countItemsError}
       </Btn>
     );
   }
@@ -54,7 +55,7 @@ const CheckoutButton = (props) => {
       <Button
         disabled={true}
         className="btn action-btn btn-primary">
-        {strings.cart.noItems}
+        {cartStrings.noItems}
       </Button>
     );
   }
@@ -62,9 +63,9 @@ const CheckoutButton = (props) => {
   return (
     <Btn
       as={Link} to="/checkout"
-      title={strings.cart.checkout.title}
+      title={cartStrings.checkout.title}
       className="btn action-btn btn-primary">
-      {strings.cart.checkout.text}
+      {cartStrings.checkout.text}
     </Btn>
   );
 };

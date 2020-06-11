@@ -64,6 +64,7 @@ const ContinueShoppingBtn = styled(Link)`
 `;
 
 const PlaceOrderButton = (props) => {
+  const checkoutStrings = strings.pages.checkout();
   const [validationError, setValidationError] = useState('');
   const {
     cartItems, cartPrice, placeOrder, billingDataGetter,
@@ -98,7 +99,7 @@ const PlaceOrderButton = (props) => {
       placeOrderError,
       getCartItemsError,
       getCartPriceError,
-    } = strings.checkout;
+    } = checkoutStrings;
 
     const statusMessage = fetchCartItemsError
       ? getCartItemsError
@@ -111,10 +112,10 @@ const PlaceOrderButton = (props) => {
         <Clearfix />
         <ButtonsRow>
           <PlaceOrderBtn float="right" className='disabled'>
-            {strings.checkout.placeOrder}
+            {checkoutStrings.placeOrder}
           </PlaceOrderBtn>
           <ContinueShoppingBtn to='/'>
-            {strings.checkout.continueShopping}
+            {checkoutStrings.continueShopping}
           </ContinueShoppingBtn>
         </ButtonsRow>
       </>
@@ -145,11 +146,11 @@ const PlaceOrderButton = (props) => {
           onClick={() => processOrderPlacement() }
           className={'action-btn' +
             (isPlacingOrder ? ' btn-processing' : '')}
-          title={strings.checkout.placeOrderButton.title}>
-          {strings.checkout.placeOrderButton.text}
+          title={checkoutStrings.placeOrderButton.title}>
+          {checkoutStrings.placeOrderButton.text}
         </PlaceOrderBtn>
         <ContinueShoppingBtn to='/'>
-          {strings.checkout.continueShopping}
+          {checkoutStrings.continueShopping}
         </ContinueShoppingBtn>
       </ButtonsRow>
     </>

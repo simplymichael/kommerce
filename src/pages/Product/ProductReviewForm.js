@@ -175,11 +175,12 @@ class ProductReviewForm extends React.Component {
         reviewText: reviewPlaceholder
       }
     } = this.state;
+    const productStrings = strings.pages.product({});
 
     let error = validationError;
 
     if(addProductReviewError) {
-      error = strings.product.reviews.addReviewError || addProductReviewError;
+      error = productStrings.reviews.addReviewError || addProductReviewError;
     }
 
     return (
@@ -229,8 +230,8 @@ class ProductReviewForm extends React.Component {
                 disabled={isAddingProductReview}
                 className={'action-btn' +
                   (isAddingProductReview ? ' btn-processing' :'')}
-                title={strings.product.addReviewButton.title}>
-                {strings.product.addReviewButton.text}
+                title={productStrings.addReviewButton.title}>
+                {productStrings.addReviewButton.text}
               </SubmitBtn>
             </Col>
           </Row>

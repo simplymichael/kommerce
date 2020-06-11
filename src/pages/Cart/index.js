@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import Layout from '../../components/Layout';
 import CartData from './Cart';
 import EmptyCartButton from './EmptyCartButton';
 import CheckoutButton from './CheckoutButton';
+import strings from '../../resources/strings';
 
 const Center = styled.div`
   padding: 0;
@@ -16,7 +18,7 @@ const Clearfix = styled.div`
 `;
 
 const Cart = () => (
-  <Row>
+  <Layout pageMeta={strings.pages.cart().pageMeta}>
     <Col md="12" role="main-content">
       <CartData />
       <Clearfix />
@@ -28,7 +30,7 @@ const Cart = () => (
         <CheckoutButton />
       </Center>
     </Col>
-  </Row>
+  </Layout>
 );
 
 export default Cart;

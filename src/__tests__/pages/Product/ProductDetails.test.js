@@ -14,7 +14,9 @@ const ConnectedComponent = bindComponentToStore(store)(
 
 beforeEach(() => {
   Component = render(
-    <ConnectedComponent productId={1} />
+    <ConnectedComponent
+      productId={1}
+      onProductReady={(product) => product} />
   );
 });
 
@@ -32,6 +34,7 @@ describe('Product Details Component', () => {
     expect(productImage).toBeInTheDocument();
     expect(productImage.getAttribute('src')).not.toBeNull();
     expect(addToCartBtn).toBeInTheDocument();
-    expect(addToCartBtn.textContent).toMatch(strings.cart.addToCart.text);
+    expect(addToCartBtn.textContent).toMatch(
+      strings.pages.cart().addToCart.text);
   });
 });

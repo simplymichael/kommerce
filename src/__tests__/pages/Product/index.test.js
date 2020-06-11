@@ -1,5 +1,9 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import {
+  render,
+  cleanup,
+  waitForElementToBeRemoved
+} from '@testing-library/react';
 import Product from '../../../pages/Product';
 import strings from '../../../resources/strings';
 import {
@@ -11,6 +15,8 @@ import {
 let Component;
 const ConnectedComponent = bindComponentToStore(store)(
   wrapComponentInRouter(Product));
+
+const timeout = 10000;
 
 // mimic the BrowserRouter's match object
 const match = {
@@ -44,21 +50,31 @@ describe('Product details Page', () => {
 
   describe('Product details section', () => {
     it('renders the passed product', async () => {
-      const { findByRole, getByRole } = Component;
+      jest.setTimeout(timeout);
+      const { getByRole } = Component;
       const productDetailsContainer = getByRole('product-details-container');
 
       expect(productDetailsContainer).toBeInTheDocument();
 
-      const productNameContainer = await findByRole('product-name');
-      const productImage = await findByRole('product-image');
-      const addToCartBtn = await findByRole('add-to-cart-button');
+      await waitForElementToBeRemoved(() => getByRole('product-loading-indicator'));
+
+      productDetailsContainer.queryByRole = function(role) {
+        return this.querySelector(`[role="${role}"]`);
+      };
+
+      const productNameContainer = productDetailsContainer.queryByRole(
+        'product-name');
+      const productImage = productDetailsContainer.queryByRole('product-image');
+      const addToCartBtn = productDetailsContainer.queryByRole(
+        'add-to-cart-button');
 
       expect(productNameContainer).toBeInTheDocument();
       expect(productNameContainer.textContent).not.toBeNull();
       expect(productImage).toBeInTheDocument();
       expect(productImage.getAttribute('src')).not.toBeNull();
       expect(addToCartBtn).toBeInTheDocument();
-      expect(addToCartBtn.textContent).toMatch(strings.cart.addToCart.text);
+      expect(addToCartBtn.textContent).toMatch(
+        strings.pages.cart().addToCart.text);
     });
   });
 

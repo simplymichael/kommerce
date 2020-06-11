@@ -107,6 +107,12 @@ class ProductDetails extends React.Component {
     fetchProductDetails(productId);
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.product !== this.props.product) {
+      this.props.onProductReady(this.props.product);
+    }
+  }
+
   render () {
     const { quantityController: {
       currentValue,
@@ -117,10 +123,12 @@ class ProductDetails extends React.Component {
     const {
       addToCart,
       isFetchingProductDetails,
-      fetchProductDetailsError
+      fetchProductDetailsError,
     } = this.props;
 
     const product = this.props.product;
+    const cartStrings = strings.pages.cart();
+    const productStrings = strings.pages.product(product);
 
     if(isFetchingProductDetails) {
       return (
@@ -136,13 +144,13 @@ class ProductDetails extends React.Component {
 
     if(fetchProductDetailsError) {
       return <Error>
-        {strings.product.fetchDetailsError || fetchProductDetailsError}
+        {productStrings.fetchDetailsError || fetchProductDetailsError}
       </Error>;
     }
 
     if(!product || !product.images) {
       return (
-        <Info>{strings.product.notFound}</Info>
+        <Info>{productStrings.notFound}</Info>
       );
     }
 
@@ -183,13 +191,13 @@ class ProductDetails extends React.Component {
               role="add-to-cart-button"
               disabled={true}
               className="action-btn btn-processing">
-              {strings.cart.addToCart.text}
+              {cartStrings.addToCart.text}
             </AddToCartButton>
           )}
           {!this._isAddingProductToCart() && (
             <AddToCartButton
               role="add-to-cart-button"
-              title={strings.cart.addToCart.title}
+              title={cartStrings.addToCart.title}
               className="action-btn"
               onClick={() => {
                 addToCart(product, {
@@ -198,7 +206,7 @@ class ProductDetails extends React.Component {
                   quantity: currentValue
                 });
               }}>
-              {strings.cart.addToCart.text}
+              {cartStrings.addToCart.text}
             </AddToCartButton>
           )}
         </Col>
@@ -254,6 +262,7 @@ ProductDetails.propTypes = {
       url: PropTypes.string
     })
   }),
+  onProductReady: PropTypes.func, // from parent component
   addToCart: PropTypes.func,
   addToCartError: PropTypes.string,
   addToCartList: PropTypes.array,

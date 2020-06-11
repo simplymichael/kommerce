@@ -69,6 +69,7 @@ class Cart extends React.Component {
   }
 
   render() {
+    const cartStrings = strings.pages.cart();
     const {
       cartItems,
       isFetchingCartItems,
@@ -92,7 +93,7 @@ class Cart extends React.Component {
     if(fetchCartItemsError) {
       return (
         <Error>
-          {strings.cart.fetchItemsError}
+          {cartStrings.fetchItemsError}
         </Error>
       );
     }
@@ -100,7 +101,7 @@ class Cart extends React.Component {
     if(cartItems.length === 0) {
       return (
         <div style={{ textAlign: 'center' }}>
-          <p>{strings.cart.noItems}</p>
+          <p>{cartStrings.noItems}</p>
           <p>
             <Link to="/">
               {strings.shop.browse}
@@ -119,29 +120,29 @@ class Cart extends React.Component {
 
     return (
       <>
-        <Header>{strings.cart.distinctItems}: {cartLength}</Header>
+        <Header>{cartStrings.distinctItems}: {cartLength}</Header>
         <HeaderSection>
           <Row>
             <Col md="2">
               <Header>
-                {strings.cart.itemSummary.itemHeader}
+                {cartStrings.itemSummary.itemHeader}
               </Header>
             </Col>
             <Col md="4">{/* Item description */}</Col>
             <Col md="1">
               <Header>
-                {strings.cart.itemSummary.sizeHeader}
+                {cartStrings.itemSummary.sizeHeader}
               </Header>
             </Col>
             <Col md="3">
               <Header>
-                {strings.cart.itemSummary.quantityHeader}
+                {cartStrings.itemSummary.quantityHeader}
               </Header>
             </Col>
             <Col md="2">
               <PullRight>
                 <Header>
-                  {strings.cart.itemSummary.priceHeader}
+                  {cartStrings.itemSummary.priceHeader}
                 </Header>
               </PullRight>
             </Col>

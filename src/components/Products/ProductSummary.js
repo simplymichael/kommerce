@@ -142,8 +142,10 @@ const ProductAttribute = styled.span`
  * if we hide (ie, remove from the DOM) the component and then show it again.
  */
 const ProductSummary = ({ product, addToCart, addToCartList }) => {
+  const productStrings = strings.pages.product(product);
+  const cartStrings = strings.pages.cart();
   const productPage = `/products/${product.id}`;
-  const linkTitle = strings.product.linkTitle;
+  const linkTitle = productStrings.linkTitle;
 
   const isAddingProductToCart = () => {
     const productKey = generateUniqueProductKey(product);
@@ -199,55 +201,17 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
         </ProductAttribute>
       </ProductAttributes>
 
-      {/*
-      <ProductAttributes>
-        <ProductAttribute width="100%" title={`Brand: ${product.brand}`}
-          backgroundColor="violet">
-          <AttributeLabel>Brand</AttributeLabel>
-          <AttributeValue role="product-brand">
-            {product.brand}
-          </AttributeValue>
-        </ProductAttribute>
-      </ProductAttributes>
-
-      <ProductAttributes>
-        <ProductAttribute title={`Size: ${product.size}`}
-          backgroundColor="#aae">
-          <AttributeLabel>Size</AttributeLabel>
-          <AttributeValue role="product-size">
-            {product.size}
-          </AttributeValue>
-        </ProductAttribute>
-        <ProductAttribute title={`Color: ${product.color}`}
-          backgroundColor={product.color}>
-          <AttributeLabel>Color</AttributeLabel>
-          <AttributeValue role="product-color">
-            {product.color}
-          </AttributeValue>
-        </ProductAttribute>
-        <ProductAttribute title={`Price: ${product.price}`}
-          backgroundColor="#900">
-          <AttributeLabel>
-            Price ({strings.currency.symbol})
-          </AttributeLabel>
-          <AttributeValue role="product-price">
-            {product.price}
-          </AttributeValue>
-        </ProductAttribute>
-      </ProductAttributes>
-      */}
-
       {isAddingProductToCart() && (
         <AddToCartButton
           role="add-to-cart-button"
           disabled={true}
           className="action-btn btn-processing">
-          {strings.cart.addToCart.text}
+          {cartStrings.addToCart.text}
         </AddToCartButton>
       )}
       {!isAddingProductToCart() && (
         <AddToCartButton
-          title={strings.cart.addToCart.title}
+          title={cartStrings.addToCart.title}
           role="add-to-cart-button"
           className="action-btn"
           onClick={() => {
@@ -257,7 +221,7 @@ const ProductSummary = ({ product, addToCart, addToCartList }) => {
               quantity: 1,
             });
           }}>
-          {strings.cart.addToCart.text}
+          {cartStrings.addToCart.text}
         </AddToCartButton>
       )}
     </ProductContainer>
