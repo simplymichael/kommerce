@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import Layout from '../../components/Layout';
 import ProductsList from '../../components/Products/ProductsList';
 import BrandsFilter from '../../components/Filters/BrandsFilter';
 import ColorsFilter from '../../components/Filters/ColorsFilter';
@@ -14,7 +15,11 @@ const FiltersContainer = styled.div`
 `;
 
 const Home = () => (
-  <Row>
+  <Layout pageMeta={{
+    title: 'Home',
+    description: 'Responsive E-commerce store front, made with React.',
+    keywords: [ 'shop','commerce',  'e-commerce' ],
+  }}>
     <Col md="3" role="sidebar">
       <FiltersContainer border="1px solid #eee" role="filters-container">
         <ColorsFilter role="colors-filter-container" />
@@ -26,7 +31,7 @@ const Home = () => (
     <Col md="9" role="main-content">
       <ProductsList weight="4" />
     </Col>
-  </Row>
+  </Layout>
 );
 
 export default Home;
