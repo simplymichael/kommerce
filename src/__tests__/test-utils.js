@@ -8,6 +8,9 @@ export const store = initStore();
 
 sagaUtils.run(sagaUtils.sagas);
 
+export const randomItem = collection =>
+  collection[Math.floor(Math.random() * collection.length)];
+
 /**
  * Wrap components in BrowserRouter component
  * to allow them access to capabilities offered by react-router-dom

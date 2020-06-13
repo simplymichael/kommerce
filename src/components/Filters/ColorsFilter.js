@@ -74,7 +74,7 @@ const ColorFilters = props => {
 
   return (
     <FilterContainer role={role}>
-      <FilterHeader>Color</FilterHeader>
+      <FilterHeader role="colors-filter-header">Color</FilterHeader>
       <div>
         {colors.map(color => (
           <ColorFilter
