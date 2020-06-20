@@ -1,4 +1,3 @@
-/*
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import App from '../App';
@@ -12,15 +11,13 @@ beforeEach(() => {
 });
 
 afterEach(cleanup);
-*/
+
 
 describe('App', () => {
-  test('renders the Layout embedded in Router', async () => {
-    /*const { findByRole } = Component;
-    const mainContentSection = await findByRole('main-content');
+  it('renders the page wrapper', () => {
+    const { getByRole } = Component;
+    const pageWrapper = getByRole('page-wrapper');
 
-    expect(mainContentSection).toBeInTheDocument();*/
-
-    expect(true).toBe(true);
+    expect(pageWrapper).toBeInTheDocument();
   });
 });

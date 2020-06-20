@@ -15,7 +15,7 @@ const PageContainer = styled(Container)`
 
 function App() {
   return (
-    <PageContainer>
+    <PageContainer role="page-wrapper">
       <BrowserRouter>
         <Router />
       </BrowserRouter>
