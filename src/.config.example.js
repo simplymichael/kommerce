@@ -5,7 +5,7 @@ export default {
     phone: '(+000) 123 456 789',
   },
   products: {
-    perPage: 10, // No. of products displayed per page on products listing page
+    perPage: 6, // No. of products displayed per page on products listing page
     recentCount: 3, // No. of recent products displayed on page foooter
   },
   social: {
