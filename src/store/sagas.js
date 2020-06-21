@@ -1,4 +1,4 @@
-import config from '../.config';
+import env from '../.env';
 import Service from '../services/Service';
 
 import { sagas as brandSagas } from './brands';
@@ -13,7 +13,7 @@ import { sagas as productSagas } from './products';
 import { sagas as sizeSagas } from './sizes';
 import { sagas as userSagas } from './users';
 
-const apiCredentials = config.api;
+const apiCredentials = env.api; 
 const sagas = [
   {
     factory: brandSagas,
