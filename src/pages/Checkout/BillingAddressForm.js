@@ -6,8 +6,9 @@ import device from '../../utils/device';
 import colors from '../../resources/colors';
 import { Error } from '../../components/Notifications';
 import Service from '../../services/Service';
+import env from '../../.env';
 
-const countryService = Service.getService('CountryService');
+const countryService = Service.getService('CountryService', env.api);
 
 const Small = styled.small`
   font-size: 12px;
