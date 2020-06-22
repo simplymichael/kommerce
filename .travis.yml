@@ -1,0 +1,25 @@
+language: node_js
+
+sudo: false
+
+os:
+  - linux
+
+node_js:
+  - "10"
+  - "12"
+
+cache: npm
+
+before_script:
+  - cp ./src/.config.example.js ./src/.config.js
+  - cp ./src/.env.example.js ./src/.env.js
+  - cp ./src/dev-server/.env.example.js ./src/dev-server/.env.js
+  - npm prune
+  - npm run serve&
+
+script:
+  - npm run test:coverage
+
+after_success:
+  - npm run codecov

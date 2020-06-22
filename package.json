@@ -54,7 +54,8 @@
     "serve": "node -r esm src/dev-server >> ./.json-server.log",
     "dev": "run-script-os",
     "dev:win32": "start npm run serve && npm start",
-    "dev:nix": "nohup npm run serve &; npm start"
+    "dev:nix": "nohup npm run serve && npm start",
+    "codecov": "codecov"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -72,6 +73,7 @@
     ]
   },
   "devDependencies": {
+    "codecov": "3.7.0",
     "commitizen": "4.1.2",
     "cz-conventional-changelog": "3.2.0",
     "ghooks": "2.0.4",
