@@ -1,6 +1,6 @@
 # Kommerce
-[![travis build](https://img.shields.io/travis/com/github/simplymichael/kommerce.svg)](https://travis-ci.com/github/simplymichael/kommerce)
-[![codecov](https://codecov.io/gh/simplymichael/kommerce/branch/master/graph/badge.svg)](https://codecov.io/gh/simplymichael/kommerce)
+[![Travis (.com)](https://img.shields.io/travis/com/simplymichael/kommerce)](https://travis-ci.com/github/simplymichael/kommerce)
+[![Codecov](https://img.shields.io/codecov/c/github/simplymichael/kommerce)](https://codecov.io/gh/simplymichael/kommerce)
 
 Responsive E-commerce store front, made with React.
 
