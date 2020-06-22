@@ -24,8 +24,6 @@ Responsive E-commerce store front, made with React.
 
 ---
 
-## [Requirements Document](./requirements.md)
-
 ## Tech
 - [React](https://www.npmjs.com/package/create-react-app)
 - [React-Bootstrap](https://www.npmjs.com/package/react-bootstrap)
