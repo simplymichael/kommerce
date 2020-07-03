@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { FilterContainer, FilterHeader } from './FilterContainer';
-import {
-  fetchColors,
-  onColorClick,
-  makeSelectColors,
-} from '../../store/colors';
 
 const Color = styled.span`
   display: inline-block;
@@ -65,12 +58,7 @@ const ColorFilter = ({color, selected, clickHandler}) => {
 };
 
 const ColorFilters = props => {
-  const { fetchColors, colorClickHandler, colors } = props; // coming from store
-  const role = props.role || 'colors-filter-container';
-
-  useEffect(() => {
-    fetchColors(); // eslint-disable-next-line
-  }, []);
+  const { role, colorClickHandler, colors } = props;
 
   return (
     <FilterContainer role={role}>
@@ -81,8 +69,7 @@ const ColorFilters = props => {
             key={color.name}
             color={color.name}
             selected={color.selected}
-            clickHandler={(color, select) =>
-              colorClickHandler(color, select) } />
+            clickHandler={(color, select) => colorClickHandler(color, select)} />
         ))}
       </div>
     </FilterContainer>
@@ -98,17 +85,12 @@ ColorFilter.propTypes = {
 ColorFilters.propTypes = {
   role: PropTypes.string,
   colors: PropTypes.array,
-  fetchColors: PropTypes.func,
   colorClickHandler: PropTypes.func,
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchColors: () => dispatch(fetchColors()),
-  colorClickHandler: (color, select) => dispatch(onColorClick(color, select)),
-});
+ColorFilters.defaultProps = {
+  role: 'colors-filter-container',
+  colors: []
+};
 
-const mapStateToProps = createStructuredSelector({
-  colors: makeSelectColors(),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ColorFilters);
+export default ColorFilters;

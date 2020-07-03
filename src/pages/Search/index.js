@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import queryString from 'query-string';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Col } from 'react-bootstrap';
 import Layout from '../../components/Layout';
 import ProductsList from '../../components/Products/ProductsList';
@@ -10,6 +12,11 @@ import ColorsFilter from '../../components/Filters/ColorsFilter';
 import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
 import strings from '../../resources/strings';
+import {
+  fetchColors,
+  onColorClick,
+  makeSelectColors,
+} from '../../store/colors';
 
 const FiltersContainer = styled.div`
   background: ${props => props.background || '#fff'};
@@ -18,13 +25,22 @@ const FiltersContainer = styled.div`
 `;
 
 const Search = (props) => {
+  const { fetchColors, colorClickHandler, colors } = props; // coming from store
   const { query } = queryString.parse(props.location.search);
+
+  useEffect(() => {
+    fetchColors(); // eslint-disable-next-line
+  }, []);
 
   return (
     <Layout pageMeta={strings.pages.search(query).pageMeta}>
       <Col md="3" role="sidebar">
         <FiltersContainer border="1px solid #eee" role="filters-container">
-          <ColorsFilter role="colors-filter-container" />
+          <ColorsFilter
+            role="colors-filter-container"
+            colors={colors}
+            colorClickHandler={colorClickHandler} />
+            
           <SizesFilter role="sizes-filter-container" />
           <PricesFilter role="prices-filter-container" />
           <BrandsFilter role="brands-filter-container" />
@@ -38,9 +54,21 @@ const Search = (props) => {
 };
 
 Search.propTypes = {
+  colors: PropTypes.array,
+  fetchColors: PropTypes.func,
+  colorClickHandler: PropTypes.func,
   location: PropTypes.shape({
     search: PropTypes.string.isRequired,
   }),
 };
 
-export default Search;
+const mapDispatchToProps = dispatch => ({
+  fetchColors: () => dispatch(fetchColors()),
+  colorClickHandler: (color, select) => dispatch(onColorClick(color, select)),
+});
+
+const mapStateToProps = createStructuredSelector({
+  colors: makeSelectColors(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
