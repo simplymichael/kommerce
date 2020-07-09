@@ -11,16 +11,9 @@ import ColorsFilter from '../../components/Filters/ColorsFilter';
 import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
 import strings from '../../resources/strings';
-import {
-  fetchBrands,
-  onBrandClick,
-  makeSelectBrands
-} from '../../store/brands';
-import {
-  fetchColors,
-  onColorClick,
-  makeSelectColors,
-} from '../../store/colors';
+import { fetchBrands, onBrandClick, makeSelectBrands } from '../../store/brands';
+import { fetchColors, onColorClick, makeSelectColors } from '../../store/colors';
+import { fetchSizes, onSizeClick, makeSelectSizes } from '../../store/sizes';
 
 const FiltersContainer = styled.div`
   background: ${props => props.background || '#fff'};
@@ -32,15 +25,19 @@ const Home = (props) => {
   const {
     fetchBrands,
     fetchColors,
+    fetchSizes,
     brands,
     colors,
+    sizes,
     brandClickHandler,
     colorClickHandler,
+    sizeClickHandler,
   } = props; // coming from store
 
   useEffect(() => {
     fetchBrands();
-    fetchColors(); // eslint-disable-next-line
+    fetchColors();
+    fetchSizes(); // eslint-disable-next-line
   }, []);
 
   return (
@@ -52,7 +49,11 @@ const Home = (props) => {
             colors={colors}
             colorClickHandler={colorClickHandler} />
 
-          <SizesFilter role="sizes-filter-container" />
+          <SizesFilter
+            role="sizes-filter-container"
+            sizes={sizes}
+            sizeClickHandler={sizeClickHandler} />
+
           <PricesFilter role="prices-filter-container" />
 
           <BrandsFilter
@@ -71,23 +72,29 @@ const Home = (props) => {
 Home.propTypes = {
   brands: PropTypes.array,
   colors: PropTypes.array,
+  sizes: PropTypes.array,
   fetchBrands: PropTypes.func,
   fetchColors: PropTypes.func,
+  fetchSizes: PropTypes.func,
   brandClickHandler: PropTypes.func,
   colorClickHandler: PropTypes.func,
+  sizeClickHandler: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
   fetchBrands: () => dispatch(fetchBrands()),
   fetchColors: () => dispatch(fetchColors()),
+  fetchSizes: () => dispatch(fetchSizes()),
 
   brandClickHandler: (brand, checked) => dispatch(onBrandClick(brand, checked)),
   colorClickHandler: (color, select) => dispatch(onColorClick(color, select)),
+  sizeClickHandler: (size, select) => dispatch(onSizeClick(size, select)),
 });
 
 const mapStateToProps = createStructuredSelector({
   brands: makeSelectBrands(),
   colors: makeSelectColors(),
+  sizes: makeSelectSizes(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

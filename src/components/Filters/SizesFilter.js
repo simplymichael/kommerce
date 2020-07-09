@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { FilterContainer, FilterHeader } from './FilterContainer';
-import { fetchSizes, onSizeClick, makeSelectSizes } from '../../store/sizes';
 
 const Size = styled.span`
   display: inline-block;
@@ -45,12 +42,7 @@ const SizeFilter = ({size, selected, clickHandler}) => {
 };
 
 const SizeFilters = props => {
-  const { fetchSizes, sizeClickHandler, sizes } = props; //coming from store
-  const role = props.role || 'sizes-filter-container';
-
-  useEffect(() => {
-    fetchSizes(); // eslint-disable-next-line
-  }, []);
+  const { role, sizes, sizeClickHandler } = props;
 
   return (
     <FilterContainer role={role}>
@@ -77,17 +69,12 @@ SizeFilter.propTypes = {
 SizeFilters.propTypes = {
   role: PropTypes.string,
   sizes: PropTypes.array,
-  fetchSizes: PropTypes.func,
   sizeClickHandler: PropTypes.func,
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchSizes: () => dispatch(fetchSizes()),
-  sizeClickHandler: (size, select) => dispatch(onSizeClick(size, select)),
-});
+SizeFilters.defaultProps = {
+  role: 'sizes-filter-container',
+  sizes: [],
+};
 
-const mapStateToProps = createStructuredSelector({
-  sizes: makeSelectSizes(),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SizeFilters);
+export default SizeFilters;
