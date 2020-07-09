@@ -12,6 +12,11 @@ import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
 import strings from '../../resources/strings';
 import {
+  fetchBrands,
+  onBrandClick,
+  makeSelectBrands
+} from '../../store/brands';
+import {
   fetchColors,
   onColorClick,
   makeSelectColors,
@@ -24,9 +29,17 @@ const FiltersContainer = styled.div`
 `;
 
 const Home = (props) => {
-  const { fetchColors, colorClickHandler, colors } = props; // coming from store
+  const {
+    fetchBrands,
+    fetchColors,
+    brands,
+    colors,
+    brandClickHandler,
+    colorClickHandler,
+  } = props; // coming from store
 
   useEffect(() => {
+    fetchBrands();
     fetchColors(); // eslint-disable-next-line
   }, []);
 
@@ -41,7 +54,11 @@ const Home = (props) => {
 
           <SizesFilter role="sizes-filter-container" />
           <PricesFilter role="prices-filter-container" />
-          <BrandsFilter role="brands-filter-container" />
+
+          <BrandsFilter
+            role="brands-filter-container"
+            brands={brands}
+            brandClickHandler={brandClickHandler} />
         </FiltersContainer>
       </Col>
       <Col md="9" role="main-content">
@@ -52,17 +69,24 @@ const Home = (props) => {
 };
 
 Home.propTypes = {
+  brands: PropTypes.array,
   colors: PropTypes.array,
+  fetchBrands: PropTypes.func,
   fetchColors: PropTypes.func,
+  brandClickHandler: PropTypes.func,
   colorClickHandler: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
+  fetchBrands: () => dispatch(fetchBrands()),
   fetchColors: () => dispatch(fetchColors()),
+
+  brandClickHandler: (brand, checked) => dispatch(onBrandClick(brand, checked)),
   colorClickHandler: (color, select) => dispatch(onColorClick(color, select)),
 });
 
 const mapStateToProps = createStructuredSelector({
+  brands: makeSelectBrands(),
   colors: makeSelectColors(),
 });
 

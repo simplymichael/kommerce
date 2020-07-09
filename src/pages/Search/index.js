@@ -13,6 +13,11 @@ import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
 import strings from '../../resources/strings';
 import {
+  fetchBrands,
+  onBrandClick,
+  makeSelectBrands
+} from '../../store/brands';
+import {
   fetchColors,
   onColorClick,
   makeSelectColors,
@@ -25,10 +30,18 @@ const FiltersContainer = styled.div`
 `;
 
 const Search = (props) => {
-  const { fetchColors, colorClickHandler, colors } = props; // coming from store
+  const {
+    fetchBrands,
+    fetchColors,
+    brands,
+    colors,
+    brandClickHandler,
+    colorClickHandler,
+  } = props; // coming from store
   const { query } = queryString.parse(props.location.search);
 
   useEffect(() => {
+    fetchBrands();
     fetchColors(); // eslint-disable-next-line
   }, []);
 
@@ -40,10 +53,13 @@ const Search = (props) => {
             role="colors-filter-container"
             colors={colors}
             colorClickHandler={colorClickHandler} />
-            
+
           <SizesFilter role="sizes-filter-container" />
           <PricesFilter role="prices-filter-container" />
-          <BrandsFilter role="brands-filter-container" />
+          <BrandsFilter
+            role="brands-filter-container"
+            brands={brands}
+            brandClickHandler={brandClickHandler} />
         </FiltersContainer>
       </Col>
       <Col md="9" role="main-content">
@@ -54,8 +70,11 @@ const Search = (props) => {
 };
 
 Search.propTypes = {
+  brands: PropTypes.array,
   colors: PropTypes.array,
+  fetchBrands: PropTypes.func,
   fetchColors: PropTypes.func,
+  brandClickHandler: PropTypes.func,
   colorClickHandler: PropTypes.func,
   location: PropTypes.shape({
     search: PropTypes.string.isRequired,
@@ -63,11 +82,15 @@ Search.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
+  fetchBrands: () => dispatch(fetchBrands()),
   fetchColors: () => dispatch(fetchColors()),
+
+  brandClickHandler: (brand, checked) => dispatch(onBrandClick(brand, checked)),
   colorClickHandler: (color, select) => dispatch(onColorClick(color, select)),
 });
 
 const mapStateToProps = createStructuredSelector({
+  brands: makeSelectBrands(),
   colors: makeSelectColors(),
 });
 

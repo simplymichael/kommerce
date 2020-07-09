@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FilterContainer, FilterHeader } from './FilterContainer';
-import {
-  fetchBrands,
-  onBrandClick,
-  makeSelectBrands
-} from '../../store/brands';
 
 const Input = styled.input`
   margin-right: 5px;
@@ -40,16 +33,11 @@ const BrandCheckbox = ({brand, value, selected, clickHandler}) => (
 );
 
 const BrandsFilter = props => {
-  const { fetchBrands, brands, brandClickHandler } = props;
-  const role = props.role || 'brands-filter-container';
-
-  useEffect(() => {
-    fetchBrands(); // eslint-disable-next-line
-  }, []);
+  const { role, brands, brandClickHandler } = props;
 
   return (
     <FilterContainer role={role}>
-      <FilterHeader>Brand</FilterHeader>
+      <FilterHeader role="brands-filter-header">Brand</FilterHeader>
       <UnorderedList>
         {brands.map(brand => (
           <ListItem key={brand.value}
@@ -79,17 +67,12 @@ BrandCheckbox.propTypes = {
 BrandsFilter.propTypes = {
   role: PropTypes.string,
   brands: PropTypes.array,
-  fetchBrands: PropTypes.func,
   brandClickHandler: PropTypes.func,
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchBrands: () => dispatch(fetchBrands()),
-  brandClickHandler: (brand, checked) => dispatch(onBrandClick(brand, checked)),
-});
+BrandsFilter.defaultProps = {
+  role: 'brands-filter-container',
+  brands: []
+};
 
-const mapStateToProps = createStructuredSelector({
-  brands: makeSelectBrands(),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BrandsFilter);
+export default BrandsFilter;

@@ -12,10 +12,12 @@ import {
   bindComponentToStore,
   wrapComponentInRouter
 } from '../test-utils';
+import brands from '../../__DATA__/brands';
 import colors from '../../__DATA__/colors';
 import Search from '../../pages/Search';
 
 let Component;
+const getMockBrands = () => brands;
 const getMockColors = () => colors;
 const ConnectedComponent = bindComponentToStore(store)(
   wrapComponentInRouter(Search));
@@ -380,6 +382,40 @@ describe('Search Page', () => {
             // meaning their "selected" state has not changed, i.e it is false
             expect(filterBtn.title).toBe(`Click to filter by color: ${currColor.name}`);
           }
+        }
+      });
+    });
+
+    describe('BrandsFilter', () => {
+      it('fetches and displays brands for filtering by brand', async () => {
+        const brands = getMockBrands();
+        const { getByRole, queryByRole } = Component;
+        const brandsContainer = getByRole('brands-filter-container');
+
+        // Assert the color filters container contains the header:
+        // <hX...>Color</hX>
+        const filtersHeader = brandsContainer.querySelector('[role="brands-filter-header"]');
+        expect(filtersHeader).not.toBeNull();
+        expect(filtersHeader.textContent).toBe('Brand');
+
+        for(let i = 0; i < brands.length; i++) {
+          let brand = brands[i];
+
+          // Wait for the brand to load.
+          // Each brand is held inside a
+          // <li role="...">
+          // <input type="checkbox" /> BrandName
+          // </li>
+          const filterBtn = await waitForElement(() => queryByRole(
+            `brand-${brand.value.replace(/\s+/g, '_')}-list-item`
+          ));
+
+          expect(filterBtn).not.toBeNull();
+          expect(filterBtn.textContent).toBe(brand.name);
+
+          // The list of brand(checkboxe)s are held inside a <ul> element,
+          // which is held inside the brandsContainer div (role=brands-filter-container)
+          expect(filterBtn.parentNode.parentNode).toBe(brandsContainer);
         }
       });
     });
