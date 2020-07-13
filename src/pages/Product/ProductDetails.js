@@ -13,6 +13,8 @@ import { Error, Info } from '../../components/Notifications';
 import ColorsFilter from '../../components/Filters/ColorsFilter';
 import PricesFilter from '../../components/Filters/PricesFilter';
 import SizesFilter from '../../components/Filters/SizesFilter';
+import { fetchColors, onColorClick, makeSelectColors } from '../../store/colors';
+import { fetchSizes, onSizeClick, makeSelectSizes } from '../../store/sizes';
 
 import {
   fetchProductDetails,
@@ -102,8 +104,15 @@ class ProductDetails extends React.Component {
   }
 
   componentDidMount() {
-    const { productId, fetchProductDetails } = this.props;
+    const {
+      productId,
+      fetchColors,
+      fetchSizes,
+      fetchProductDetails,
+    } = this.props;
 
+    fetchColors();
+    fetchSizes();
     fetchProductDetails(productId);
   }
 
@@ -124,6 +133,11 @@ class ProductDetails extends React.Component {
       addToCart,
       isFetchingProductDetails,
       fetchProductDetailsError,
+
+      colors,
+      sizes,
+      colorClickHandler,
+      sizeClickHandler,
     } = this.props;
 
     const product = this.props.product;
@@ -173,8 +187,16 @@ class ProductDetails extends React.Component {
             {product.name}
           </ProductTitle>
           <FiltersContainer role="filters-container">
-            <ColorsFilter role="colors-filter-container" />
-            <SizesFilter role="sizes-filter-container" />
+            <ColorsFilter
+              role="colors-filter-container"
+              colors={colors}
+              colorClickHandler={colorClickHandler} />
+
+            <SizesFilter
+              role="sizes-filter-container"
+              sizes={sizes}
+              sizeClickHandler={sizeClickHandler} />
+
             <div style={{ width: '300px' }}>
               <PricesFilter role="prices-filter-container" />
             </div>
@@ -269,14 +291,26 @@ ProductDetails.propTypes = {
   fetchProductDetails: PropTypes.func,
   isFetchingProductDetails: PropTypes.bool,
   fetchProductDetailsError: PropTypes.string,
+
+  colors: PropTypes.array,
+  sizes: PropTypes.array,
+  fetchColors: PropTypes.func,
+  fetchSizes: PropTypes.func,
+  colorClickHandler: PropTypes.func,
+  sizeClickHandler: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
   fetchProductDetails: (productId) => dispatch(fetchProductDetails(productId)),
-  fetchRelatedProducts: (productId) => dispatch(
-    fetchRelatedProducts(productId)),
+  fetchRelatedProducts: (productId) => dispatch(fetchRelatedProducts(productId)),
   addToCart: (product, { color, size, quantity }) =>
     dispatch(addProductToCart(product, { color, size, quantity })),
+
+  fetchColors: () => dispatch(fetchColors()),
+  fetchSizes: () => dispatch(fetchSizes()),
+
+  colorClickHandler: (color, select) => dispatch(onColorClick(color, select)),
+  sizeClickHandler: (size, select) => dispatch(onSizeClick(size, select)),
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -290,6 +324,9 @@ const mapStateToProps = createStructuredSelector({
   relatedProducts: makeSelectRelatedProducts(),
   isFetchingRelatedProducts: makeSelectIsFetchingRelatedProducts(),
   fetchRelatedProductsError: makeSelectFetchRelatedProductsError(),
+
+  colors: makeSelectColors(),
+  sizes: makeSelectSizes(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
